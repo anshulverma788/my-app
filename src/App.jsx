@@ -1,7 +1,7 @@
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import Index from './pages/Index';
 import Package from './pages/All-Package';
@@ -46,55 +46,50 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
 
-      {/* ✅ HashRouter is REQUIRED for GitHub Pages */}
-      <HashRouter>
-        <Routes>
+      <Routes>
+        {/* HOME */}
+        <Route path="/" element={<Index />} />
 
-          {/* HOME */}
-          <Route path="/" element={<Index />} />
+        {/* MAIN */}
+        <Route path="/package" element={<Package />} />
+        <Route path="/destinations" element={<Destination />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
+        <Route path="/testimonials" element={<Testimonials />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy" element={<Privacy />} />
 
-          {/* MAIN PAGES */}
-          <Route path="/package" element={<Package />} />
-          <Route path="/destinations" element={<Destination />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:id" element={<BlogPost />} />
-          <Route path="/testimonials" element={<Testimonials />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/privacy" element={<Privacy />} />
+        {/* PACKAGES */}
+        <Route path="/package/shimla-manali" element={<ShimlaManali />} />
+        <Route path="/package/shimla" element={<Shimla />} />
+        <Route path="/package/dharamshala" element={<Dharamshala />} />
+        <Route path="/package/kasol-manikaran" element={<KasolManikaran />} />
+        <Route path="/package/spiti-8day" element={<Spiti8day />} />
+        <Route path="/package/nainital-4days" element={<Nainital4Days />} />
+        <Route path="/package/mussoorie" element={<Mussoorie />} />
+        <Route path="/package/rishikesh-haridwar" element={<RishikeshHaridwar />} />
+        <Route path="/package/auli-joshimath" element={<AuliJoshimath />} />
+        <Route path="/package/kedarnath-badrinath" element={<KedarnathBadrinath />} />
 
-          {/* PACKAGE ROUTES */}
-          <Route path="/package/shimla-manali" element={<ShimlaManali />} />
-          <Route path="/package/shimla" element={<Shimla />} />
-          <Route path="/package/dharamshala" element={<Dharamshala />} />
-          <Route path="/package/kasol-manikaran" element={<KasolManikaran />} />
-          <Route path="/package/spiti-8day" element={<Spiti8day />} />
-          <Route path="/package/nainital-4days" element={<Nainital4Days />} />
-          <Route path="/package/mussoorie" element={<Mussoorie />} />
-          <Route path="/package/rishikesh-haridwar" element={<RishikeshHaridwar />} />
-          <Route path="/package/auli-joshimath" element={<AuliJoshimath />} />
-          <Route path="/package/kedarnath-badrinath" element={<KedarnathBadrinath />} />
+        {/* EXPERIENCES */}
+        <Route path="/experiences/adventure" element={<Adventure />} />
+        <Route path="/experiences/luxury" element={<Luxury />} />
+        <Route path="/experiences/cultural" element={<Cultural />} />
+        <Route path="/experiences/wellness" element={<Wellness />} />
 
-          {/* EXPERIENCES */}
-          <Route path="/experiences/adventure" element={<Adventure />} />
-          <Route path="/experiences/luxury" element={<Luxury />} />
-          <Route path="/experiences/cultural" element={<Cultural />} />
-          <Route path="/experiences/wellness" element={<Wellness />} />
+        {/* BOOKING */}
+        <Route path="/booking/search" element={<Search />} />
+        <Route path="/booking/customize" element={<BookingPage />} />
+        <Route path="/booking/confirmation" element={<Confirmation />} />
 
-          {/* BOOKING */}
-          <Route path="/booking/search" element={<Search />} />
-          <Route path="/booking/customize" element={<BookingPage />} />
-          <Route path="/booking/confirmation" element={<Confirmation />} />
-
-          {/* 404 */}
-          <Route path="*" element={<NotFound />} />
-
-        </Routes>
-      </HashRouter>
+        {/* 404 */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
 
     </TooltipProvider>
   </QueryClientProvider>
