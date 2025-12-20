@@ -488,7 +488,7 @@ export default function Index() {
 
           <ScrollReveal direction="up" delay={0.6}>
             <div className="text-center ">
-              <Link to="/destinations">
+              <Link to="/destination">
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
