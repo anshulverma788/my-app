@@ -52,7 +52,7 @@ const App = () => (
 
         {/* MAIN */}
         <Route path="/package" element={<Package />} />
-        <Route path="/destinations" element={<Destination />} />
+        <Route path="/destination" element={<Destination />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
