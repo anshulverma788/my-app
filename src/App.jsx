@@ -31,6 +31,8 @@ import AuliJoshimath from './pages/Package/AuliJoshimath';
 import ShimlaManali from './pages/Package/Shimla-manali';
 import KedarnathBadrinath from './pages/Package/KedarnathBadrinath';
 
+import Destination1 from "./pages/Destinations/Destination1";
+
 import Adventure from './pages/experiences/Adventure';
 import Luxury from './pages/experiences/Luxury';
 import Cultural from './pages/experiences/Cultural';
@@ -48,16 +50,13 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
-
-      {/* --- 2. Add ScrollToTop Component Here --- */}
-      {/* Yeh ensure karega ki har page change par scroll upar chala jaye */}
       <ScrollToTop />
 
       <Routes>
         {/* HOME */}
         <Route path="/" element={<Index />} />
 
-        {/* MAIN */}
+        {/* MAIN MENU */}
         <Route path="/package" element={<Package />} />
         <Route path="/destination" element={<Destination />} />
         <Route path="/about" element={<About />} />
@@ -71,7 +70,7 @@ const App = () => (
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
 
-        {/* PACKAGES */}
+        {/* --- EXISTING PACKAGES --- */}
         <Route path="/package/shimla-manali" element={<ShimlaManali />} />
         <Route path="/package/shimla" element={<Shimla />} />
         <Route path="/package/dharamshala" element={<Dharamshala />} />
@@ -82,6 +81,19 @@ const App = () => (
         <Route path="/package/rishikesh-haridwar" element={<RishikeshHaridwar />} />
         <Route path="/package/auli-joshimath" element={<AuliJoshimath />} />
         <Route path="/package/kedarnath-badrinath" element={<KedarnathBadrinath />} />
+
+        {/* --- FIX: MISSING PACKAGES FROM HOME PAGE --- */}
+        {/* Filhal inko 'Package' page par redirect kar rahe hain taaki 404 na aaye */}
+        <Route path="/package/kinnaur" element={<Package />} />
+        <Route path="/package/leh" element={<Package />} />
+
+        {/* --- FIX: TOP DESTINATIONS ROUTES --- */}
+        {/* Index.jsx wale links ab yahan match honge */}
+        <Route path="/destination/destination1" element={<Destination1 />} />
+        <Route path="/destinations/kerala" element={<Destination1 />} />
+        <Route path="/destinations/manali" element={<Destination1 />} />
+        <Route path="/destinations/goa" element={<Destination1 />} />
+        <Route path="/destinations/rajasthan" element={<Destination1 />} />
 
         {/* EXPERIENCES */}
         <Route path="/experiences/adventure" element={<Adventure />} />
@@ -94,7 +106,7 @@ const App = () => (
         <Route path="/booking/customize" element={<BookingPage />} />
         <Route path="/booking/confirmation" element={<Confirmation />} />
 
-        {/* 404 */}
+        {/* 404 PAGE NOT FOUND */}
         <Route path="*" element={<NotFound />} />
       </Routes>
 

@@ -20,10 +20,7 @@ import {
   Globe2,
   Heart,
   TrendingUp,
-  Phone,
-  Trophy, // New Icon added for card
-  Plus,   // New Icon added for card
-  Info    // New Icon added for card
+  Phone
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -38,7 +35,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Index() {
   const heroRef = useRef(null);
-  const statsRef = useRef(null);
 
   // --- HERO SLIDER STATE & DATA ---
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
@@ -46,25 +42,25 @@ export default function Index() {
   const heroSlides = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1692719058797-2954b100c8fe?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://images.unsplash.com/photo-1692719058797-2954b100c8fe?q=80&w=1074&auto=format&fit=crop",
       title: "Your Gateway To The World.",
       subtitle: "Ideal for explorers seeking seamless booking and expert travel support every step of the way."
     },
     {
       id: 2,
-      image: "https://images.unsplash.com/photo-1628699543232-dc241b48a4b3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://images.unsplash.com/photo-1628699543232-dc241b48a4b3?q=80&w=1170&auto=format&fit=crop",
       title: "Into The Wild",
       subtitle: "Experience nature like never before with our premium safari and wildlife packages."
     },
     {
       id: 3,
-      image: "https://plus.unsplash.com/premium_photo-1697729690458-2d64ca777c04?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://plus.unsplash.com/premium_photo-1697729690458-2d64ca777c04?q=80&w=1170&auto=format&fit=crop",
       title: "Discover Hidden Gems",
       subtitle: "From the peaks of Himachal to the valleys of Kashmir, we craft journeys that tell your story."
     },
     {
       id: 4,
-      image: "https://images.unsplash.com/photo-1581747365444-7d31a94c0237?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://images.unsplash.com/photo-1581747365444-7d31a94c0237?q=80&w=1332&auto=format&fit=crop",
       title: "Serenity & Peace",
       subtitle: "Relax and rejuvenate in the most beautiful and calm destinations across the globe."
     }
@@ -95,33 +91,36 @@ export default function Index() {
   }, []);
 
   // ----------------- DATA -----------------
-  const destinations = [
-    { name: 'Shimla', image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg', path: '/destinations/shimla' },
-    { name: 'Manali', image: 'https://i.pinimg.com/736x/49/7e/49/497e495ee05c0ea5d5de82e7c4e3f653.jpg', path: '/destinations/manali' },
-    { name: 'Triund', image: 'https://i.pinimg.com/736x/f6/7a/3e/f67a3e0a96ba728d80001bf6bd06ca03.jpg', path: '/destinations/triund' },
-    { name: 'Yulla Kanda', image: 'https://i.pinimg.com/1200x/b2/ea/99/b2ea99c22fe47b745fa1554e9454f7b7.jpg', path: '/destinations/kinnaur' },
-    { name: 'Spiti', image: 'https://i.pinimg.com/1200x/43/b0/49/43b049fe3071e512697a9160ff648da3.jpg', path: '/destinations/spiti' },
-    { name: 'Leh Ladakh', image: 'https://i.pinimg.com/736x/36/ca/44/36ca44f20840b68c6ee038a57cd41920.jpg', path: '/destinations/leh' },
+  const packages = [
+    { name: 'Shimla', image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg', path: '/package/shimla', title: 'Shimla Getaway', location: 'Himachal', duration: '3 Days', price: '₹5,999' },
+    { name: 'Manali', image: 'https://i.pinimg.com/736x/49/7e/49/497e495ee05c0ea5d5de82e7c4e3f653.jpg', path: '/package/shimla-manali', title: 'Magical Manali', location: 'Himachal', duration: '4 Days', price: '₹7,999' },
+    { name: 'Triund', image: 'https://i.pinimg.com/736x/f6/7a/3e/f67a3e0a96ba728d80001bf6bd06ca03.jpg', path: '/package/dharamshala', title: 'Triund Trek', location: 'Dharamshala', duration: '2 Days', price: '₹3,499' },
+    { name: 'Yulla Kanda', image: 'https://i.pinimg.com/1200x/b2/ea/99/b2ea99c22fe47b745fa1554e9454f7b7.jpg', path: '/package/kinnaur', title: 'Kinnaur Valley', location: 'Kinnaur', duration: '5 Days', price: '₹12,499' },
+    { name: 'Spiti', image: 'https://i.pinimg.com/1200x/43/b0/49/43b049fe3071e512697a9160ff648da3.jpg', path: '/package/spiti-8day', title: 'Spiti Expedition', location: 'Spiti Valley', duration: '7 Days', price: '₹18,999' },
+    { name: 'Leh Ladakh', image: 'https://i.pinimg.com/736x/36/ca/44/36ca44f20840b68c6ee038a57cd41920.jpg', path: '/package/leh', title: 'Ladakh Bike Trip', location: 'Ladakh', duration: '9 Days', price: '₹24,999' },
   ];
+
   const experiences = [
     { title: 'Adventure Travel', description: 'Thrilling expeditions for the bold explorer.', image: 'https://i.pinimg.com/736x/b9/17/fd/b917fdc63744ad30426969f6d5402ce8.jpg', icon: TrendingUp, path: '/experiences/adventure' },
     { title: 'Luxury Escapes', description: 'Indulge in world-class comfort and elegance.', image: 'https://i.pinimg.com/736x/14/1d/f7/141df716ab8e751b9d7b9015cf72211c.jpg', icon: Award, path: '/experiences/luxury' },
     { title: 'Cultural Tours', description: 'Immerse yourself in authentic traditions.', image: 'https://i.pinimg.com/736x/74/52/3f/74523f7398f02a94705532f680c989a5.jpg', icon: Globe2, path: '/experiences/cultural' },
     { title: 'Wellness Retreats', description: 'Rejuvenate your mind, body, and soul.', image: 'https://i.pinimg.com/736x/6e/11/6c/6e116c68748c2a1d1adcdaec43381301.jpg', icon: Heart, path: '/experiences/wellness' },
   ];
-  const packages = [
-    { title: 'Kerala', image: 'https://i.pinimg.com/736x/8f/07/42/8f07429dd03950cc8728bc0d44bfa089.jpg', location: 'Kerala, India', duration: '03 Days / 02 Nights', price: '$199' },
-    { title: 'Manali', image: 'https://i.pinimg.com/736x/8c/14/3e/8c143e84594eafe45e5db7ce2ce503a3.jpg', location: 'Himachal, India', duration: '04 Days / 03 Nights', price: '$249' },
-    { title: 'Goa Beaches', image: 'https://i.pinimg.com/1200x/7c/36/7f/7c367f3b73b2b93604219530631e271b.jpg', location: 'Goa, India', duration: '05 Days / 04 Nights', price: '$299' },
-    { title: 'Rajasthan', image: 'https://i.pinimg.com/1200x/9e/35/e9/9e35e983fe70f4c3a1e5dbe22172a4da.jpg', location: 'Jaipur, India', duration: '03 Days / 02 Nights', price: '$180' },
-    { title: 'Gangtok', image: 'https://i.pinimg.com/736x/7c/ec/b4/7cecb4b6d5885929dc127a4700595a21.jpg', location: 'Sikkim, India', duration: '03 Days / 02 Nights', price: '$180' },
-    { title: 'Varanasi', image: 'https://i.pinimg.com/736x/4a/44/4f/4a444fa9323972cfee1e9681f82dc95f.jpg', location: 'Uttar Pradesh, India', duration: '03 Days / 02 Nights', price: '$180' },
+
+  // FIXED: Removed duplicates and ensured paths match App.jsx
+  const destinations = [
+    { id: 'kerala', title: 'Kerala', image: 'https://i.pinimg.com/736x/8f/07/42/8f07429dd03950cc8728bc0d44bfa089.jpg', location: 'Kerala, India', duration: '03 Days / 02 Nights', price: '$199', path: '/destinations/kerala' },
+    { id: 'manali', title: 'Manali', image: 'https://i.pinimg.com/736x/8c/14/3e/8c143e84594eafe45e5db7ce2ce503a3.jpg', location: 'Himachal, India', duration: '04 Days / 03 Nights', price: '$249', path: '/destinations/manali' },
+    { id: 'goa', title: 'Goa Beaches', image: 'https://i.pinimg.com/1200x/7c/36/7f/7c367f3b73b2b93604219530631e271b.jpg', location: 'Goa, India', duration: '05 Days / 04 Nights', price: '$299', path: '/destinations/goa' },
+    { id: 'rajasthan', title: 'Rajasthan', image: 'https://i.pinimg.com/1200x/9e/35/e9/9e35e983fe70f4c3a1e5dbe22172a4da.jpg', location: 'Jaipur, India', duration: '03 Days / 02 Nights', price: '$180', path: '/destinations/rajasthan' },
   ];
+
   const testimonials = [
     { name: "Aarav Sharma", location: "Kerala, India", image: "https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg", rating: 5, text: "The Kerala backwaters experience was absolutely magical! Everything was arranged perfectly.", trip: "Kerala 3D / 2N" },
     { name: "Riya Verma", location: "Manali, India", image: "https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg", rating: 4, text: "Beautiful mountains, cozy stay, smooth travel experience — totally worth it!", trip: "Manali Adventure Trip" },
     { name: "Karan Patel", location: "Goa, India", image: "https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg", rating: 5, text: "Stunning beaches and perfect arrangements — best trip ever!", trip: "Goa Beach Holiday" },
   ];
+
   const blogPosts = [
     { id: 1, title: 'Top 10 Honeymoon Destinations for 2025', image: 'https://i.pinimg.com/736x/b6/a1/f2/b6a1f214ed11f46384380e4a0e121464.jpg', date: 'Jan 10, 2025', readTime: '6 min read' },
     { id: 2, title: 'How to Plan a Perfect Family Vacation', image: 'https://i.pinimg.com/736x/eb/b3/e5/ebb3e5ac08891bc926f318307777a279.jpg', date: 'Dec 22, 2024', readTime: '5 min read' },
@@ -172,25 +171,24 @@ export default function Index() {
         </div>
 
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 flex gap-1.5 md:gap-2">
-            {heroSlides.map((_, index) => (
+          {heroSlides.map((_, index) => (
             <button
-                key={index}
-                onClick={() => setCurrentHeroIndex(index)}
-                className={`h-1.5 md:h-2 rounded-full transition-all duration-300 
+              key={index}
+              onClick={() => setCurrentHeroIndex(index)}
+              className={`h-1.5 md:h-2 rounded-full transition-all duration-300 
                 ${index === currentHeroIndex ? 'bg-white w-6 md:w-8' : 'bg-white/40 w-1.5 md:w-2 hover:bg-white/60'}`}
             />
-            ))}
+          ))}
         </div>
       </section>
 
       {/* POPULAR PACKAGES - NEW "FRAME STYLE" CARD */}
-      <section className="py-16 md:py-24 relative overflow-hidden bg-[#EEF5FF]">
+      <section className="py-16 md:py-14 relative overflow-hidden bg-[#EEF5FF]">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
-              <Badge className="bg-blue-50 text-blue-700 border-0 mb-4 px-4 py-2">Curated Packages</Badge>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-900">Handpicked Travel Packages</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">Choose from our best-selling itineraries crafted by travel experts.</p>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-slate-900">Popular Packages</h2>
+              <p className="text-lg text-gray-600 font-serif max-w-2xl mx-auto">Choose from our best-selling itineraries crafted by travel experts.</p>
             </div>
           </ScrollReveal>
 
@@ -213,7 +211,7 @@ export default function Index() {
                 <ScrollReveal direction="up" delay={index * 0.1}>
                   {/* --- NEW CARD DESIGN START --- */}
                   <div className="bg-white rounded-[30px] p-3 shadow-lg border border-slate-100 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group">
-                    
+
                     {/* Image Container with Rounding (Inside the frame) */}
                     <div className="relative h-60 w-full rounded-[20px] overflow-hidden">
                       <img
@@ -222,15 +220,15 @@ export default function Index() {
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       {/* Hot Sale Badge */}
-                      <div className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-md uppercase tracking-wider">
+                      <div className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-serif font-bold px-3 py-1 rounded-full shadow-md uppercase tracking-wider">
                         Hot Sale!
                       </div>
                     </div>
 
                     {/* Content */}
                     <div className="pt-5 px-2 pb-2 flex-1 flex flex-col">
-                      <h3 className="text-xl font-bold text-slate-900 leading-tight mb-3">{pkg.title}</h3>
-                      
+                      <h3 className="text-xl font-serif font-bold text-slate-900 leading-tight mb-3">{pkg.title}</h3>
+
                       <div className="flex items-center gap-2 text-gray-500 text-xs font-medium mb-6">
                         <MapPin className="w-3.5 h-3.5" />
                         <span>{pkg.location}</span>
@@ -239,25 +237,18 @@ export default function Index() {
                       </div>
 
                       <div className="flex items-end justify-between mt-auto mb-5">
-                        <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-blue-200 shadow-lg flex items-center gap-1 transition-all active:scale-95">
-                          Book Now <span className="text-lg leading-none -mt-1 ml-1">↗</span>
-                        </button>
+                        <Link to={pkg.path}>
+                            <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-serif font-bold text-sm shadow-blue-200 shadow-lg flex items-center gap-1 transition-all active:scale-95">
+                            Book Now <span className="text-lg leading-none -mt-1 ml-1">↗</span>
+                            </button>
+                        </Link>
                         <div className="text-right leading-none">
-                          <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">Per Person</p>
+                          <p className="text-[10px] uppercase tracking-wider font-serif text-gray-400 font-bold mb-1">Per Person</p>
                           <p className="text-2xl font-extrabold text-slate-900">{pkg.price}</p>
                         </div>
                       </div>
 
                       <div className="w-full h-px bg-gray-100 mb-3"></div>
-
-                      {/* <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-1.5 text-slate-600 text-[11px] font-bold uppercase tracking-wide cursor-pointer hover:text-blue-600">
-                          <Trophy className="w-3.5 h-3.5" /> Experience <Info className="w-3 h-3 text-gray-300" />
-                        </div>
-                        <div className="flex items-center gap-1.5 text-slate-600 text-[11px] font-bold uppercase tracking-wide cursor-pointer hover:text-blue-600">
-                          <Plus className="w-3.5 h-3.5" /> Inclusion <Info className="w-3 h-3 text-gray-300" />
-                        </div>
-                      </div> */}
                     </div>
                   </div>
                   {/* --- NEW CARD DESIGN END --- */}
@@ -269,52 +260,83 @@ export default function Index() {
       </section>
 
       {/* TOP DESTINATIONS */}
-      <section className="py-16 md:py-24">
+ {/* --- TOP DESTINATIONS (BENTO GRID DESIGN) --- */}
+      <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
-            <div className="text-center mb-10 md:mb-16">
-              <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 mb-4 px-4 py-2">Popular Destinations</Badge>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Explore Dream Destinations</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">From tropical paradises to cultural wonders, discover places that will take your breath away.</p>
+            
+            {/* CENTERED HEADING */}
+            <div className="text-center mb-12">
+               <span className="text-rose-500 font-medium uppercase tracking-wider text-sm">Discover</span>
+               <h2 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mt-2">Trending Now</h2>
+               <div className="w-20 h-1 bg-rose-500 mx-auto mt-4 rounded-full"></div> 
+               <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-4">Top rated destinations loved by our travelers.</p>
             </div>
+
           </ScrollReveal>
-          <Swiper
-            modules={[Autoplay, Pagination, Navigation]}
-            spaceBetween={30}
-            slidesPerView={1}
-            pagination={{ clickable: true }}
-            navigation
-            autoplay={{ delay: 3000 }}
-            breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 4 },
-            }}
-            className="pb-16"
-          >
+
+          {/* CUSTOM GRID LAYOUT */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
+            
             {destinations.map((dest, index) => (
-              <SwiperSlide key={dest.name}>
-                <ScrollReveal direction="up" delay={index * 0.1}>
-                  <Link to={dest.path}>
-                    <div className="group relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500">
-                      <div className="relative h-[350px] w-full overflow-hidden">
-                        <img src={dest.image} alt={dest.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-                        <div className="absolute bottom-0 w-full px-6 pb-8 text-center">
-                          <h3 className="text-3xl font-bold text-white">{dest.name}</h3>
-                          <div className="flex justify-center mt-4">
-                            <button className="bg-white text-gray-900 px-6 py-2 rounded-full font-semibold text-sm shadow-xl hover:bg-gray-200 transition">View Details →</button>
-                          </div>
-                        </div>
+              <div 
+                key={dest.id}
+                className={`relative group rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500
+                  ${index === 0 ? 'lg:row-span-2 lg:col-span-1' : ''} 
+                  ${index === 3 ? 'lg:col-span-2' : ''}
+                `}
+              >
+                <Link to={dest.path} className="block w-full h-full relative">
+                  {/* Image with Zoom Effect */}
+                  <img 
+                    src={dest.image} 
+                    alt={dest.title} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" 
+                  />
+                  
+                  {/* Dark Gradient Overlay (Becomes darker on hover for better text visibility) */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+
+                  {/* Top Badge (Type) */}
+                  <div className="absolute top-4 right-4 z-10">
+                    <Badge className="bg-white/20 backdrop-blur-md text-white border-none font-normal px-3 py-1 uppercase tracking-wide text-xs">
+                      {dest.type}
+                    </Badge>
+                  </div>
+
+                  {/* CENTERED BOTTOM CONTENT */}
+                  <div className="absolute inset-0 flex flex-col justify-end items-center p-6 text-center pb-8">
+                    
+                    {/* Content Wrapper for Animation */}
+                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out flex flex-col items-center w-full">
+                      
+                      {/* Location & Rating */}
+                      <div className="flex items-center gap-3 text-white/80 mb-2 text-sm justify-center">
+                        <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {dest.location}</span>
                       </div>
+
+                      {/* Title */}
+                      <h3 className="text-3xl md:text-4xl font-serif font-bold text-white mb-2 leading-tight">
+                        {dest.title}
+                      </h3>
+
+                      {/* ANIMATED BUTTON (Appears on Hover) */}
+                      <div className="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 group-hover:mt-4 transition-all duration-500 ease-in-out overflow-hidden">
+                        <Button className="bg-white text-slate-900 hover:bg-rose-500 hover:text-white border-none rounded-full px-6 py-2 text-sm font-bold shadow-lg transition-colors">
+                          Explore Now
+                        </Button>
+                      </div>
+
                     </div>
-                  </Link>
-                </ScrollReveal>
-              </SwiperSlide>
+                  </div>
+                </Link>
+              </div>
             ))}
-          </Swiper>
+            
+          </div>
+
           <ScrollReveal direction="up" delay={0.6}>
-            <div className="text-center mt-8">
+            <div className="text-center mt-12">
               <Link to="/destination">
                 <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                   View All Destinations <ArrowRight className="w-5 h-5 ml-2" />
@@ -358,9 +380,9 @@ export default function Index() {
         </div>
       </section>
 
-       {/* EXPERIENCES SECTION */}
+      {/* EXPERIENCES SECTION */}
       <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 relative overflow-hidden">
-         <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00em0wLTEwYzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHptMC0xMGMwLTIuMjEtMS43OS00LTQtNHMtNCAxLjc5LTQgNCAxLjc5IDQgNCA0IDQtMS43OSA0LTR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-20" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
@@ -482,7 +504,7 @@ export default function Index() {
       {/* FINAL CTA */}
       <section className="py-24 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <img src="/assets/destination-thailand-beach.jpg" alt="Background" className="w-full h-full object-cover" />
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop" alt="Background" className="w-full h-full object-cover" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
