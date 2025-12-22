@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react'; // useState add kiya
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-
+import { ChevronLeft, ChevronRight } from 'lucide-react'; // Yeh import zaroor add karein
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -37,9 +37,27 @@ export default function Index() {
   const heroRef = useRef(null);
   const statsRef = useRef(null);
 
+  // --- HERO SLIDER STATE ---
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+
+  const heroImages = [
+    "https://cdn.pixabay.com/photo/2017/03/16/18/03/landscape-2149844_1280.jpg",
+    "https://cdn.pixabay.com/photo/2016/11/14/04/45/elephant-1822636_1280.jpg",
+    "https://cdn.pixabay.com/photo/2018/08/16/08/39/hallstatt-3609863_1280.jpg",
+    "https://cdn.pixabay.com/photo/2013/11/28/10/03/river-219972_1280.jpg"
+  ];
+
+  // Hero Slider Interval
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentHeroIndex((prev) => (prev === heroImages.length - 1 ? 0 : prev + 1));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
+
   // ----------------- ANIMATIONS -----------------
   useEffect(() => {
-    // Hero parallax
+    // Hero parallax (Modified to be subtle)
     if (heroRef.current) {
       gsap.to(heroRef.current, {
         scrollTrigger: {
@@ -48,8 +66,8 @@ export default function Index() {
           end: 'bottom top',
           scrub: 1,
         },
-        y: 300,
-        opacity: 0.5,
+        y: 100, // Reduced movement for slider compatibility
+        opacity: 0.8,
       });
     }
 
@@ -81,32 +99,32 @@ export default function Index() {
     {
       name: 'Shimla',
       image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg',
-      path: '/destinations/maldives',
+      path: '/destinations/shimla',
     },
     {
       name: 'Manali',
       image: 'https://i.pinimg.com/736x/49/7e/49/497e495ee05c0ea5d5de82e7c4e3f653.jpg',
-      path: '/destinations/japan',
+      path: '/destinations/manali',
     },
     {
       name: 'Triund',
       image: 'https://i.pinimg.com/736x/f6/7a/3e/f67a3e0a96ba728d80001bf6bd06ca03.jpg',
-      path: '/destinations/switzerland',
+      path: '/destinations/triund',
     },
     {
-      name: 'Yulla Kanad',
+      name: 'Yulla Kanda',
       image: 'https://i.pinimg.com/1200x/b2/ea/99/b2ea99c22fe47b745fa1554e9454f7b7.jpg',
-      path: '/destinations/dubai',
+      path: '/destinations/kinnaur',
     },
     {
-      name: 'Spiti ',
+      name: 'Spiti',
       image: 'https://i.pinimg.com/1200x/43/b0/49/43b049fe3071e512697a9160ff648da3.jpg',
-      path: '/destinations/iceland',
+      path: '/destinations/spiti',
     },
     {
       name: 'Leh Ladakh',
       image: 'https://i.pinimg.com/736x/36/ca/44/36ca44f20840b68c6ee038a57cd41920.jpg',
-      path: '/destinations/bali',
+      path: '/destinations/leh',
     },
   ];
 
@@ -143,56 +161,61 @@ export default function Index() {
 
   const packages = [
     {
-      title: 'Backwaters & Beaches',
-      image: 'https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg',
-      location: 'Kerala, India',
-      duration: '03 Days / 02 Nights',
-      price: '$199'
-    }
-    ,
-    {
-      title: 'Backwaters & Beaches',
+      title: 'Kerala Backwaters',
       image: 'https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg',
       location: 'Kerala, India',
       duration: '03 Days / 02 Nights',
       price: '$199'
     },
     {
-      title: 'Backwaters & Beaches',
-      image: 'https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg',
-      location: 'Kerala, India',
+      title: 'Manali Mountains',
+      image: 'https://i.pinimg.com/736x/49/7e/49/497e495ee05c0ea5d5de82e7c4e3f653.jpg',
+      location: 'Himachal, India',
+      duration: '04 Days / 03 Nights',
+      price: '$249'
+    },
+    {
+      title: 'Goa Beaches',
+      image: 'https://i.pinimg.com/736x/b6/a1/f2/b6a1f214ed11f46384380e4a0e121464.jpg',
+      location: 'Goa, India',
+      duration: '05 Days / 04 Nights',
+      price: '$299'
+    },
+    {
+      title: 'Rajasthan Royal',
+      image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg',
+      location: 'Jaipur, India',
       duration: '03 Days / 02 Nights',
-      price: '$199'
+      price: '$180'
     },
   ];
 
- const testimonials = [
-  {
-    name: "Aarav Sharma",
-    location: "Kerala, India",
-    image: "https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg",
-    rating: 5,
-    text: "The Kerala backwaters experience was absolutely magical! Everything was arranged perfectly.",
-    trip: "Kerala 3D / 2N"
-  },
-  {
-    name: "Riya Verma",
-    location: "Manali, India",
-    image: "https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg",
-    rating: 4,
-    text: "Beautiful mountains, cozy stay, smooth travel experience — totally worth it!",
-    trip: "Manali Adventure Trip"
-  },
-  {
-    name: "Karan Patel",
-    location: "Goa, India",
-    image: "https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg",
-    rating: 5,
-    text: "Stunning beaches and perfect arrangements — best trip ever!",
-    trip: "Goa Beach Holiday"
-  },
-];
-
+  const testimonials = [
+    {
+      name: "Aarav Sharma",
+      location: "Kerala, India",
+      image: "https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg",
+      rating: 5,
+      text: "The Kerala backwaters experience was absolutely magical! Everything was arranged perfectly.",
+      trip: "Kerala 3D / 2N"
+    },
+    {
+      name: "Riya Verma",
+      location: "Manali, India",
+      image: "https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg",
+      rating: 4,
+      text: "Beautiful mountains, cozy stay, smooth travel experience — totally worth it!",
+      trip: "Manali Adventure Trip"
+    },
+    {
+      name: "Karan Patel",
+      location: "Goa, India",
+      image: "https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg",
+      rating: 5,
+      text: "Stunning beaches and perfect arrangements — best trip ever!",
+      trip: "Goa Beach Holiday"
+    },
+  ];
 
   const blogPosts = [
     {
@@ -223,99 +246,112 @@ export default function Index() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       <Navbar />
 
-{/* HERO SECTION – Clear Photo, Elegant & Premium */}
-<section className="relative h-screen w-full overflow-hidden">
-  
-  {/* Background Image */}
-  <div ref={heroRef} className="absolute inset-0">
-    <img
-      src="https://cdn.pixabay.com/photo/2017/03/16/18/03/landscape-2149844_1280.jpg"
-      alt="Travel Scenic"
-      className="w-full h-full object-cover"
-    />
+      {/* HERO SECTION – UPDATED WITH SLIDER & RESPONSIVE HEIGHT */}
 
-    {/* LIGHT Overlay – Photo ko dark nahi karega */}
-    <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/60"></div>
-  </div>
+      {/* HERO SECTION – REDUCED HEIGHT (NOT FULL SCREEN) */}
+      {/* Change: 'h-screen' hata kar 'h-[85vh] md:h-[75vh]' kar diya */}
+      {/* min-h-[600px] ensure karega ki content kate nahi agar screen bahut choti ho */}
+      <section className="relative w-full h-[85vh] md:h-[75vh] min-h-[600px] overflow-hidden bg-slate-900">
 
-  {/* Content */}
-  <div className="relative z-20 h-full flex items-center">
-    <div className="container mx-auto px-6 md:px-10">
-
-      {/* Premium Badge */}
-      <ScrollReveal direction="up" delay={0.2}>
-        <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md 
-          px-5 py-2 rounded-full border border-white/20 shadow-lg">
-          <span className="text-white/90 text-sm">
-            ⭐ Premium Award-Winning Travel Company
-          </span>
+        {/* 1. BACKGROUND SLIDER */}
+        <div className="absolute inset-0 z-0">
+          {heroImages.map((imgUrl, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-all duration-1000 ease-in-out transform
+                ${index === currentHeroIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-110'}`}
+            >
+              <img
+                src={imgUrl}
+                alt="Travel Background"
+                className="w-full h-full object-cover"
+              />
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 md:opacity-80"></div>
+              {/* Left Gradient for Desktop Text readability */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent hidden md:block"></div>
+            </div>
+          ))}
         </div>
-      </ScrollReveal>
 
-      {/* Heading */}
-      <ScrollReveal direction="up" delay={0.4}>
-        <h1 className="text-white font-extrabold leading-tight mt-6 
-          text-5xl md:text-7xl lg:text-8xl drop-shadow-lg">
+        {/* 2. MAIN CONTENT */}
+        {/* 'pb-16' mobile par thoda space dega bottom se */}
+        <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-end pb-16 md:justify-center md:pb-0">
 
-          Explore The World  
-          <br />
-          With
+          <div className="max-w-4xl">
+            {/* Tagline */}
+            <ScrollReveal direction="right" delay={0.2}>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="h-[2px] w-12 bg-yellow-400"></div>
+                <span className="text-yellow-400 uppercase tracking-widest text-sm font-bold">
+                  Premium Travel Agency
+                </span>
+              </div>
+            </ScrollReveal>
 
-          <span className="block mt-3 bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 
-            text-transparent bg-clip-text">
-            Luxury & Comfort
-          </span>
-        </h1>
-      </ScrollReveal>
+            {/* Big Heading */}
+            <ScrollReveal direction="up" delay={0.4}>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-none mb-6">
+                DISCOVER <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                  THE UNSEEN
+                </span>
+              </h1>
+            </ScrollReveal>
 
-      {/* Sub Text */}
-      <ScrollReveal direction="up" delay={0.6}>
-        <p className="text-lg md:text-2xl text-white/90 mt-4 max-w-2xl leading-relaxed">
-          Experience tailor-made journeys crafted by travel experts.  
-          Begin your unforgettable adventure today.
-        </p>
-      </ScrollReveal>
+            {/* Description */}
+            <ScrollReveal direction="up" delay={0.6}>
+              <p className="text-gray-300 text-lg md:text-2xl max-w-xl mb-8 leading-relaxed">
+                From the peaks of Himachal to the beaches of Kerala.
+                We craft journeys that tell your story.
+              </p>
+            </ScrollReveal>
 
-      {/* Buttons */}
-      <ScrollReveal direction="up" delay={0.8}>
-        <div className="flex flex-col sm:flex-row gap-4 mt-8">
+            {/* Buttons */}
+            <ScrollReveal direction="up" delay={0.8}>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/destinations">
+                  <button className="w-full sm:w-auto px-8 py-4 bg-white text-black font-bold text-lg rounded-full hover:bg-yellow-400 transition-colors duration-300 flex items-center justify-center gap-2">
+                    Start Exploring
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </Link>
 
-          <Link to="/destinations">
-            <button className="px-8 py-4 rounded-full text-lg font-semibold 
-              bg-gradient-to-r from-yellow-400 to-orange-500 
-              hover:from-yellow-500 hover:to-orange-600 
-              text-black shadow-xl transition-all duration-300 
-              hover:scale-105 flex items-center gap-2">
-              <Plane className="w-5 h-5" />
-              Explore Destinations
-            </button>
-          </Link>
-
-          <Link to="/booking/customize">
-            <button className="px-8 py-4 rounded-full text-lg font-semibold 
-              border-2 border-white text-white backdrop-blur-md 
-              hover:bg-white hover:text-black transition-all duration-300 
-              flex items-center gap-2">
-              <Calendar className="w-5 h-5" />
-              Plan Your Trip
-            </button>
-          </Link>
+                <Link to="/booking/customize">
+                  <button className="w-full sm:w-auto px-8 py-4 border border-white/30 bg-white/10 backdrop-blur-md text-white font-bold text-lg rounded-full hover:bg-white/20 transition-all flex items-center justify-center gap-2">
+                    <Calendar className="w-5 h-5" />
+                    Plan My Trip
+                  </button>
+                </Link>
+              </div>
+            </ScrollReveal>
+          </div>
 
         </div>
-      </ScrollReveal>
 
-    </div>
-  </div>
+        {/* 3. FLOATING STATS CARD (Only Desktop) */}
+        {/* Position adjusted for smaller height */}
+        <div className="hidden md:block absolute bottom-8 right-8 z-20">
+          <ScrollReveal direction="left" delay={1}>
+            <GlassCard className="p-5 min-w-[240px] border-l-4 border-l-yellow-400 bg-black/40 backdrop-blur-xl">
+              <div className="flex items-center gap-4 mb-3">
+                <div className="flex -space-x-3">
+                  <div className="w-9 h-9 rounded-full border-2 border-white bg-gray-500"></div>
+                  <div className="w-9 h-9 rounded-full border-2 border-white bg-gray-400"></div>
+                  <div className="w-9 h-9 rounded-full border-2 border-white bg-gray-300"></div>
+                </div>
+                <div className="text-white font-bold leading-tight">15k+ <br /><span className="text-[10px] font-normal text-gray-300 uppercase">Travelers</span></div>
+              </div>
+              <div className="flex gap-1">
+                {[1, 2, 3, 4, 5].map(s => <Star key={s} className="w-3 h-3 text-yellow-400 fill-yellow-400" />)}
+              </div>
+            </GlassCard>
+          </ScrollReveal>
+        </div>
 
-  {/* Scroll Indicator */}
-  <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
-    <div className="w-7 h-12 border-2 border-white/40 rounded-full flex items-start justify-center p-2">
-      <div className="w-1 h-3 bg-white/60 rounded-full animate-bounce"></div>
-    </div>
-  </div>
+      </section>
 
-</section>
-      {/* POPULAR PACKAGES */}
+      {/* POPULAR PACKAGES - NOW WITH SLIDER */}
       <section className="py-24 relative overflow-hidden bg-[#EEF5FF]">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
@@ -332,85 +368,88 @@ export default function Index() {
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* SWIPER FOR PACKAGES ADDED HERE */}
+          <Swiper
+            modules={[Autoplay, Pagination, Navigation]}
+            spaceBetween={30}
+            slidesPerView={1}
+            pagination={{ clickable: true }}
+            navigation
+            autoplay={{ delay: 4000 }}
+            breakpoints={{
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            className="pb-16"
+          >
             {packages.map((pkg, index) => (
-              <ScrollReveal key={pkg.title} direction="up" delay={index * 0.1}>
-                <div className="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden w-full">
+              <SwiperSlide key={index}>
+                <ScrollReveal direction="up" delay={index * 0.1}>
+                  <div className="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden w-full h-full flex flex-col">
 
-                  {/* Top Image */}
-                  <div className="h-56 w-full overflow-hidden">
-                    <img
-                      src={pkg.image}
-                      alt={pkg.title}
-                      className="w-full h-full object-cover"
-                    />
+                    {/* Top Image */}
+                    <div className="h-56 w-full overflow-hidden">
+                      <img
+                        src={pkg.image}
+                        alt={pkg.title}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6 pb-3 flex-1 flex flex-col">
+
+                      {/* Title */}
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                        {pkg.title}
+                      </h3>
+
+                      {/* Location + Duration Row */}
+                      <div className="flex items-center text-gray-600 text-sm gap-2 mb-5">
+                        <MapPin className="w-4 h-4 text-gray-500" />
+                        <span>{pkg.location}</span>
+                        <span className="mx-2">↔</span>
+                        <span>{pkg.duration}</span>
+                      </div>
+
+                      {/* Book Now + Price Row */}
+                      <div className="flex items-center justify-between mb-4 mt-auto">
+                        {/* Button */}
+                        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow-md transition-all">
+                          Book Now ↗
+                        </button>
+                        {/* Price */}
+                        <div className="text-right">
+                          <p className="text-xs text-gray-500">Per Person</p>
+                          <p className="text-3xl font-bold text-gray-900">{pkg.price}</p>
+                        </div>
+                      </div>
+
+                      {/* Divider */}
+                      <hr className="border-gray-200 mb-4" />
+
+                      {/* Experience + Inclusion */}
+                      <div className="flex items-center justify-between text-gray-700 text-sm pb-2">
+                        <div className="flex items-center gap-2">
+                          <span className="w-4 h-4 flex items-center justify-center text-lg">🎒</span>
+                          Experience
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="w-4 h-4 flex items-center justify-center text-lg">➕</span>
+                          Inclusion
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
-
-                  {/* Content */}
-                  <div className="p-6 pb-3">
-
-                    {/* Title */}
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                      {pkg.title}
-                    </h3>
-
-                    {/* Location + Duration Row */}
-                    <div className="flex items-center text-gray-600 text-sm gap-2 mb-5">
-                      <MapPin className="w-4 h-4 text-gray-500" />
-
-                      <span>{pkg.location}</span>
-
-                      <span className="mx-2">↔</span>
-
-                      <span>{pkg.duration}</span>
-                    </div>
-
-                    {/* Book Now + Price Row */}
-                    <div className="flex items-center justify-between mb-4">
-
-                      {/* Button */}
-                      <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow-md transition-all">
-                        Book Now ↗
-                      </button>
-
-                      {/* Price */}
-                      <div className="text-right">
-                        <p className="text-xs text-gray-500">Per Person</p>
-                        <p className="text-3xl font-bold text-gray-900">{pkg.price}</p>
-                      </div>
-
-                    </div>
-
-                    {/* Divider */}
-                    <hr className="border-gray-200 mb-4" />
-
-                    {/* Experience + Inclusion */}
-                    <div className="flex items-center justify-between text-gray-700 text-sm pb-2">
-
-                      {/* Experience */}
-                      <div className="flex items-center gap-2">
-                        <span className="w-4 h-4 flex items-center justify-center text-lg">🎒</span>
-                        Experience
-                      </div>
-
-                      {/* Inclusion */}
-                      <div className="flex items-center gap-2">
-                        <span className="w-4 h-4 flex items-center justify-center text-lg">➕</span>
-                        Inclusion
-                      </div>
-
-                    </div>
-
-                  </div>
-                </div>
-
-              </ScrollReveal>
+                </ScrollReveal>
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
+
         </div>
       </section>
-
-
 
       {/* TOP DESTINATIONS */}
       <section className="py-24">
@@ -430,7 +469,6 @@ export default function Index() {
             </div>
           </ScrollReveal>
 
-          {/* 🔥 Swiper Slider Added Here */}
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={30}
@@ -460,8 +498,6 @@ export default function Index() {
                         {/* Top Gradient Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-
-
                         {/* Bottom Info */}
                         <div className="absolute bottom-0 w-full px-6 pb-8 text-center">
                           <h3 className="text-3xl font-bold text-white">{dest.name}</h3>
@@ -481,8 +517,6 @@ export default function Index() {
                   </Link>
                 </ScrollReveal>
               </SwiperSlide>
-
-
             ))}
           </Swiper>
 
@@ -501,8 +535,6 @@ export default function Index() {
           </ScrollReveal>
         </div>
       </section>
-
-
 
       {/* WHY CHOOSE US */}
       <section className="py-24 bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 text-white">
@@ -621,89 +653,87 @@ export default function Index() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-{/* TESTIMONIALS SECTION */}
-<section className="py-24 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
-  <div className="container mx-auto px-4">
+      {/* TESTIMONIALS SECTION */}
+      <section className="py-24 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
+        <div className="container mx-auto px-4">
 
-    {/* Heading */}
-    <div className="text-center mb-16">
-      <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full shadow-md">
-        Client Testimonials
-      </Badge>
-
-      <h2 className="text-4xl md:text-5xl font-bold mt-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-        What Our Travelers Say
-      </h2>
-
-      <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
-        Hear from our happy travelers who trusted us with their dream vacations.
-      </p>
-    </div>
-
-    {/* SLIDER */}
-    <Swiper
-      modules={[Autoplay, Pagination, Navigation]}
-      spaceBetween={30}
-      slidesPerView={1}
-      navigation
-      pagination={{ clickable: true }}
-      autoplay={{ delay: 3000, disableOnInteraction: false }}
-      breakpoints={{
-        640: { slidesPerView: 1 },
-        768: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 },
-      }}
-      className="pb-10"
-    >
-      {testimonials.map((t, index) => (
-        <SwiperSlide key={index}>
-          <Card className="
-            p-8 h-full rounded-3xl shadow-xl border border-white/50 
-            bg-white/40 backdrop-blur-xl 
-            transition-all duration-500 hover:scale-[1.05] hover:shadow-2xl relative
-          ">
-            
-            {/* Glow Effects */}
-            <div className="absolute -top-10 -right-10 w-24 h-24 bg-blue-500/20 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-purple-500/20 rounded-full blur-3xl"></div>
-
-            {/* Profile */}
-            <div className="flex items-center mb-6">
-              <img
-                src={t.image}
-                alt={t.name}
-                className="w-16 h-16 rounded-full border-4 border-white shadow-lg mr-4"
-              />
-              <div>
-                <h4 className="text-xl font-bold text-gray-900">{t.name}</h4>
-                <p className="text-sm text-gray-500">{t.location}</p>
-              </div>
-            </div>
-
-            {/* Rating */}
-            <div className="flex mb-4">
-              {Array.from({ length: t.rating }).map((_, i) => (
-                <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-              ))}
-            </div>
-
-            {/* Review Text */}
-            <p className="text-gray-700 mb-6 italic leading-relaxed">
-              "{t.text}"
-            </p>
-
-            {/* Trip Badge */}
-            <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full px-4 py-1 shadow">
-              {t.trip}
+          {/* Heading */}
+          <div className="text-center mb-16">
+            <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full shadow-md">
+              Client Testimonials
             </Badge>
-          </Card>
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  </div>
-</section>
 
+            <h2 className="text-4xl md:text-5xl font-bold mt-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              What Our Travelers Say
+            </h2>
+
+            <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
+              Hear from our happy travelers who trusted us with their dream vacations.
+            </p>
+          </div>
+
+          {/* SLIDER */}
+          <Swiper
+            modules={[Autoplay, Pagination, Navigation]}
+            spaceBetween={30}
+            slidesPerView={1}
+            navigation
+            pagination={{ clickable: true }}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            breakpoints={{
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            className="pb-10"
+          >
+            {testimonials.map((t, index) => (
+              <SwiperSlide key={index}>
+                <Card className="
+                  p-8 h-full rounded-3xl shadow-xl border border-white/50 
+                  bg-white/40 backdrop-blur-xl 
+                  transition-all duration-500 hover:scale-[1.05] hover:shadow-2xl relative
+                ">
+
+                  {/* Glow Effects */}
+                  <div className="absolute -top-10 -right-10 w-24 h-24 bg-blue-500/20 rounded-full blur-3xl"></div>
+                  <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-purple-500/20 rounded-full blur-3xl"></div>
+
+                  {/* Profile */}
+                  <div className="flex items-center mb-6">
+                    <img
+                      src={t.image}
+                      alt={t.name}
+                      className="w-16 h-16 rounded-full border-4 border-white shadow-lg mr-4"
+                    />
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-900">{t.name}</h4>
+                      <p className="text-sm text-gray-500">{t.location}</p>
+                    </div>
+                  </div>
+
+                  {/* Rating */}
+                  <div className="flex mb-4">
+                    {Array.from({ length: t.rating }).map((_, i) => (
+                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                    ))}
+                  </div>
+
+                  {/* Review Text */}
+                  <p className="text-gray-700 mb-6 italic leading-relaxed">
+                    "{t.text}"
+                  </p>
+
+                  {/* Trip Badge */}
+                  <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full px-4 py-1 shadow">
+                    {t.trip}
+                  </Badge>
+                </Card>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </section>
 
       {/* BLOG PREVIEW */}
       <section className="py-24 bg-slate-50">
