@@ -4,8 +4,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-// Chevron icons hata diye kyunki blue bar hat gaya
-// import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -23,6 +21,9 @@ import {
   Heart,
   TrendingUp,
   Phone,
+  Trophy, // New Icon added for card
+  Plus,   // New Icon added for card
+  Info    // New Icon added for card
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -42,35 +43,33 @@ export default function Index() {
   // --- HERO SLIDER STATE & DATA ---
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
 
-  // Dynamic Slides Data (Image + Text)
   const heroSlides = [
     {
       id: 1,
-      image: "https://cdn.pixabay.com/photo/2017/03/16/18/03/landscape-2149844_1280.jpg",
+      image: "https://images.unsplash.com/photo-1692719058797-2954b100c8fe?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Your Gateway To The World.",
       subtitle: "Ideal for explorers seeking seamless booking and expert travel support every step of the way."
     },
     {
       id: 2,
-      image: "https://cdn.pixabay.com/photo/2016/11/14/04/45/elephant-1822636_1280.jpg",
+      image: "https://images.unsplash.com/photo-1628699543232-dc241b48a4b3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Into The Wild",
       subtitle: "Experience nature like never before with our premium safari and wildlife packages."
     },
     {
       id: 3,
-      image: "https://cdn.pixabay.com/photo/2018/08/16/08/39/hallstatt-3609863_1280.jpg",
+      image: "https://plus.unsplash.com/premium_photo-1697729690458-2d64ca777c04?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Discover Hidden Gems",
       subtitle: "From the peaks of Himachal to the valleys of Kashmir, we craft journeys that tell your story."
     },
     {
       id: 4,
-      image: "https://cdn.pixabay.com/photo/2013/11/28/10/03/river-219972_1280.jpg",
+      image: "https://images.unsplash.com/photo-1581747365444-7d31a94c0237?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Serenity & Peace",
       subtitle: "Relax and rejuvenate in the most beautiful and calm destinations across the globe."
     }
   ];
 
-  // Auto Slider Logic
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentHeroIndex((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
@@ -81,7 +80,6 @@ export default function Index() {
 
   // ----------------- ANIMATIONS -----------------
   useEffect(() => {
-    // Hero parallax
     if (heroRef.current) {
       gsap.to(heroRef.current, {
         scrollTrigger: {
@@ -94,32 +92,9 @@ export default function Index() {
         opacity: 0.9,
       });
     }
-
-    // Stats counter
-    if (statsRef.current) {
-      const stats = statsRef.current.querySelectorAll('.stat-number');
-      stats.forEach((stat) => {
-        const target = parseInt(stat.getAttribute('data-target') || '0', 10);
-
-        gsap.to(stat, {
-          scrollTrigger: {
-            trigger: stat,
-            start: 'top 80%',
-          },
-          innerText: target,
-          duration: 2,
-          snap: { innerText: 1 },
-          onUpdate: function () {
-            const value = Math.ceil(this.targets()[0].innerText);
-            stat.textContent = value.toLocaleString();
-          },
-        });
-      });
-    }
   }, []);
 
   // ----------------- DATA -----------------
-  // ... (Destinations, Packages, Testimonials, Blog data remains the same)
   const destinations = [
     { name: 'Shimla', image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg', path: '/destinations/shimla' },
     { name: 'Manali', image: 'https://i.pinimg.com/736x/49/7e/49/497e495ee05c0ea5d5de82e7c4e3f653.jpg', path: '/destinations/manali' },
@@ -135,10 +110,12 @@ export default function Index() {
     { title: 'Wellness Retreats', description: 'Rejuvenate your mind, body, and soul.', image: 'https://i.pinimg.com/736x/6e/11/6c/6e116c68748c2a1d1adcdaec43381301.jpg', icon: Heart, path: '/experiences/wellness' },
   ];
   const packages = [
-    { title: 'Kerala Backwaters', image: 'https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg', location: 'Kerala, India', duration: '03 Days / 02 Nights', price: '$199' },
-    { title: 'Manali Mountains', image: 'https://i.pinimg.com/736x/49/7e/49/497e495ee05c0ea5d5de82e7c4e3f653.jpg', location: 'Himachal, India', duration: '04 Days / 03 Nights', price: '$249' },
-    { title: 'Goa Beaches', image: 'https://i.pinimg.com/736x/b6/a1/f2/b6a1f214ed11f46384380e4a0e121464.jpg', location: 'Goa, India', duration: '05 Days / 04 Nights', price: '$299' },
-    { title: 'Rajasthan Royal', image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg', location: 'Jaipur, India', duration: '03 Days / 02 Nights', price: '$180' },
+    { title: 'Kerala', image: 'https://i.pinimg.com/736x/8f/07/42/8f07429dd03950cc8728bc0d44bfa089.jpg', location: 'Kerala, India', duration: '03 Days / 02 Nights', price: '$199' },
+    { title: 'Manali', image: 'https://i.pinimg.com/736x/8c/14/3e/8c143e84594eafe45e5db7ce2ce503a3.jpg', location: 'Himachal, India', duration: '04 Days / 03 Nights', price: '$249' },
+    { title: 'Goa Beaches', image: 'https://i.pinimg.com/1200x/7c/36/7f/7c367f3b73b2b93604219530631e271b.jpg', location: 'Goa, India', duration: '05 Days / 04 Nights', price: '$299' },
+    { title: 'Rajasthan', image: 'https://i.pinimg.com/1200x/9e/35/e9/9e35e983fe70f4c3a1e5dbe22172a4da.jpg', location: 'Jaipur, India', duration: '03 Days / 02 Nights', price: '$180' },
+    { title: 'Gangtok', image: 'https://i.pinimg.com/736x/7c/ec/b4/7cecb4b6d5885929dc127a4700595a21.jpg', location: 'Sikkim, India', duration: '03 Days / 02 Nights', price: '$180' },
+    { title: 'Varanasi', image: 'https://i.pinimg.com/736x/4a/44/4f/4a444fa9323972cfee1e9681f82dc95f.jpg', location: 'Uttar Pradesh, India', duration: '03 Days / 02 Nights', price: '$180' },
   ];
   const testimonials = [
     { name: "Aarav Sharma", location: "Kerala, India", image: "https://i.pinimg.com/736x/91/c6/47/91c647dc7a52ee95ce5b7a4bbaec49d2.jpg", rating: 5, text: "The Kerala backwaters experience was absolutely magical! Everything was arranged perfectly.", trip: "Kerala 3D / 2N" },
@@ -152,19 +129,12 @@ export default function Index() {
   ];
 
 
-  // ----------------- JSX -----------------
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       <Navbar />
 
-      {/* HERO SECTION – UPDATED: FULL SCREEN DESKTOP, 50% MOBILE, NO BLUE BAR */}
-      {/* h-[50vh] for mobile, md:h-screen for desktop. pt-[70px] removed */}
+      {/* HERO SECTION - FIXED */}
       <section className="relative w-full h-[50vh] md:h-screen min-h-[400px] flex flex-col bg-slate-900 overflow-hidden">
-
-        {/* Blue bar removed from here */}
-
-        {/* 2. BACKGROUND IMAGES SLIDER */}
-        {/* mt-[120px] removed, now inset-0 */}
         <div ref={heroRef} className="absolute inset-0 z-0">
           {heroSlides.map((slide, index) => (
             <div
@@ -172,53 +142,35 @@ export default function Index() {
               className={`absolute inset-0 transition-all duration-1000 ease-in-out
                 ${index === currentHeroIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}
             >
-              <img
-                src={slide.image}
-                alt={slide.title}
-                className="w-full h-full object-cover"
-              />
-              {/* Overlay */}
+              <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-black/40"></div>
             </div>
           ))}
         </div>
 
-        {/* 3. CENTERED CONTENT (DYNAMIC TEXT) */}
         <div className="relative z-30 h-full flex flex-col justify-center items-center text-center px-4 md:px-0">
-          
-          {/* Key ensures animation restarts on slide change */}
           <div key={currentHeroIndex} className="max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both">
-            
             <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-white drop-shadow-2xl mb-3 md:mb-6 leading-tight">
               {heroSlides[currentHeroIndex].title}
             </h1>
-
             <p className="text-sm md:text-2xl text-white/90 font-medium max-w-xl mx-auto mb-6 md:mb-10 drop-shadow-md leading-relaxed px-2">
               {heroSlides[currentHeroIndex].subtitle}
             </p>
-
-            {/* Action Buttons */}
             <div className="flex flex-row gap-3 md:gap-4 justify-center items-center">
               <Link to="/destinations">
                 <button className="px-5 py-2.5 md:px-8 md:py-4 rounded-full text-sm md:text-lg font-bold bg-blue-600 text-white hover:bg-blue-700 shadow-xl transition-all flex items-center gap-2 transform hover:-translate-y-1">
-                  <Plane className="w-4 h-4 md:w-5 md:h-5" />
-                  Explore
+                  <Plane className="w-4 h-4 md:w-5 md:h-5" /> Explore
                 </button>
               </Link>
-              
               <Link to="/booking/customize">
                 <button className="px-5 py-2.5 md:px-8 md:py-4 rounded-full text-sm md:text-lg font-bold bg-white text-slate-900 hover:bg-gray-100 shadow-xl transition-all flex items-center gap-2 transform hover:-translate-y-1">
-                  <Calendar className="w-4 h-4 md:w-5 md:h-5" />
-                  Plan Trip
+                  <Calendar className="w-4 h-4 md:w-5 md:h-5" /> Plan Trip
                 </button>
               </Link>
             </div>
-
           </div>
-
         </div>
 
-        {/* Slider Dots Indicator */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 flex gap-1.5 md:gap-2">
             {heroSlides.map((_, index) => (
             <button
@@ -229,23 +181,16 @@ export default function Index() {
             />
             ))}
         </div>
-
       </section>
 
-      {/* POPULAR PACKAGES */}
+      {/* POPULAR PACKAGES - NEW "FRAME STYLE" CARD */}
       <section className="py-16 md:py-24 relative overflow-hidden bg-[#EEF5FF]">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
-              <Badge className="bg-blue-50 text-blue-700 border-0 mb-4 px-4 py-2">
-                Curated Packages
-              </Badge>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-900">
-                Handpicked Travel Packages
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Choose from our best-selling itineraries crafted by travel experts.
-              </p>
+              <Badge className="bg-blue-50 text-blue-700 border-0 mb-4 px-4 py-2">Curated Packages</Badge>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-900">Handpicked Travel Packages</h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">Choose from our best-selling itineraries crafted by travel experts.</p>
             </div>
           </ScrollReveal>
 
@@ -261,51 +206,61 @@ export default function Index() {
               768: { slidesPerView: 2 },
               1024: { slidesPerView: 3 },
             }}
-            className="pb-16"
+            className="pb-16 px-2"
           >
             {packages.map((pkg, index) => (
               <SwiperSlide key={index}>
                 <ScrollReveal direction="up" delay={index * 0.1}>
-                  <div className="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden w-full h-full flex flex-col">
-                    <div className="h-56 w-full overflow-hidden">
+                  {/* --- NEW CARD DESIGN START --- */}
+                  <div className="bg-white rounded-[30px] p-3 shadow-lg border border-slate-100 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group">
+                    
+                    {/* Image Container with Rounding (Inside the frame) */}
+                    <div className="relative h-60 w-full rounded-[20px] overflow-hidden">
                       <img
                         src={pkg.image}
                         alt={pkg.title}
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
+                      {/* Hot Sale Badge */}
+                      <div className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-md uppercase tracking-wider">
+                        Hot Sale!
+                      </div>
                     </div>
-                    <div className="p-6 pb-3 flex-1 flex flex-col">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                        {pkg.title}
-                      </h3>
-                      <div className="flex items-center text-gray-600 text-sm gap-2 mb-5">
-                        <MapPin className="w-4 h-4 text-gray-500" />
+
+                    {/* Content */}
+                    <div className="pt-5 px-2 pb-2 flex-1 flex flex-col">
+                      <h3 className="text-xl font-bold text-slate-900 leading-tight mb-3">{pkg.title}</h3>
+                      
+                      <div className="flex items-center gap-2 text-gray-500 text-xs font-medium mb-6">
+                        <MapPin className="w-3.5 h-3.5" />
                         <span>{pkg.location}</span>
-                        <span className="mx-2">↔</span>
+                        <span className="text-gray-300">|</span>
                         <span>{pkg.duration}</span>
                       </div>
-                      <div className="flex items-center justify-between mb-4 mt-auto">
-                        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow-md transition-all">
-                          Book Now ↗
+
+                      <div className="flex items-end justify-between mt-auto mb-5">
+                        <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-blue-200 shadow-lg flex items-center gap-1 transition-all active:scale-95">
+                          Book Now <span className="text-lg leading-none -mt-1 ml-1">↗</span>
                         </button>
-                        <div className="text-right">
-                          <p className="text-xs text-gray-500">Per Person</p>
-                          <p className="text-3xl font-bold text-gray-900">{pkg.price}</p>
+                        <div className="text-right leading-none">
+                          <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">Per Person</p>
+                          <p className="text-2xl font-extrabold text-slate-900">{pkg.price}</p>
                         </div>
                       </div>
-                      <hr className="border-gray-200 mb-4" />
-                      <div className="flex items-center justify-between text-gray-700 text-sm pb-2">
-                        <div className="flex items-center gap-2">
-                          <span className="w-4 h-4 flex items-center justify-center text-lg">🎒</span>
-                          Experience
+
+                      <div className="w-full h-px bg-gray-100 mb-3"></div>
+
+                      {/* <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-1.5 text-slate-600 text-[11px] font-bold uppercase tracking-wide cursor-pointer hover:text-blue-600">
+                          <Trophy className="w-3.5 h-3.5" /> Experience <Info className="w-3 h-3 text-gray-300" />
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className="w-4 h-4 flex items-center justify-center text-lg">➕</span>
-                          Inclusion
+                        <div className="flex items-center gap-1.5 text-slate-600 text-[11px] font-bold uppercase tracking-wide cursor-pointer hover:text-blue-600">
+                          <Plus className="w-3.5 h-3.5" /> Inclusion <Info className="w-3 h-3 text-gray-300" />
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
+                  {/* --- NEW CARD DESIGN END --- */}
                 </ScrollReveal>
               </SwiperSlide>
             ))}
@@ -318,18 +273,11 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
-              <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 mb-4 px-4 py-2">
-                Popular Destinations
-              </Badge>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Explore Dream Destinations
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                From tropical paradises to cultural wonders, discover places that will take your breath away.
-              </p>
+              <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 mb-4 px-4 py-2">Popular Destinations</Badge>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Explore Dream Destinations</h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">From tropical paradises to cultural wonders, discover places that will take your breath away.</p>
             </div>
           </ScrollReveal>
-
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={30}
@@ -350,18 +298,12 @@ export default function Index() {
                   <Link to={dest.path}>
                     <div className="group relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500">
                       <div className="relative h-[350px] w-full overflow-hidden">
-                        <img
-                          src={dest.image}
-                          alt={dest.name}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        />
+                        <img src={dest.image} alt={dest.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                         <div className="absolute bottom-0 w-full px-6 pb-8 text-center">
                           <h3 className="text-3xl font-bold text-white">{dest.name}</h3>
                           <div className="flex justify-center mt-4">
-                            <button className="bg-white text-gray-900 px-6 py-2 rounded-full font-semibold text-sm shadow-xl hover:bg-gray-200 transition">
-                              View Details →
-                            </button>
+                            <button className="bg-white text-gray-900 px-6 py-2 rounded-full font-semibold text-sm shadow-xl hover:bg-gray-200 transition">View Details →</button>
                           </div>
                         </div>
                       </div>
@@ -371,16 +313,11 @@ export default function Index() {
               </SwiperSlide>
             ))}
           </Swiper>
-
           <ScrollReveal direction="up" delay={0.6}>
             <div className="text-center mt-8">
               <Link to="/destination">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                >
-                  View All Destinations
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                  View All Destinations <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
             </div>
@@ -393,15 +330,9 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
             <div className="text-center mb-16">
-              <Badge className="bg-white/10 backdrop-blur-sm text-white border-white/20 mb-4 px-4 py-2">
-                Why Choose Himachal Destination
-              </Badge>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                Travel With Confidence
-              </h2>
-              <p className="text-xl text-white/80 max-w-2xl mx-auto">
-                We combine expertise, technology, and passion to deliver unforgettable journeys.
-              </p>
+              <Badge className="bg-white/10 backdrop-blur-sm text-white border-white/20 mb-4 px-4 py-2">Why Choose Himachal Destination</Badge>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6">Travel With Confidence</h2>
+              <p className="text-xl text-white/80 max-w-2xl mx-auto">We combine expertise, technology, and passion to deliver unforgettable journeys.</p>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -429,7 +360,6 @@ export default function Index() {
 
        {/* EXPERIENCES SECTION */}
       <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 relative overflow-hidden">
-        {/* SVG Background */}
          <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00em0wLTEwYzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHptMC0xMGMwLTIuMjEtMS43OS00LTQtNHMtNCAxLjc5LTQgNCAxLjc5IDQgNCA0IDQtMS43OSA0LTR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-20" />
         </div>
