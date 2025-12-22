@@ -268,7 +268,7 @@ export default function Index() {
             {/* CENTERED HEADING */}
             <div className="text-center mb-12">
                <span className="text-rose-500 font-medium uppercase tracking-wider text-sm">Discover</span>
-               <h2 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mt-2">Trending Now</h2>
+               <h2 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mt-2">Explore Destination</h2>
                <div className="w-20 h-1 bg-rose-500 mx-auto mt-4 rounded-full"></div> 
                <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-4">Top rated destinations loved by our travelers.</p>
             </div>
