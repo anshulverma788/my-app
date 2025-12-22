@@ -3,6 +3,9 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Routes, Route } from 'react-router-dom';
 
+// --- 1. Import ScrollToTop ---
+import ScrollToTop from './components/ScrollToTop';
+
 import Index from './pages/Index';
 import Package from './pages/All-Package';
 import Destination from './pages/Destination';
@@ -45,6 +48,10 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
+
+      {/* --- 2. Add ScrollToTop Component Here --- */}
+      {/* Yeh ensure karega ki har page change par scroll upar chala jaye */}
+      <ScrollToTop />
 
       <Routes>
         {/* HOME */}
