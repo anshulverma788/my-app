@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 
 import {
   ArrowRight, MapPin, Star, Calendar, Phone, ShieldCheck,
-  Clock, Headset, ThumbsUp, Globe, Users, Award, Play, Facebook, Instagram, Twitter, ChevronLeft, ChevronRight
+  Clock, Headset, ThumbsUp, Globe, Users, Award, Play, Facebook, Instagram, Twitter, ChevronDown, Search
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -33,7 +33,7 @@ export default function Index() {
       place: "Himachal",
       title: "The Land of Gods",
       desc: "Experience the mystical mountains, lush valleys, and spiritual serenity of Himachal Pradesh.",
-      image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2070&auto=format&fit=crop",
+      image: "https://cdn.pixabay.com/photo/2018/02/14/13/42/sky-3153004_1280.jpg",
       price: "From ₹5,999",
     },
     {
@@ -41,7 +41,7 @@ export default function Index() {
       place: "Kashmir",
       title: "Paradise on Earth",
       desc: "Discover the breathtaking beauty of snow-capped peaks and the famous Dal Lake.",
-      image: "https://images.unsplash.com/photo-1598091383021-15ddea10925d?q=80&w=2070&auto=format&fit=crop",
+      image: "https://cdn.pixabay.com/photo/2022/07/30/07/02/river-7353171_1280.jpg",
       price: "From ₹8,999",
     },
     {
@@ -49,7 +49,7 @@ export default function Index() {
       place: "Kerala",
       title: "God's Own Country",
       desc: "Sail through the backwaters and relax in the lush greenery of southern India.",
-      image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=2070&auto=format&fit=crop",
+      image: "https://cdn.pixabay.com/photo/2017/02/17/21/18/south-india-2075399_1280.jpg",
       price: "From ₹12,499",
     },
     {
@@ -57,15 +57,15 @@ export default function Index() {
       place: "Ladakh",
       title: "Land of High Passes",
       desc: "An adventure of a lifetime amidst the rugged terrains and monasteries.",
-      image: "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?q=80&w=1974&auto=format&fit=crop",
+      image: "https://cdn.pixabay.com/photo/2022/10/13/13/25/pangong-tso-7519104_1280.jpg",
       price: "From ₹15,999",
     },
     {
       id: 5,
-      place: "Dubai",
+      place: "CharDham",
       title: "City of Gold",
       desc: "Experience luxury shopping, ultramodern architecture and lively nightlife.",
-      image: "https://images.unsplash.com/photo-1512453979798-5ea904ac6686?q=80&w=2070&auto=format&fit=crop",
+      image: "https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg",
       price: "From ₹25,999",
     },
   ];
@@ -75,14 +75,6 @@ export default function Index() {
     if (swiperInstanceRef.current) {
       swiperInstanceRef.current.slideToLoop(index);
     }
-  };
-
-  const handlePrev = () => {
-    if (swiperInstanceRef.current) swiperInstanceRef.current.slidePrev();
-  };
-
-  const handleNext = () => {
-    if (swiperInstanceRef.current) swiperInstanceRef.current.slideNext();
   };
 
   // Get Next 3 Thumbnails relative to active index
@@ -134,9 +126,9 @@ export default function Index() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen bg-slate-50">
       
-      {/* CSS Animations for Text Entrances */}
+      {/* CSS Animations */}
       <style>{`
         @keyframes slideUpFade {
           from { opacity: 0; transform: translateY(30px); }
@@ -151,10 +143,8 @@ export default function Index() {
 
       <Navbar />
 
-      {/* ================= HERO SECTION (MOBILE OPTIMIZED) ================= */}
-      <section className="relative w-full h-screen min-h-[600px] bg-slate-900 text-white overflow-hidden">
-        
-        {/* 1. BACKGROUND SWIPER */}
+      {/* ================= HERO SECTION ================= */}
+      <section className="relative w-full h-[60vh] lg:h-screen min-h-[400px] bg-slate-900 text-white overflow-hidden">
         <Swiper
           modules={[Autoplay, EffectFade, Navigation, Pagination]}
           effect={'fade'}
@@ -168,72 +158,66 @@ export default function Index() {
           {heroSlides.map((slide) => (
             <SwiperSlide key={slide.id}>
               <div className="relative w-full h-full">
-                <img 
-                  src={slide.image} 
-                  alt={slide.place} 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+                <img src={slide.image} alt={slide.place} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 lg:bg-gradient-to-r lg:from-black/80 lg:via-black/40 lg:to-transparent"></div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
+        
+        {/* Mobile Content */}
+        <div className="lg:hidden absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-4 pb-12 pointer-events-none">
+           <div key={activeIndex} className="flex flex-col items-center">
+              <h1 className="text-6xl font-serif italic font-bold tracking-tighter drop-shadow-lg anim-text delay-100 transform -rotate-2">
+                 {heroSlides[activeIndex].place}
+              </h1>
+              <p className="text-xs uppercase tracking-widest mt-2 border-t border-b border-white/40 py-1 px-4 anim-text delay-200 bg-black/20 backdrop-blur-sm">
+                 Unveiling Paradise
+              </p>
+           </div>
+        </div>
 
-        {/* 2. TEXT CONTENT */}
-        <div className="absolute inset-0 z-10 container mx-auto px-6 md:px-12 flex items-center pointer-events-none">
+        {/* Desktop Content */}
+        <div className="hidden lg:flex absolute inset-0 z-10 container mx-auto px-12 items-center pointer-events-none">
           <div className="max-w-2xl pt-20 pointer-events-auto">
-            
             <div key={activeIndex}>
               <div className="overflow-hidden mb-2">
-                <p className="text-blue-400 font-bold tracking-[0.3em] uppercase anim-text delay-100 text-sm md:text-base">
+                <p className="text-blue-400 font-bold tracking-[0.3em] uppercase anim-text delay-100">
                   — Explore The World
                 </p>
               </div>
-
               <div className="overflow-hidden mb-4">
-                 <h1 className="text-5xl md:text-8xl font-serif font-bold leading-tight anim-text delay-200">
+                 <h1 className="text-8xl font-serif font-bold leading-tight anim-text delay-200">
                    {heroSlides[activeIndex].place}
                  </h1>
               </div>
-
               <div className="overflow-hidden mb-8">
-                <p className="text-base md:text-xl text-gray-200 max-w-lg leading-relaxed anim-text delay-300">
+                <p className="text-xl text-gray-200 max-w-lg leading-relaxed anim-text delay-300">
                   {heroSlides[activeIndex].desc}
                 </p>
               </div>
-
-              {/* Action Buttons */}
               <div className="flex flex-wrap gap-4 anim-text delay-400">
-                 <Button className="h-12 md:h-14 px-6 md:px-8 rounded-none bg-white text-slate-900 hover:bg-blue-600 hover:text-white transition-all text-base md:text-lg font-bold tracking-wide">
+                 <Button className="h-14 px-8 rounded-none bg-white text-slate-900 hover:bg-blue-600 hover:text-white transition-all text-lg font-bold tracking-wide">
                    View Details
                  </Button>
-                 <button className="h-12 w-12 md:h-14 md:w-14 flex items-center justify-center border border-white/30 hover:bg-white/10 transition-colors backdrop-blur-sm">
+                 <button className="h-14 w-14 flex items-center justify-center border border-white/30 hover:bg-white/10 transition-colors backdrop-blur-sm">
                     <Play className="w-5 h-5 fill-white" />
                  </button>
               </div>
             </div>
-
           </div>
         </div>
 
-        {/* 3. DESKTOP SIDEBAR (HIDDEN ON MOBILE) */}
+        {/* Sidebar */}
         <div className="hidden lg:flex absolute bottom-8 right-12 z-20 flex-col gap-4 items-end pointer-events-auto">
           <div className="text-5xl font-bold text-white/10 select-none mb-4 font-mono">
               0{activeIndex + 1}
           </div>
           <div className="flex flex-col gap-4">
             {getHeroThumbnails().map((thumb, idx) => (
-              <div
-                key={idx}
-                onClick={() => handleThumbnailClick(thumb.realIndex)}
-                className="group relative w-64 h-28 rounded-xl overflow-hidden cursor-pointer border border-white/20 hover:border-blue-500 transition-all duration-300 bg-black/40 backdrop-blur-md shadow-2xl flex items-center"
-              >
+              <div key={idx} onClick={() => handleThumbnailClick(thumb.realIndex)} className="group relative w-64 h-28 rounded-xl overflow-hidden cursor-pointer border border-white/20 hover:border-blue-500 transition-all duration-300 bg-black/40 backdrop-blur-md shadow-2xl flex items-center">
                 <div className="w-24 h-full relative overflow-hidden">
-                  <img 
-                    src={thumb.image} 
-                    alt={thumb.place} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                  />
+                  <img src={thumb.image} alt={thumb.place} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="flex-1 p-4 flex flex-col justify-center">
                    <span className="text-xs text-blue-300 font-bold uppercase tracking-wider mb-1">Next Destination</span>
@@ -249,47 +233,15 @@ export default function Index() {
             ))}
           </div>
         </div>
-
-        {/* 4. MOBILE NAVIGATION CONTROLS (VISIBLE ONLY ON MOBILE) */}
-        <div className="lg:hidden absolute bottom-24 right-6 z-30 flex gap-4 pointer-events-auto">
-             <button onClick={handlePrev} className="w-12 h-12 rounded-full border border-white/30 bg-black/20 backdrop-blur-sm flex items-center justify-center hover:bg-white hover:text-black transition-all">
-                <ChevronLeft className="w-6 h-6" />
-             </button>
-             <button onClick={handleNext} className="w-12 h-12 rounded-full border border-white/30 bg-black/20 backdrop-blur-sm flex items-center justify-center hover:bg-white hover:text-black transition-all">
-                <ChevronRight className="w-6 h-6" />
-             </button>
-        </div>
-
-        {/* 5. SOCIAL & PROGRESS */}
-        <div className="absolute bottom-8 left-6 md:left-12 z-20 flex items-center gap-8 pointer-events-auto">
-           <div className="flex gap-4">
-              <a href="#" className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-colors"><Facebook className="w-4 h-4" /></a>
-              <a href="#" className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-colors"><Instagram className="w-4 h-4" /></a>
-              <a href="#" className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-colors"><Twitter className="w-4 h-4" /></a>
-           </div>
-           
-           <div className="hidden md:flex items-center gap-3">
-               <span className="text-xs font-bold">01</span>
-               <div className="w-32 h-[2px] bg-white/20 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-blue-500 transition-all duration-500"
-                    style={{ width: `${((activeIndex + 1) / heroSlides.length) * 100}%` }}
-                  />
-               </div>
-               <span className="text-xs font-bold">0{heroSlides.length}</span>
-           </div>
-        </div>
-
       </section>
 
-      {/* ================= REST OF THE SECTIONS ================= */}
-      {/* POPULAR PACKAGES */}
-      <section className="py-16 md:py-14 relative overflow-hidden bg-[#EEF5FF]">
+      {/* ================= POPULAR PACKAGES ================= */}
+      <section className="py-16 md:py-14 relative overflow-hidden bg-[#d1dcec]">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
               <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-slate-900">Popular Packages</h2>
-              <p className="text-lg text-gray-600 font-serif max-w-2xl mx-auto">Choose from our best-selling itineraries crafted by travel experts.</p>
+              <p className="text-lg text-gray-600 font-lobster max-w-2xl mx-auto">Choose from our best-selling itineraries crafted by travel experts.</p>
             </div>
           </ScrollReveal>
 
@@ -314,32 +266,36 @@ export default function Index() {
                     <div className="relative h-56 w-full rounded-[15px] overflow-hidden">
                       <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     </div>
-                    <div className="pt-4 px-1 pb-2 flex-1 flex flex-col">
-                      <div className="mb-4">
-                          <h3 className="text-xl font-serif font-bold text-slate-900 leading-tight mb-2">{pkg.title}</h3>
-                          <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
-                            <MapPin className="w-3.5 h-3.5 text-blue-500" /> <span>{pkg.location}</span>
-                            <span className="text-gray-300">|</span> <span>{pkg.duration}</span>
+
+                    <div className="pt-4 px-2 pb-2 flex-1 flex flex-col">
+                      <div className="flex justify-between items-start mb-4 gap-2">
+                          <div className="flex-1">
+                             <h3 className="text-xl font-serif font-bold text-slate-900 leading-tight mb-1">{pkg.title}</h3>
+                             <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
+                               <MapPin className="w-3.5 h-3.5 text-blue-500" /> <span>{pkg.location}</span>
+                               <span className="text-gray-300">|</span> <span>{pkg.duration}</span>
+                             </div>
+                          </div>
+                          <div className="text-right flex-shrink-0">
+                             <p className="text-[10px] uppercase tracking-wider font-serif text-gray-400 font-bold mb-0.5">Per Person</p>
+                             <p className="text-xl md:text-2xl font-extrabold text-blue-600 leading-none">{pkg.price}</p>
                           </div>
                       </div>
+
                       <div className="mt-auto">
-                        <div className="text-right mb-3">
-                          <p className="text-[10px] uppercase tracking-wider font-serif text-gray-400 font-bold mb-0.5">Per Person</p>
-                          <p className="text-2xl font-extrabold text-blue-600">{pkg.price}</p>
-                        </div>
                         <div className="grid grid-cols-3 gap-2">
                            <Link to={pkg.path} className="w-full">
-                              <button className="w-full h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-[11px] md:text-xs shadow-md transition-all active:scale-95 flex items-center justify-center">
-                              Book Online
-                              </button>
+                             <button className="w-full h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-[11px] md:text-xs shadow-md transition-all active:scale-95 flex items-center justify-center">
+                             Book Online
+                             </button>
                            </Link>
                            <button className="w-full h-10 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-lg font-bold text-[11px] md:text-xs transition-all active:scale-95 flex items-center justify-center">
-                              Enquiry
+                             Enquiry
                            </button>
                            <Link to={pkg.path} className="w-full">
-                              <button className="w-full h-10 bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-700 rounded-lg font-bold text-[11px] md:text-xs transition-all active:scale-95 flex items-center justify-center">
-                              Details
-                              </button>
+                             <button className="w-full h-10 bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-700 rounded-lg font-bold text-[11px] md:text-xs transition-all active:scale-95 flex items-center justify-center">
+                             Details
+                             </button>
                            </Link>
                         </div>
                       </div>
@@ -352,13 +308,13 @@ export default function Index() {
         </div>
       </section>
 
-      {/* TOP DESTINATIONS */}
+      {/* ================= TOP DESTINATIONS ================= */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
             <div className="text-center mb-12">
                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-slate-900">Explore Destination</h2>
-               <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-4">Top rated destinations loved by our travelers.</p>
+               <p className="text-lg text-gray-600 font-lobster max-w-2xl mx-auto mt-4">Top rated destinations loved by our travelers.</p>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
@@ -409,14 +365,14 @@ export default function Index() {
         </div>
       </section>
 
-      {/* LAST MINUTE DEALS */}
-      <section className="py-16 md:py-14 relative overflow-hidden bg-[#F0F9FF]">
+      {/* ================= LAST MINUTE DEALS (UPDATED) ================= */}
+      <section className="py-16 md:py-14 relative overflow-hidden bg-[#d1dcec]">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
               <Badge className="bg-blue-500 text-white px-4 py-1 mb-4 uppercase tracking-wider">Limited Time Only</Badge>
               <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-slate-900">Last Minute Deals</h2>
-              <p className="text-lg text-gray-600 font-serif max-w-2xl mx-auto">Unbeatable prices for spontaneous travelers. Grab them before they are gone!</p>
+              <p className="text-lg text-gray-600 font-lobster max-w-2xl mx-auto">Unbeatable prices for spontaneous travelers. Grab them before they are gone!</p>
             </div>
           </ScrollReveal>
           <Swiper
@@ -437,38 +393,44 @@ export default function Index() {
               <SwiperSlide key={index}>
                 <ScrollReveal direction="up" delay={index * 0.1}>
                   <div className="bg-white rounded-[20px] p-3 shadow-lg border border-red-100 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group">
+                    {/* Image Section */}
                     <div className="relative h-56 w-full rounded-[15px] overflow-hidden">
                       <img src={deal.image} alt={deal.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                       <div className="absolute top-4 right-4 bg-red-600 text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-md uppercase tracking-wider animate-pulse">
                         50% OFF
                       </div>
                     </div>
-                    <div className="pt-4 px-1 pb-2 flex-1 flex flex-col">
-                      <div className="mb-4">
-                          <h3 className="text-xl font-serif font-bold text-slate-900 leading-tight mb-2">{deal.title}</h3>
-                          <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
-                            <MapPin className="w-3.5 h-3.5 text-red-500" /> <span>{deal.location}</span>
-                            <span className="text-gray-300">|</span> <span>{deal.duration}</span>
+
+                    {/* Content Section */}
+                    <div className="pt-4 px-2 pb-2 flex-1 flex flex-col">
+                      <div className="flex justify-between items-start mb-4 gap-2">
+                          <div className="flex-1">
+                             <h3 className="text-xl font-serif font-bold text-slate-900 leading-tight mb-1">{deal.title}</h3>
+                             <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
+                               <MapPin className="w-3.5 h-3.5 text-red-500" /> <span>{deal.location}</span>
+                               <span className="text-gray-300">|</span> <span>{deal.duration}</span>
+                             </div>
+                          </div>
+                          <div className="text-right flex-shrink-0">
+                             <p className="text-[10px] uppercase tracking-wider font-serif text-gray-400 font-bold mb-0.5 line-through">Was ₹50,000</p>
+                             <p className="text-xl md:text-2xl font-extrabold text-blue-600 leading-none">{deal.price}</p>
                           </div>
                       </div>
+
                       <div className="mt-auto">
-                        <div className="text-right mb-3">
-                          <p className="text-[10px] uppercase tracking-wider font-serif text-gray-400 font-bold mb-0.5">Was ₹50,000</p>
-                          <p className="text-2xl font-extrabold text-blue-600">{deal.price}</p>
-                        </div>
                         <div className="grid grid-cols-3 gap-2">
                            <Link to={deal.path} className="w-full">
-                              <button className="w-full h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-[11px] md:text-xs shadow-md transition-all active:scale-95 flex items-center justify-center">
-                              Book Online
-                              </button>
+                             <button className="w-full h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-[11px] md:text-xs shadow-md transition-all active:scale-95 flex items-center justify-center">
+                             Book Online
+                             </button>
                            </Link>
                            <button className="w-full h-10 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-lg font-bold text-[11px] md:text-xs transition-all active:scale-95 flex items-center justify-center">
-                              Enquiry
+                             Enquiry
                            </button>
                            <Link to={deal.path} className="w-full">
-                              <button className="w-full h-10 bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-700 rounded-lg font-bold text-[11px] md:text-xs transition-all active:scale-95 flex items-center justify-center">
-                              Details
-                              </button>
+                             <button className="w-full h-10 bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-700 rounded-lg font-bold text-[11px] md:text-xs transition-all active:scale-95 flex items-center justify-center">
+                             Details
+                             </button>
                            </Link>
                         </div>
                       </div>
@@ -481,12 +443,12 @@ export default function Index() {
         </div>
       </section>
 
-      {/* WHY CHOOSE US */}
+      {/* ================= WHY CHOOSE US ================= */}
       <section className="py-20 bg-white relative overflow-hidden">
          <div className="container mx-auto px-4 relative z-10">
             <ScrollReveal direction="up">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900">Why to Choose Himachal Holiday Packages</h2>
+                <h2 className="text-3xl md:text-5xl font-bold font-lobster mb-6 text-slate-900">Why to Choose Himachal Holiday Packages</h2>
                 <div className="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
               </div>
             </ScrollReveal>
@@ -497,64 +459,19 @@ export default function Index() {
                       <ThumbsUp className="w-12 h-12 md:w-14 md:h-14 animate-[bounce_2s_infinite]" />
                    </div>
                    <h3 className="text-xl font-extrabold text-slate-900 mb-1">500+</h3>
-                   <p className="text-slate-500 text-xs md:text-sm font-medium">Excellent reviews on TripAdvisor</p>
+                   <p className="text-slate-500 text-xs md:text-sm font-medium">Excellent reviews</p>
                 </div>
               </ScrollReveal>
-              <ScrollReveal direction="up" delay={0.2}>
-                <div className="flex flex-col items-center text-center group">
-                   <div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
-                      <Award className="w-12 h-12 md:w-14 md:h-14 animate-[pulse_3s_infinite]" />
-                   </div>
-                   <h3 className="text-xl font-extrabold text-slate-900 mb-1">15+</h3>
-                   <p className="text-slate-500 text-xs md:text-sm font-medium">Years of Excellence</p>
-                </div>
-              </ScrollReveal>
-              <ScrollReveal direction="up" delay={0.3}>
-                <div className="flex flex-col items-center text-center group">
-                   <div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
-                      <Globe className="w-12 h-12 md:w-14 md:h-14 animate-[spin_8s_linear_infinite]" />
-                   </div>
-                   <h3 className="text-xl font-extrabold text-slate-900 mb-1">50+</h3>
-                   <p className="text-slate-500 text-xs md:text-sm font-medium">Destinations</p>
-                </div>
-              </ScrollReveal>
-              <ScrollReveal direction="up" delay={0.4}>
-                <div className="flex flex-col items-center text-center group">
-                   <div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
-                      <Headset className="w-12 h-12 md:w-14 md:h-14 animate-[bounce_3s_infinite]" />
-                   </div>
-                   <h3 className="text-xl font-extrabold text-slate-900 mb-1">24x7</h3>
-                   <p className="text-slate-500 text-xs md:text-sm font-medium">Customer Support</p>
-                </div>
-              </ScrollReveal>
-              <ScrollReveal direction="up" delay={0.5}>
-                <div className="flex flex-col items-center text-center group">
-                   <div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
-                      <Users className="w-12 h-12 md:w-14 md:h-14 animate-[pulse_2s_infinite]" />
-                   </div>
-                   <h3 className="text-xl font-extrabold text-slate-900 mb-1">51000+</h3>
-                   <p className="text-slate-500 text-xs md:text-sm font-medium">Happy Customers</p>
-                </div>
-              </ScrollReveal>
-              <ScrollReveal direction="up" delay={0.6}>
-                <div className="flex flex-col items-center text-center group">
-                   <div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
-                      <ShieldCheck className="w-12 h-12 md:w-14 md:h-14 animate-[bounce_4s_infinite]" />
-                   </div>
-                   <h3 className="text-xl font-extrabold text-slate-900 mb-1">100%</h3>
-                   <p className="text-slate-500 text-xs md:text-sm font-medium">Money Safe</p>
-                </div>
-              </ScrollReveal>
-            </div>
-            <div className="text-center mt-16">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-sm font-bold text-sm uppercase tracking-wider shadow-lg transition-all transform hover:-translate-y-1">
-                    Get Free Quote
-                </button>
+              <ScrollReveal direction="up" delay={0.2}><div className="flex flex-col items-center text-center group"><div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300"><Award className="w-12 h-12 md:w-14 md:h-14 animate-[pulse_3s_infinite]" /></div><h3 className="text-xl font-extrabold text-slate-900 mb-1">15+</h3><p className="text-slate-500 text-xs md:text-sm font-medium">Years Experience</p></div></ScrollReveal>
+              <ScrollReveal direction="up" delay={0.3}><div className="flex flex-col items-center text-center group"><div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300"><Globe className="w-12 h-12 md:w-14 md:h-14 animate-[spin_8s_linear_infinite]" /></div><h3 className="text-xl font-extrabold text-slate-900 mb-1">50+</h3><p className="text-slate-500 text-xs md:text-sm font-medium">Destinations</p></div></ScrollReveal>
+              <ScrollReveal direction="up" delay={0.4}><div className="flex flex-col items-center text-center group"><div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300"><Headset className="w-12 h-12 md:w-14 md:h-14 animate-[bounce_3s_infinite]" /></div><h3 className="text-xl font-extrabold text-slate-900 mb-1">24x7</h3><p className="text-slate-500 text-xs md:text-sm font-medium">Support</p></div></ScrollReveal>
+              <ScrollReveal direction="up" delay={0.5}><div className="flex flex-col items-center text-center group"><div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300"><Users className="w-12 h-12 md:w-14 md:h-14 animate-[pulse_2s_infinite]" /></div><h3 className="text-xl font-extrabold text-slate-900 mb-1">51k+</h3><p className="text-slate-500 text-xs md:text-sm font-medium">Happy Clients</p></div></ScrollReveal>
+              <ScrollReveal direction="up" delay={0.6}><div className="flex flex-col items-center text-center group"><div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300"><ShieldCheck className="w-12 h-12 md:w-14 md:h-14 animate-[bounce_4s_infinite]" /></div><h3 className="text-xl font-extrabold text-slate-900 mb-1">100%</h3><p className="text-slate-500 text-xs md:text-sm font-medium">Secure</p></div></ScrollReveal>
             </div>
          </div>
       </section>
 
-      {/* TESTIMONIALS */}
+      {/* ================= TESTIMONIALS ================= */}
       <section className="py-24 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -598,14 +515,14 @@ export default function Index() {
         </div>
       </section>
 
-      {/* BLOG PREVIEW */}
+      {/* ================= BLOG PREVIEW ================= */}
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
             <div className="text-center mb-16">
               <Badge className="bg-purple-50 text-purple-700 border-0 mb-4 px-4 py-2">Travel Stories & Tips</Badge>
               <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900">From the Himachal Destination Travel Blog</h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">Get inspiration, tips, and insider secrets to plan your next journey.</p>
+              <p className="text-xl text-gray-600 font-lobster max-w-2xl mx-auto">Get inspiration, tips, and insider secrets to plan your next journey.</p>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -631,7 +548,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
+      {/* ================= FINAL CTA ================= */}
       <section className="py-24 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop" alt="Background" className="w-full h-full object-cover" />
