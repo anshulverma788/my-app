@@ -30,8 +30,9 @@ export default function Package() {
       name: 'Shimla',
       region: 'Himachal',
       image: 'https://i.pinimg.com/1200x/0c/8b/a7/0c8ba7a386f38b9d32d29e74ecb0ee13.jpg',
-      description: 'A peaceful hill station with colonial charm, scenic views, and relaxing mountain vibes',
+      description: 'Shimla Package',
       price: '₹8,999',
+      duration: '4 Days',
       rating: 4.8,
       reviews: 524,
       highlights: [
@@ -47,7 +48,7 @@ export default function Package() {
       name: 'Dharamshala - McLeodganj',
       region: 'Himachal',
       image: 'https://i.pinimg.com/1200x/1a/3b/e3/1a3be39688edd39ad5471716399a213f.jpg',
-      description: 'Calm monasteries, mountain cafés, Tibetan culture & spiritual vibes',
+      description: 'Dharamshala - McLeodganj Package',
       price: '₹19,499',
       duration: '5 Days',
       rating: 4.8,
@@ -61,63 +62,63 @@ export default function Package() {
       path: '/Package/dharamshala',
     },
     {
-     name: 'Kasol - Manikaran',
-    region: 'Himachal',
-    image: 'https://i.pinimg.com/1200x/14/d6/23/14d623be7936330b260da9f593b472fb.jpg',
-    description: 'Mini Israel of India with riverfront cafés, treks, and hot springs',
-    price: '₹14,999',
-    duration: '4 Days',
-    rating: 4.7,
-    reviews: 431,
-    highlights: [
-      'Parvati River',
-      'Manikaran Gurudwara',
-      'Kheerganga Trek',
-      'Chalal Trek'
-    ],
-    path: '/Package/KasolManikaran',
+      name: 'Kasol - Manikaran',
+      region: 'Himachal',
+      image: 'https://i.pinimg.com/1200x/14/d6/23/14d623be7936330b260da9f593b472fb.jpg',
+      description: 'Kasol - Manikaran Package',
+      price: '₹14,999',
+      duration: '4 Days',
+      rating: 4.7,
+      reviews: 431,
+      highlights: [
+        'Parvati River',
+        'Manikaran Gurudwara',
+        'Kheerganga Trek',
+        'Chalal Trek'
+      ],
+      path: '/Package/KasolManikaran',
       // path: '/Package/switzerland',
     },
     {
-     name: 'Spiti Valley',
-    region: 'Himachal',
-    image: 'https://i.pinimg.com/736x/b4/ce/9f/b4ce9fda9dbd95305fc6d11e90fa1810.jpg',
-    description: 'High-altitude desert, monasteries, rivers, and cinematic landscapes',
-    price: '₹38,999',
-    duration: '8 Days',
-    rating: 4.9,
-    reviews: 312,
-    highlights: [
-      'Kaza',
-      'Komic Village',
-      'Chandratal Lake',
-      'Key Monastery'
-    ],
-    path: '/Package/Spiti8day',
-    // path: '/destinations/Dubai',
+      name: 'Spiti Valley',
+      region: 'Himachal',
+      image: 'https://i.pinimg.com/736x/b4/ce/9f/b4ce9fda9dbd95305fc6d11e90fa1810.jpg',
+      description: 'Spiti Valley Package',
+      price: '₹38,999',
+      duration: '8 Days',
+      rating: 4.9,
+      reviews: 312,
+      highlights: [
+        'Kaza',
+        'Komic Village',
+        'Chandratal Lake',
+        'Key Monastery'
+      ],
+      path: '/Package/Spiti8day',
+      // path: '/destinations/Dubai',
     },
     {
       name: 'Nainital',
-    region: 'Uttarakhand',
-    image: '/assets/destination-nainital.jpg',
-    description: 'Beautiful lakes, panoramic viewpoints, and peaceful hill ambiance',
-    price: '₹12,999',
-    duration: '4 Days',
-    rating: 4.8,
-    reviews: 712,
-    highlights: [
-      'Naini Lake',
-      'Snow View Point',
-      'Mall Road',
-      'Naina Devi Temple'
-    ],
-    path: '/Package/Nainital4Days',
+      region: 'Uttarakhand',
+      image: '/assets/destination-nainital.jpg',
+      description: 'Nainital Package',
+      price: '₹12,999',
+      duration: '4 Days',
+      rating: 4.8,
+      reviews: 712,
+      highlights: [
+        'Naini Lake',
+        'Snow View Point',
+        'Mall Road',
+        'Naina Devi Temple'
+      ],
+      path: '/Package/Nainital4Days',
     },
     {
       name: 'Mussoorie',
       region: 'Uttarakhand',
       image: '/assets/destination-bali-terraces.jpg',
-      description: 'Tropical paradise with ancient temples and lush rice terraces',
+      description: 'Mussoorie Package',
       price: '$1,999',
       duration: '7 Days',
       rating: 4.8,
@@ -129,7 +130,7 @@ export default function Package() {
       name: 'Rishikesh - Haridwar',
       region: 'Uttarakhand',
       image: '/assets/destination-paris-eiffel.jpg',
-      description: 'The city of love, art, fashion, and exquisite cuisine',
+      description: 'Rishikesh - Haridwar Package',
       price: '$2,799',
       duration: '6 Days',
       rating: 4.8,
@@ -141,7 +142,7 @@ export default function Package() {
       name: 'Auli Joshimath',
       region: 'Uttarakhand',
       image: '/assets/destination-newyork-manhattan.jpg',
-      description: 'The city that never sleeps, iconic landmarks and vibrant culture',
+      description: 'Auli Joshimath Package',
       price: '$2,599',
       duration: '5 Days',
       rating: 4.7,
@@ -154,7 +155,7 @@ export default function Package() {
       name: 'Kedarnath - Badrinath',
       region: 'Uttarakhand',
       image: '/assets/destination-thailand-beach.jpg',
-      description: 'Exotic beaches, ancient temples, and vibrant street life',
+      description: 'Kedarnath - Badrinath Package',
       price: '$2,199',
       duration: '8 Days',
       rating: 4.8,
@@ -219,8 +220,8 @@ export default function Package() {
                   onClick={() => setSelectedRegion(region)}
                   variant={selectedRegion === region ? 'default' : 'outline'}
                   className={`rounded-full whitespace-nowrap ${selectedRegion === region
-                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-                      : ''
+                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                    : ''
                     }`}
                 >
                   {region === 'all' ? 'All Regions' : region}
@@ -271,7 +272,7 @@ export default function Package() {
                     </div>
 
                     <div className="p-6 bg-gradient-to-br from-white to-blue-50">
-                      <p className="text-gray-700 mb-4 line-clamp-2">{dest.description}</p>
+                      <p className="text-gray-800 font-bold mb-4 line-clamp-2">{dest.description}</p>
 
                       <div className="flex flex-wrap gap-2 mb-4">
                         {dest.highlights.slice(0, 3).map((highlight, i) => (

@@ -26,7 +26,7 @@
   }
 }
 *{
-  font-family: font-serif;
+  font-family: "Roboto Flex", sans-serif;
 }
 
 @layer utilities {
