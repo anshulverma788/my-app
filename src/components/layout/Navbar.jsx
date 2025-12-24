@@ -8,10 +8,28 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const location = useLocation();
-
-  // Scroll effect ki ab zaroorat nahi kyunki background hamesha white rahega
   
+  // 1. Scroll State add kiya
+  const [isScrolled, setIsScrolled] = useState(false);
+  
+  const location = useLocation();
+  const isHome = location.pathname === "/"; // Sirf Home page check karne ke liye
+
+  // 2. Scroll Event Listener
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Prevent scrolling when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -34,10 +52,26 @@ export default function Navbar() {
     setIsModalOpen(true);
   };
 
+  // 3. Conditional Styles Logic
+  // Agar Home page hai aur scroll nahi kiya => Transparent styles
+  // Warna => Solid White styles
+  const isTransparent = isHome && !isScrolled;
+
+  const navbarClasses = isTransparent
+    ? "bg-transparent border-transparent py-4"
+    : "bg-white border-gray-100 shadow-sm py-3";
+
+  const textColorClass = isTransparent 
+    ? "text-white hover:text-blue-300" 
+    : "text-gray-600 hover:text-blue-600";
+    
+  const logoTextClass = isTransparent ? "text-white" : "text-slate-900";
+  const mobileMenuIconClass = isTransparent ? "text-white hover:bg-white/10" : "text-slate-900 hover:bg-gray-100";
+
   return (
     <>
-      {/* NAVBAR: Always Fixed & White Background */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 shadow-sm py-3 transition-all duration-300">
+      {/* NAVBAR */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navbarClasses}`}>
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex justify-between items-center">
             
@@ -47,10 +81,10 @@ export default function Navbar() {
                 <MapPin className="w-6 h-6" />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="text-2xl font-bold tracking-tight text-slate-900">
+                <span className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${logoTextClass}`}>
                   Himachal<span className="text-blue-600">Destination</span>
                 </span>
-                <span className="text-[10px] uppercase tracking-widest font-bold text-gray-500">
+                <span className={`text-[10px] uppercase tracking-widest font-bold transition-colors duration-300 ${isTransparent ? 'text-blue-200' : 'text-gray-500'}`}>
                   Explore the Unseen
                 </span>
               </div>
@@ -70,7 +104,7 @@ export default function Navbar() {
                     className={`flex items-center gap-1 text-sm font-bold transition-colors duration-300 ${
                       location.pathname === link.path
                         ? "text-blue-600"
-                        : "text-gray-600 hover:text-blue-600"
+                        : textColorClass
                     }`}
                   >
                     {link.name}
@@ -86,9 +120,10 @@ export default function Navbar() {
                     }`}
                   />
 
-                  {/* MEGA MENU */}
+                  {/* MEGA MENU (Hamesha White Background Rahega for readability) */}
                   {link.hasMegaMenu && activeDropdown === link.name && (
-                    <div className="absolute top-full -left-20 mt-4 w-[600px] p-6 bg-white rounded-2xl shadow-2xl border border-gray-100 animate-in fade-in slide-in-from-top-4 duration-200 z-50">
+                    <div className="absolute top-full -left-20 mt-4 w-[600px] p-6 bg-white rounded-2xl shadow-2xl border border-gray-100 animate-in fade-in slide-in-from-top-4 duration-200 z-50 text-slate-900">
+                      {/* Triangle Pointer */}
                       <div className="absolute -top-2 left-24 w-4 h-4 bg-white rotate-45 border-l border-t border-gray-100"></div>
                       
                       <div className="grid grid-cols-3 gap-6">
@@ -132,16 +167,16 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-4">
               <a
                 href="tel:+919876543210"
-                className="flex items-center gap-2 font-semibold transition-colors text-slate-800 hover:text-blue-600"
+                className={`flex items-center gap-2 font-semibold transition-colors ${isTransparent ? 'text-white hover:text-blue-200' : 'text-slate-800 hover:text-blue-600'}`}
               >
-                <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center border border-blue-100 text-blue-600">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center border transition-colors ${isTransparent ? 'bg-white/10 border-white/20 text-white' : 'bg-blue-50 border-blue-100 text-blue-600'}`}>
                     <Phone className="w-4 h-4" />
                 </div>
                 <span className="text-sm">+91 98765-43210</span>
               </a>
               <Button 
                 onClick={handleOpenBooking}
-                className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 shadow-lg transition-all hover:scale-105"
+                className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-6 shadow-lg transition-all hover:scale-105"
               >
                 Book Now
               </Button>
@@ -150,7 +185,7 @@ export default function Navbar() {
             {/* MOBILE TOGGLE */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden p-2 rounded-full text-slate-900 hover:bg-gray-100 transition-colors"
+              className={`lg:hidden p-2 rounded-full transition-colors ${mobileMenuIconClass}`}
             >
               <Menu className="w-7 h-7" />
             </button>

@@ -1,28 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 
+// CSS Imports
 import 'swiper/css';
-import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 import {
-  ArrowRight,
-  MapPin,
-  Star,
-  Calendar,
-  Plane,
-  Phone,
-  ShieldCheck,
-  Clock,
-  Headset,
-  ThumbsUp,
-  Globe,
-  Users,
-  Award
+  ArrowRight, MapPin, Star, Calendar, Phone, ShieldCheck,
+  Clock, Headset, ThumbsUp, Globe, Users, Award, Play, Facebook, Instagram, Twitter
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -32,63 +21,77 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Index() {
-  const heroRef = useRef(null);
-  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+  
+  // ================= HERO SECTION STATE =================
+  const [activeIndex, setActiveIndex] = useState(0);
+  const swiperInstanceRef = useRef(null); // Ref to store Swiper instance
 
-  // --- HERO DATA ---
   const heroSlides = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1692719058797-2954b100c8fe?q=80&w=1074&auto=format&fit=crop",
-      title: "Your Gateway To The World.",
-      subtitle: "Ideal for explorers seeking seamless booking and expert travel support every step of the way."
+      place: "Himachal",
+      title: "The Land of Gods",
+      desc: "Experience the mystical mountains, lush valleys, and spiritual serenity of Himachal Pradesh.",
+      image: "https://plus.unsplash.com/premium_photo-1661952578770-79010299a9f9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      price: "From ₹5,999",
     },
     {
       id: 2,
-      image: "https://images.unsplash.com/photo-1628699543232-dc241b48a4b3?q=80&w=1170&auto=format&fit=crop",
-      title: "Into The Wild",
-      subtitle: "Experience nature like never before with our premium safari and wildlife packages."
+      place: "Kashmir",
+      title: "Paradise on Earth",
+      desc: "Discover the breathtaking beauty of snow-capped peaks and the famous Dal Lake.",
+      image: "https://cdn.pixabay.com/photo/2022/07/30/07/02/river-7353171_1280.jpg",
+      price: "From ₹8,999",
     },
     {
       id: 3,
-      image: "https://plus.unsplash.com/premium_photo-1697729690458-2d64ca777c04?q=80&w=1170&auto=format&fit=crop",
-      title: "Discover Hidden Gems",
-      subtitle: "From the peaks of Himachal to the valleys of Kashmir, we craft journeys that tell your story."
+      place: "Kerala",
+      title: "God's Own Country",
+      desc: "Sail through the backwaters and relax in the lush greenery of southern India.",
+      image: "https://cdn.pixabay.com/photo/2017/02/17/21/18/south-india-2075399_1280.jpg",
+      price: "From ₹12,499",
     },
     {
       id: 4,
-      image: "https://images.unsplash.com/photo-1581747365444-7d31a94c0237?q=80&w=1332&auto=format&fit=crop",
-      title: "Serenity & Peace",
-      subtitle: "Relax and rejuvenate in the most beautiful and calm destinations across the globe."
-    }
+      place: "Ladakh",
+      title: "Land of High Passes",
+      desc: "An adventure of a lifetime amidst the rugged terrains and monasteries.",
+      image: "https://cdn.pixabay.com/photo/2019/05/18/15/58/road-4212028_1280.jpg",
+      price: "From ₹15,999",
+    },
+    {
+      id: 5,
+      place: "Chardham",
+      title: "Mahadev Ki Nagri",
+      desc: "Experience luxury shopping, ultramodern architecture and lively nightlife.",
+      image: "https://i.pinimg.com/736x/8c/6e/86/8c6e86f414db2e702b5ae2a48dc9ad11.jpg",
+      price: "From ₹25,999",
+    },
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentHeroIndex((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [heroSlides.length]);
+  // Function to change slide when clicking sidebar thumbnail
+  const handleThumbnailClick = (index) => {
+    if (swiperInstanceRef.current) {
+      // slideToLoop is used because we have loop={true}
+      swiperInstanceRef.current.slideToLoop(index);
+    }
+  };
 
-  useEffect(() => {
-    if (heroRef.current) {
-      gsap.to(heroRef.current, {
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
-        },
-        y: 50,
-        opacity: 0.9,
+  // Get Next 3 Thumbnails relative to active index for the Sidebar
+  const getHeroThumbnails = () => {
+    let thumbs = [];
+    for (let i = 1; i <= 3; i++) {
+      const targetIndex = (activeIndex + i) % heroSlides.length;
+      thumbs.push({
+        ...heroSlides[targetIndex],
+        realIndex: targetIndex
       });
     }
-  }, []);
+    return thumbs;
+  };
 
-  // --- DATA ---
+  // ================= PAGE DATA (Packages, Destinations, etc.) =================
   const packages = [
     { name: 'Shimla', image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg', path: '/package/shimla', title: 'Shimla Getaway', location: 'Himachal', duration: '3 Days', price: '₹5,999' },
     { name: 'Manali', image: 'https://i.pinimg.com/736x/49/7e/49/497e495ee05c0ea5d5de82e7c4e3f653.jpg', path: '/package/shimla-manali', title: 'Magical Manali', location: 'Himachal', duration: '4 Days', price: '₹7,999' },
@@ -125,59 +128,150 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      
+      {/* CSS Animations for Text Entrances */}
+      <style>{`
+        @keyframes slideUpFade {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .anim-text { animation: slideUpFade 0.8s ease-out forwards; opacity: 0; }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.3s; }
+        .delay-300 { animation-delay: 0.5s; }
+        .delay-400 { animation-delay: 0.7s; }
+      `}</style>
+
       <Navbar />
 
-      {/* --- HERO SECTION --- */}
-      <section className="relative w-full h-[50vh] md:h-screen min-h-[400px] flex flex-col bg-slate-900 overflow-hidden">
-        <div ref={heroRef} className="absolute inset-0 z-0">
-          {heroSlides.map((slide, index) => (
-            <div
-              key={slide.id}
-              className={`absolute inset-0 transition-all duration-1000 ease-in-out
-                ${index === currentHeroIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}
-            >
-              <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-black/40"></div>
-            </div>
+      {/* ================= FIXED MODERN HERO (SWIPER JS ENGINE) ================= */}
+      <section className="relative w-full h-screen min-h-[600px] bg-slate-900 text-white overflow-hidden">
+        
+        {/* 1. BACKGROUND SWIPER (The Engine) */}
+        <Swiper
+          modules={[Autoplay, EffectFade, Navigation, Pagination]}
+          effect={'fade'}
+          speed={1500}
+          loop={true}
+          autoplay={{ delay: 6000, disableOnInteraction: false }}
+          // IMPORTANT: Capture the Swiper instance here
+          onSwiper={(swiper) => (swiperInstanceRef.current = swiper)}
+          // IMPORTANT: Sync React state with Swiper's real index
+          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          className="absolute inset-0 w-full h-full z-0"
+        >
+          {heroSlides.map((slide) => (
+            <SwiperSlide key={slide.id}>
+              <div className="relative w-full h-full">
+                <img 
+                  src={slide.image} 
+                  alt={slide.place} 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+              </div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
 
-        <div className="relative z-30 h-full flex flex-col justify-center items-center text-center px-4 md:px-0">
-          <div key={currentHeroIndex} className="max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both">
-            <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-white drop-shadow-2xl mb-3 md:mb-6 leading-tight">
-              {heroSlides[currentHeroIndex].title}
-            </h1>
-            <p className="text-sm md:text-2xl text-white/90 font-medium max-w-xl mx-auto mb-6 md:mb-10 drop-shadow-md leading-relaxed px-2">
-              {heroSlides[currentHeroIndex].subtitle}
-            </p>
-            <div className="flex flex-row gap-3 md:gap-4 justify-center items-center">
-              <Link to="/destinations">
-                <button className="px-5 py-2.5 md:px-8 md:py-4 rounded-full text-sm md:text-lg font-bold bg-blue-600 text-white hover:bg-blue-700 shadow-xl transition-all flex items-center gap-2 transform hover:-translate-y-1">
-                  <Plane className="w-4 h-4 md:w-5 md:h-5" /> Explore
-                </button>
-              </Link>
-              <Link to="/booking/customize">
-                <button className="px-5 py-2.5 md:px-8 md:py-4 rounded-full text-sm md:text-lg font-bold bg-white text-slate-900 hover:bg-gray-100 shadow-xl transition-all flex items-center gap-2 transform hover:-translate-y-1">
-                  <Calendar className="w-4 h-4 md:w-5 md:h-5" /> Plan Trip
-                </button>
-              </Link>
+        {/* 2. TEXT CONTENT (Synced with State) */}
+        <div className="absolute inset-0 z-10 container mx-auto px-6 md:px-12 flex items-center pointer-events-none">
+          <div className="max-w-2xl pt-20 pointer-events-auto">
+            
+            {/* Using key={activeIndex} forces React to re-mount div, triggering CSS Animation again */}
+            <div key={activeIndex}>
+              <div className="overflow-hidden mb-2">
+                <p className="text-blue-400 font-bold tracking-[0.3em] uppercase anim-text delay-100">
+                  — Explore The World
+                </p>
+              </div>
+
+              <div className="overflow-hidden mb-4">
+                 <h1 className="text-6xl md:text-8xl font-serif font-bold leading-tight anim-text delay-200">
+                   {heroSlides[activeIndex].place}
+                 </h1>
+              </div>
+
+              <div className="overflow-hidden mb-8">
+                <p className="text-lg md:text-xl text-gray-200 max-w-lg leading-relaxed anim-text delay-300">
+                  {heroSlides[activeIndex].desc}
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-4 anim-text delay-400">
+                 <Button className="h-14 px-8 rounded-none bg-white text-slate-900 hover:bg-blue-600 hover:text-white transition-all text-lg font-bold tracking-wide">
+                   View Details
+                 </Button>
+                 <button className="h-14 w-14 flex items-center justify-center border border-white/30 hover:bg-white/10 transition-colors backdrop-blur-sm">
+                    <Play className="w-5 h-5 fill-white" />
+                 </button>
+              </div>
             </div>
+
           </div>
         </div>
 
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 flex gap-1.5 md:gap-2">
-          {heroSlides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentHeroIndex(index)}
-              className={`h-1.5 md:h-2 rounded-full transition-all duration-300 
-                ${index === currentHeroIndex ? 'bg-white w-6 md:w-8' : 'bg-white/40 w-1.5 md:w-2 hover:bg-white/60'}`}
-            />
-          ))}
+        {/* 3. SIDEBAR THUMBNAILS (Controls Swiper) */}
+        <div className="absolute bottom-8 right-4 md:right-12 z-20 flex flex-col gap-4 items-end pointer-events-auto">
+          
+          <div className="text-5xl font-bold text-white/10 select-none mb-4 font-mono">
+              0{activeIndex + 1}
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {getHeroThumbnails().map((thumb, idx) => (
+              <div
+                key={idx}
+                onClick={() => handleThumbnailClick(thumb.realIndex)}
+                className="group relative w-64 h-24 md:h-28 rounded-xl overflow-hidden cursor-pointer border border-white/20 hover:border-blue-500 transition-all duration-300 bg-black/40 backdrop-blur-md shadow-2xl flex items-center"
+              >
+                <div className="w-24 h-full relative overflow-hidden">
+                  <img 
+                    src={thumb.image} 
+                    alt={thumb.place} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                  />
+                </div>
+                <div className="flex-1 p-4 flex flex-col justify-center">
+                   <span className="text-xs text-blue-300 font-bold uppercase tracking-wider mb-1">Next Destination</span>
+                   <h4 className="text-lg font-bold leading-none text-white">{thumb.place}</h4>
+                   <div className="flex justify-between items-center mt-2">
+                      <span className="text-xs text-gray-400">{thumb.price}</span>
+                      <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-blue-600 transition-colors">
+                         <ArrowRight className="w-3 h-3" />
+                      </div>
+                   </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+
+        {/* 4. SOCIAL & PROGRESS */}
+        <div className="absolute bottom-10 left-6 md:left-12 z-20 flex items-center gap-8 pointer-events-auto">
+           <div className="flex gap-4">
+              <a href="#" className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-colors"><Facebook className="w-4 h-4" /></a>
+              <a href="#" className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-colors"><Instagram className="w-4 h-4" /></a>
+              <a href="#" className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-colors"><Twitter className="w-4 h-4" /></a>
+           </div>
+           
+           <div className="hidden md:flex items-center gap-3">
+               <span className="text-xs font-bold">01</span>
+               <div className="w-32 h-[2px] bg-white/20 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-blue-500 transition-all duration-500"
+                    style={{ width: `${((activeIndex + 1) / heroSlides.length) * 100}%` }}
+                  />
+               </div>
+               <span className="text-xs font-bold">0{heroSlides.length}</span>
+           </div>
+        </div>
+
       </section>
 
-      {/* --- POPULAR PACKAGES (Updated with 3 Blue Buttons) --- */}
+      {/* ================= REST OF THE SECTIONS ================= */}
+      {/* POPULAR PACKAGES */}
       <section className="py-16 md:py-14 relative overflow-hidden bg-[#EEF5FF]">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
@@ -210,19 +304,17 @@ export default function Index() {
                     </div>
                     <div className="pt-4 px-1 pb-2 flex-1 flex flex-col">
                       <div className="mb-4">
-                         <h3 className="text-xl font-serif font-bold text-slate-900 leading-tight mb-2">{pkg.title}</h3>
-                         <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
-                           <MapPin className="w-3.5 h-3.5 text-blue-500" /> <span>{pkg.location}</span>
-                           <span className="text-gray-300">|</span> <span>{pkg.duration}</span>
-                         </div>
+                          <h3 className="text-xl font-serif font-bold text-slate-900 leading-tight mb-2">{pkg.title}</h3>
+                          <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
+                            <MapPin className="w-3.5 h-3.5 text-blue-500" /> <span>{pkg.location}</span>
+                            <span className="text-gray-300">|</span> <span>{pkg.duration}</span>
+                          </div>
                       </div>
-                      
                       <div className="mt-auto">
                         <div className="text-right mb-3">
                           <p className="text-[10px] uppercase tracking-wider font-serif text-gray-400 font-bold mb-0.5">Per Person</p>
                           <p className="text-2xl font-extrabold text-blue-600">{pkg.price}</p>
                         </div>
-                        {/* 3 Buttons Layout - Blue Theme */}
                         <div className="grid grid-cols-3 gap-2">
                            <Link to={pkg.path} className="w-full">
                               <button className="w-full h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-[11px] md:text-xs shadow-md transition-all active:scale-95 flex items-center justify-center">
@@ -248,7 +340,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* --- TOP DESTINATIONS --- */}
+      {/* TOP DESTINATIONS */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
@@ -257,7 +349,6 @@ export default function Index() {
                <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-4">Top rated destinations loved by our travelers.</p>
             </div>
           </ScrollReveal>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
             {destinations.map((dest, index) => (
               <div 
@@ -294,7 +385,6 @@ export default function Index() {
               </div>
             ))}
           </div>
-
           <ScrollReveal direction="up" delay={0.6}>
             <div className="text-center mt-12">
               <Link to="/destination">
@@ -307,7 +397,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* --- LAST MINUTE DEALS (Updated with 3 Blue Buttons) --- */}
+      {/* LAST MINUTE DEALS */}
       <section className="py-16 md:py-14 relative overflow-hidden bg-[#F0F9FF]">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
@@ -317,7 +407,6 @@ export default function Index() {
               <p className="text-lg text-gray-600 font-serif max-w-2xl mx-auto">Unbeatable prices for spontaneous travelers. Grab them before they are gone!</p>
             </div>
           </ScrollReveal>
-
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={30}
@@ -344,18 +433,17 @@ export default function Index() {
                     </div>
                     <div className="pt-4 px-1 pb-2 flex-1 flex flex-col">
                       <div className="mb-4">
-                         <h3 className="text-xl font-serif font-bold text-slate-900 leading-tight mb-2">{deal.title}</h3>
-                         <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
-                           <MapPin className="w-3.5 h-3.5 text-red-500" /> <span>{deal.location}</span>
-                           <span className="text-gray-300">|</span> <span>{deal.duration}</span>
-                         </div>
+                          <h3 className="text-xl font-serif font-bold text-slate-900 leading-tight mb-2">{deal.title}</h3>
+                          <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
+                            <MapPin className="w-3.5 h-3.5 text-red-500" /> <span>{deal.location}</span>
+                            <span className="text-gray-300">|</span> <span>{deal.duration}</span>
+                          </div>
                       </div>
                       <div className="mt-auto">
                         <div className="text-right mb-3">
                           <p className="text-[10px] uppercase tracking-wider font-serif text-gray-400 font-bold mb-0.5">Was ₹50,000</p>
                           <p className="text-2xl font-extrabold text-blue-600">{deal.price}</p>
                         </div>
-                        {/* 3 Buttons Layout - Blue Theme (Keeping Blue as per request even for deals) */}
                         <div className="grid grid-cols-3 gap-2">
                            <Link to={deal.path} className="w-full">
                               <button className="w-full h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-[11px] md:text-xs shadow-md transition-all active:scale-95 flex items-center justify-center">
@@ -381,7 +469,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* --- WHY CHOOSE US (Screenshort Layout & Live Icons) --- */}
+      {/* WHY CHOOSE US */}
       <section className="py-20 bg-white relative overflow-hidden">
          <div className="container mx-auto px-4 relative z-10">
             <ScrollReveal direction="up">
@@ -390,11 +478,7 @@ export default function Index() {
                 <div className="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
               </div>
             </ScrollReveal>
-
-            {/* Icons Grid - Matches Screenshot (6 items row) */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 justify-items-center">
-              
-              {/* 1. Reviews */}
               <ScrollReveal direction="up" delay={0.1}>
                 <div className="flex flex-col items-center text-center group">
                    <div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
@@ -404,8 +488,6 @@ export default function Index() {
                    <p className="text-slate-500 text-xs md:text-sm font-medium">Excellent reviews on TripAdvisor</p>
                 </div>
               </ScrollReveal>
-
-              {/* 2. Years of Excellence */}
               <ScrollReveal direction="up" delay={0.2}>
                 <div className="flex flex-col items-center text-center group">
                    <div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
@@ -415,8 +497,6 @@ export default function Index() {
                    <p className="text-slate-500 text-xs md:text-sm font-medium">Years of Excellence</p>
                 </div>
               </ScrollReveal>
-
-              {/* 3. Destinations */}
               <ScrollReveal direction="up" delay={0.3}>
                 <div className="flex flex-col items-center text-center group">
                    <div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
@@ -426,8 +506,6 @@ export default function Index() {
                    <p className="text-slate-500 text-xs md:text-sm font-medium">Destinations</p>
                 </div>
               </ScrollReveal>
-
-              {/* 4. Support */}
               <ScrollReveal direction="up" delay={0.4}>
                 <div className="flex flex-col items-center text-center group">
                    <div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
@@ -437,8 +515,6 @@ export default function Index() {
                    <p className="text-slate-500 text-xs md:text-sm font-medium">Customer Support</p>
                 </div>
               </ScrollReveal>
-
-              {/* 5. Happy Customers */}
               <ScrollReveal direction="up" delay={0.5}>
                 <div className="flex flex-col items-center text-center group">
                    <div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
@@ -448,8 +524,6 @@ export default function Index() {
                    <p className="text-slate-500 text-xs md:text-sm font-medium">Happy Customers</p>
                 </div>
               </ScrollReveal>
-
-              {/* 6. Money Safe */}
               <ScrollReveal direction="up" delay={0.6}>
                 <div className="flex flex-col items-center text-center group">
                    <div className="mb-4 text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
@@ -460,7 +534,6 @@ export default function Index() {
                 </div>
               </ScrollReveal>
             </div>
-
             <div className="text-center mt-16">
                 <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-sm font-bold text-sm uppercase tracking-wider shadow-lg transition-all transform hover:-translate-y-1">
                     Get Free Quote
@@ -469,13 +542,12 @@ export default function Index() {
          </div>
       </section>
 
-      {/* --- TESTIMONIALS SECTION --- */}
+      {/* TESTIMONIALS */}
       <section className="py-24 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full shadow-md">Client Testimonials</Badge>
             <h2 className="text-3xl md:text-5xl font-bold mt-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">What Our Travelers Say</h2>
-            <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">Hear from our happy travelers who trusted us with their dream vacations.</p>
           </div>
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
@@ -507,7 +579,6 @@ export default function Index() {
                     ))}
                   </div>
                   <p className="text-gray-700 mb-6 italic leading-relaxed">"{t.text}"</p>
-                  <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full px-4 py-1 shadow">{t.trip}</Badge>
                 </Card>
               </SwiperSlide>
             ))}
@@ -515,7 +586,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* --- BLOG PREVIEW --- */}
+      {/* BLOG PREVIEW */}
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
@@ -548,7 +619,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* --- FINAL CTA --- */}
+      {/* FINAL CTA */}
       <section className="py-24 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop" alt="Background" className="w-full h-full object-cover" />
