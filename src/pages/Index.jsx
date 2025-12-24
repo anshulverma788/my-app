@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 
 import {
   ArrowRight, MapPin, Star, Calendar, Phone, ShieldCheck,
-  Clock, Headset, ThumbsUp, Globe, Users, Award, Play, Facebook, Instagram, Twitter
+  Clock, Headset, ThumbsUp, Globe, Users, Award, Play, Facebook, Instagram, Twitter, ChevronLeft, ChevronRight
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -25,7 +25,7 @@ export default function Index() {
   
   // ================= HERO SECTION STATE =================
   const [activeIndex, setActiveIndex] = useState(0);
-  const swiperInstanceRef = useRef(null); // Ref to store Swiper instance
+  const swiperInstanceRef = useRef(null);
 
   const heroSlides = [
     {
@@ -33,7 +33,7 @@ export default function Index() {
       place: "Himachal",
       title: "The Land of Gods",
       desc: "Experience the mystical mountains, lush valleys, and spiritual serenity of Himachal Pradesh.",
-      image: "https://plus.unsplash.com/premium_photo-1661952578770-79010299a9f9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2070&auto=format&fit=crop",
       price: "From ₹5,999",
     },
     {
@@ -41,7 +41,7 @@ export default function Index() {
       place: "Kashmir",
       title: "Paradise on Earth",
       desc: "Discover the breathtaking beauty of snow-capped peaks and the famous Dal Lake.",
-      image: "https://cdn.pixabay.com/photo/2022/07/30/07/02/river-7353171_1280.jpg",
+      image: "https://images.unsplash.com/photo-1598091383021-15ddea10925d?q=80&w=2070&auto=format&fit=crop",
       price: "From ₹8,999",
     },
     {
@@ -49,7 +49,7 @@ export default function Index() {
       place: "Kerala",
       title: "God's Own Country",
       desc: "Sail through the backwaters and relax in the lush greenery of southern India.",
-      image: "https://cdn.pixabay.com/photo/2017/02/17/21/18/south-india-2075399_1280.jpg",
+      image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=2070&auto=format&fit=crop",
       price: "From ₹12,499",
     },
     {
@@ -57,28 +57,35 @@ export default function Index() {
       place: "Ladakh",
       title: "Land of High Passes",
       desc: "An adventure of a lifetime amidst the rugged terrains and monasteries.",
-      image: "https://cdn.pixabay.com/photo/2019/05/18/15/58/road-4212028_1280.jpg",
+      image: "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?q=80&w=1974&auto=format&fit=crop",
       price: "From ₹15,999",
     },
     {
       id: 5,
-      place: "Chardham",
-      title: "Mahadev Ki Nagri",
+      place: "Dubai",
+      title: "City of Gold",
       desc: "Experience luxury shopping, ultramodern architecture and lively nightlife.",
-      image: "https://i.pinimg.com/736x/8c/6e/86/8c6e86f414db2e702b5ae2a48dc9ad11.jpg",
+      image: "https://images.unsplash.com/photo-1512453979798-5ea904ac6686?q=80&w=2070&auto=format&fit=crop",
       price: "From ₹25,999",
     },
   ];
 
-  // Function to change slide when clicking sidebar thumbnail
+  // Function to change slide
   const handleThumbnailClick = (index) => {
     if (swiperInstanceRef.current) {
-      // slideToLoop is used because we have loop={true}
       swiperInstanceRef.current.slideToLoop(index);
     }
   };
 
-  // Get Next 3 Thumbnails relative to active index for the Sidebar
+  const handlePrev = () => {
+    if (swiperInstanceRef.current) swiperInstanceRef.current.slidePrev();
+  };
+
+  const handleNext = () => {
+    if (swiperInstanceRef.current) swiperInstanceRef.current.slideNext();
+  };
+
+  // Get Next 3 Thumbnails relative to active index
   const getHeroThumbnails = () => {
     let thumbs = [];
     for (let i = 1; i <= 3; i++) {
@@ -91,7 +98,7 @@ export default function Index() {
     return thumbs;
   };
 
-  // ================= PAGE DATA (Packages, Destinations, etc.) =================
+  // ================= PAGE DATA =================
   const packages = [
     { name: 'Shimla', image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg', path: '/package/shimla', title: 'Shimla Getaway', location: 'Himachal', duration: '3 Days', price: '₹5,999' },
     { name: 'Manali', image: 'https://i.pinimg.com/736x/49/7e/49/497e495ee05c0ea5d5de82e7c4e3f653.jpg', path: '/package/shimla-manali', title: 'Magical Manali', location: 'Himachal', duration: '4 Days', price: '₹7,999' },
@@ -144,19 +151,17 @@ export default function Index() {
 
       <Navbar />
 
-      {/* ================= FIXED MODERN HERO (SWIPER JS ENGINE) ================= */}
+      {/* ================= HERO SECTION (MOBILE OPTIMIZED) ================= */}
       <section className="relative w-full h-screen min-h-[600px] bg-slate-900 text-white overflow-hidden">
         
-        {/* 1. BACKGROUND SWIPER (The Engine) */}
+        {/* 1. BACKGROUND SWIPER */}
         <Swiper
           modules={[Autoplay, EffectFade, Navigation, Pagination]}
           effect={'fade'}
           speed={1500}
           loop={true}
           autoplay={{ delay: 6000, disableOnInteraction: false }}
-          // IMPORTANT: Capture the Swiper instance here
           onSwiper={(swiper) => (swiperInstanceRef.current = swiper)}
-          // IMPORTANT: Sync React state with Swiper's real index
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
           className="absolute inset-0 w-full h-full z-0"
         >
@@ -174,36 +179,35 @@ export default function Index() {
           ))}
         </Swiper>
 
-        {/* 2. TEXT CONTENT (Synced with State) */}
+        {/* 2. TEXT CONTENT */}
         <div className="absolute inset-0 z-10 container mx-auto px-6 md:px-12 flex items-center pointer-events-none">
           <div className="max-w-2xl pt-20 pointer-events-auto">
             
-            {/* Using key={activeIndex} forces React to re-mount div, triggering CSS Animation again */}
             <div key={activeIndex}>
               <div className="overflow-hidden mb-2">
-                <p className="text-blue-400 font-bold tracking-[0.3em] uppercase anim-text delay-100">
+                <p className="text-blue-400 font-bold tracking-[0.3em] uppercase anim-text delay-100 text-sm md:text-base">
                   — Explore The World
                 </p>
               </div>
 
               <div className="overflow-hidden mb-4">
-                 <h1 className="text-6xl md:text-8xl font-serif font-bold leading-tight anim-text delay-200">
+                 <h1 className="text-5xl md:text-8xl font-serif font-bold leading-tight anim-text delay-200">
                    {heroSlides[activeIndex].place}
                  </h1>
               </div>
 
               <div className="overflow-hidden mb-8">
-                <p className="text-lg md:text-xl text-gray-200 max-w-lg leading-relaxed anim-text delay-300">
+                <p className="text-base md:text-xl text-gray-200 max-w-lg leading-relaxed anim-text delay-300">
                   {heroSlides[activeIndex].desc}
                 </p>
               </div>
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4 anim-text delay-400">
-                 <Button className="h-14 px-8 rounded-none bg-white text-slate-900 hover:bg-blue-600 hover:text-white transition-all text-lg font-bold tracking-wide">
+                 <Button className="h-12 md:h-14 px-6 md:px-8 rounded-none bg-white text-slate-900 hover:bg-blue-600 hover:text-white transition-all text-base md:text-lg font-bold tracking-wide">
                    View Details
                  </Button>
-                 <button className="h-14 w-14 flex items-center justify-center border border-white/30 hover:bg-white/10 transition-colors backdrop-blur-sm">
+                 <button className="h-12 w-12 md:h-14 md:w-14 flex items-center justify-center border border-white/30 hover:bg-white/10 transition-colors backdrop-blur-sm">
                     <Play className="w-5 h-5 fill-white" />
                  </button>
               </div>
@@ -212,19 +216,17 @@ export default function Index() {
           </div>
         </div>
 
-        {/* 3. SIDEBAR THUMBNAILS (Controls Swiper) */}
-        <div className="absolute bottom-8 right-4 md:right-12 z-20 flex flex-col gap-4 items-end pointer-events-auto">
-          
+        {/* 3. DESKTOP SIDEBAR (HIDDEN ON MOBILE) */}
+        <div className="hidden lg:flex absolute bottom-8 right-12 z-20 flex-col gap-4 items-end pointer-events-auto">
           <div className="text-5xl font-bold text-white/10 select-none mb-4 font-mono">
               0{activeIndex + 1}
           </div>
-
           <div className="flex flex-col gap-4">
             {getHeroThumbnails().map((thumb, idx) => (
               <div
                 key={idx}
                 onClick={() => handleThumbnailClick(thumb.realIndex)}
-                className="group relative w-64 h-24 md:h-28 rounded-xl overflow-hidden cursor-pointer border border-white/20 hover:border-blue-500 transition-all duration-300 bg-black/40 backdrop-blur-md shadow-2xl flex items-center"
+                className="group relative w-64 h-28 rounded-xl overflow-hidden cursor-pointer border border-white/20 hover:border-blue-500 transition-all duration-300 bg-black/40 backdrop-blur-md shadow-2xl flex items-center"
               >
                 <div className="w-24 h-full relative overflow-hidden">
                   <img 
@@ -248,8 +250,18 @@ export default function Index() {
           </div>
         </div>
 
-        {/* 4. SOCIAL & PROGRESS */}
-        <div className="absolute bottom-10 left-6 md:left-12 z-20 flex items-center gap-8 pointer-events-auto">
+        {/* 4. MOBILE NAVIGATION CONTROLS (VISIBLE ONLY ON MOBILE) */}
+        <div className="lg:hidden absolute bottom-24 right-6 z-30 flex gap-4 pointer-events-auto">
+             <button onClick={handlePrev} className="w-12 h-12 rounded-full border border-white/30 bg-black/20 backdrop-blur-sm flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                <ChevronLeft className="w-6 h-6" />
+             </button>
+             <button onClick={handleNext} className="w-12 h-12 rounded-full border border-white/30 bg-black/20 backdrop-blur-sm flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                <ChevronRight className="w-6 h-6" />
+             </button>
+        </div>
+
+        {/* 5. SOCIAL & PROGRESS */}
+        <div className="absolute bottom-8 left-6 md:left-12 z-20 flex items-center gap-8 pointer-events-auto">
            <div className="flex gap-4">
               <a href="#" className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-colors"><Facebook className="w-4 h-4" /></a>
               <a href="#" className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-colors"><Instagram className="w-4 h-4" /></a>
