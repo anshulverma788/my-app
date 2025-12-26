@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 
 import {
   ArrowRight, MapPin, Star, Calendar, Phone, ShieldCheck,
-  Headset, ThumbsUp, Globe, Users, Award, Play, Clock  // <-- Yahan Clock add karein
+  Headset, ThumbsUp, Globe, Users, Award, Play, Clock
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -91,7 +91,7 @@ export default function Index() {
 
   // ================= PAGE DATA =================
   const packages = [
-    { name: 'Shimla', image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg', path: '/package/shimla', title: 'Shimla Getaway', location: 'Himachal', duration: '3 Days', price: '₹5,999' },
+    { name: 'Shimla', image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg', path: '/package/shimla', title: 'Shimla Manali Tour package ', location: 'Himachal', duration: '3 Days', price: '₹5,999' },
     { name: 'Manali', image: 'https://i.pinimg.com/736x/49/7e/49/497e495ee05c0ea5d5de82e7c4e3f653.jpg', path: '/package/shimla-manali', title: 'Magical Manali', location: 'Himachal', duration: '4 Days', price: '₹7,999' },
     { name: 'Triund', image: 'https://i.pinimg.com/736x/f6/7a/3e/f67a3e0a96ba728d80001bf6bd06ca03.jpg', path: '/package/dharamshala', title: 'Triund Trek', location: 'Dharamshala', duration: '2 Days', price: '₹3,499' },
     { name: 'Yulla Kanda', image: 'https://i.pinimg.com/1200x/b2/ea/99/b2ea99c22fe47b745fa1554e9454f7b7.jpg', path: '/package/kinnaur', title: 'Kinnaur Valley', location: 'Kinnaur', duration: '5 Days', price: '₹12,499' },
@@ -127,7 +127,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-slate-50 selection:bg-orange-500 selection:text-white">
 
-      {/* CSS Animations */}
+      {/* CSS Animations & Custom Styles */}
       <style>{`
         @keyframes slideUpFade {
           from { opacity: 0; transform: translateY(30px); }
@@ -138,18 +138,45 @@ export default function Index() {
         .delay-200 { animation-delay: 0.3s; }
         .delay-300 { animation-delay: 0.5s; }
         .delay-400 { animation-delay: 0.7s; }
+
+        /* --- Custom Line Pagination Styles --- */
+        .swiper-pagination-bullet {
+          width: 24px;
+          height: 4px;
+          border-radius: 0; /* Makes it square/line */
+          background-color: rgba(255, 255, 255, 0.4);
+          transition: all 0.4s ease;
+          opacity: 1;
+          margin: 0 4px !important;
+        }
+        
+        /* Active State - Expands and changes color */
+        .swiper-pagination-bullet-active {
+          width: 48px; /* Animated expansion */
+          background-color: #f97316; /* Orange-500 (Main Color) */
+        }
+
+        /* Specific adjustment for dark text sections if needed */
+        .dark-pagination .swiper-pagination-bullet {
+          background-color: rgba(0, 0, 0, 0.2);
+        }
+        .dark-pagination .swiper-pagination-bullet-active {
+          background-color: #f97316;
+        }
       `}</style>
 
       <Navbar />
 
-      {/* ================= HERO SECTION ================= */}
-      {/* ================= HERO SECTION (Updated for Premium Mobile) ================= */}
-      <section className="relative w-full h-[85vh] lg:h-screen min-h-[500px] bg-emerald-950 text-white overflow-hidden">
+      {/* ================= HERO SECTION (Modified: 50vh Mobile, Line Pagination) ================= */}
+      {/* Change h-[85vh] to h-[50vh] for mobile */}
+      <section className="relative w-full h-[50vh] lg:h-screen min-h-[400px] bg-emerald-950 text-white overflow-hidden group">
         <Swiper
           modules={[Autoplay, EffectFade, Navigation, Pagination]}
           effect={'fade'}
           speed={1500}
           loop={true}
+          // Pagination enabled with clicks
+          pagination={{ clickable: true }}
           autoplay={{ delay: 6000, disableOnInteraction: false }}
           onSwiper={(swiper) => (swiperInstanceRef.current = swiper)}
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
@@ -160,8 +187,8 @@ export default function Index() {
               <div className="relative w-full h-full">
                 <img src={slide.image} alt={slide.place} className="w-full h-full object-cover" />
 
-                {/* Mobile Gradient: Strong bottom fade for text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/50 to-transparent opacity-90 lg:hidden"></div>
+                {/* Mobile Gradient: Strong bottom fade */}
+                <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/40 to-transparent opacity-90 lg:hidden"></div>
 
                 {/* Desktop Gradient */}
                 <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-transparent"></div>
@@ -170,52 +197,52 @@ export default function Index() {
           ))}
         </Swiper>
 
-        {/* ================= MOBILE CONTENT (PREMIUM LAYOUT) ================= */}
-        <div className="lg:hidden absolute inset-0 z-10 flex flex-col justify-between p-6 pb-24 pointer-events-none">
-
-          {/* Top Badge (Float) */}
-          <div className="flex justify-end pt-20 anim-text delay-100">
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
-              <Star className="w-3.5 h-3.5 text-orange-400 fill-orange-400" />
-              <span className="text-xs font-bold text-white tracking-wide">4.9/5 Rating</span>
+        {/* ================= MOBILE CONTENT (PREMIUM LAYOUT - COMPACT FOR 50vh) ================= */}
+        <div className="lg:hidden absolute inset-0 z-10 flex flex-col justify-end p-5 pb-10 pointer-events-none">
+          
+          {/* Top Badge (Float) - Adjusted position */}
+          <div className="absolute top-4 right-4 anim-text delay-100">
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1 rounded-full flex items-center gap-2 shadow-lg">
+              <Star className="w-3 h-3 text-orange-400 fill-orange-400" />
+              <span className="text-[10px] font-bold text-white tracking-wide">4.9/5</span>
             </div>
           </div>
 
           {/* Bottom Content (Magazine Style) */}
-          <div className="flex flex-col items-start gap-3 pointer-events-auto">
+          <div className="flex flex-col items-start gap-2 pointer-events-auto">
             <div key={activeIndex} className="w-full">
               {/* Decorative Line & Price */}
-              <div className="flex items-center gap-3 mb-2 anim-text delay-100">
-                <span className="w-8 h-[2px] bg-orange-500"></span>
-                <span className="text-orange-400 font-bold uppercase tracking-widest text-xs">
+              <div className="flex items-center gap-2 mb-1 anim-text delay-100">
+                <span className="w-6 h-[2px] bg-orange-500"></span>
+                <span className="text-orange-400 font-bold uppercase tracking-widest text-[10px]">
                   {heroSlides[activeIndex].price}
                 </span>
               </div>
 
-              {/* Main Title */}
-              <h1 className="text-5xl font-serif font-bold leading-none text-white mb-3 shadow-sm anim-text delay-200">
+              {/* Main Title - Smaller for mobile */}
+              <h1 className="text-4xl font-serif font-bold leading-none text-white mb-2 shadow-sm anim-text delay-200">
                 {heroSlides[activeIndex].place}
               </h1>
 
-              {/* Short Desc */}
-              <p className="text-emerald-100/80 text-sm leading-relaxed line-clamp-2 mb-6 max-w-[90%] anim-text delay-300">
+              {/* Short Desc - Hidden on very small screens to save space */}
+              <p className="text-emerald-100/80 text-xs leading-relaxed line-clamp-2 mb-4 max-w-[90%] anim-text delay-300">
                 {heroSlides[activeIndex].desc}
               </p>
 
               {/* Action Buttons */}
-              <div className="flex gap-3 w-full anim-text delay-400">
-                <Button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold h-12 rounded-xl shadow-lg shadow-orange-500/20 border border-orange-400/50">
+              <div className="flex gap-2 w-full anim-text delay-400">
+                <Button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold h-10 text-sm rounded-lg shadow-lg shadow-orange-500/20 border border-orange-400/50">
                   Book Now
                 </Button>
-                <button className="h-12 w-12 flex items-center justify-center rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20">
-                  <Play className="w-5 h-5 fill-white" />
+                <button className="h-10 w-10 flex items-center justify-center rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20">
+                  <Play className="w-4 h-4 fill-white" />
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* ================= DESKTOP CONTENT (SAME AS BEFORE) ================= */}
+        {/* ================= DESKTOP CONTENT (UNCHANGED) ================= */}
         <div className="hidden lg:flex absolute inset-0 z-10 container mx-auto px-12 items-center pointer-events-none">
           <div className="max-w-2xl pt-20 pointer-events-auto">
             <div key={activeIndex}>
@@ -235,7 +262,8 @@ export default function Index() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 anim-text delay-400">
-                <Button className="h-14 px-8 rounded-none bg-white text-emerald-950 hover:bg-orange-600 hover:text-white transition-all duration-300 text-lg font-bold tracking-wide border-0 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                {/* Main Action Button - ORANGE */}
+                <Button className="h-14 px-8 rounded-none bg-orange-600 text-white hover:bg-emerald-800 transition-all duration-300 text-lg font-bold tracking-wide border-0 shadow-[0_0_20px_rgba(249,115,22,0.3)]">
                   View Details
                 </Button>
                 <button className="h-14 w-14 flex items-center justify-center border border-white/30 hover:bg-orange-600 hover:border-orange-600 transition-colors backdrop-blur-sm group">
@@ -273,79 +301,83 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ================= POPULAR PACKAGES ================= */}
+      {/* ================= POPULAR PACKAGES (Color: Orange Highlight, Green Secondary) ================= */}
       <section className="py-16 md:py-4 relative overflow-hidden bg-orange-50/30">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
               <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-emerald-950">
-                <span className='text-emerald-700'>Popular</span> <span className='text-orange-600'>Packages</span>
+                {/* Main Color Orange, Secondary Green */}
+                <span className='text-orange-600'>Popular</span> <span className='text-emerald-700'>Packages</span>
               </h2>
               <p className="text-lg text-gray-600 font-medium max-w-2xl mx-auto">Choose from our best-selling itineraries crafted by travel experts.</p>
-              <div className="w-20 h-1 bg-emerald-200 mx-auto mt-6 rounded-full"></div>
+              <div className="w-20 h-1 bg-orange-400 mx-auto mt-6 rounded-full"></div>
             </div>
           </ScrollReveal>
 
-          <Swiper
-            modules={[Autoplay, Pagination, Navigation]}
-            spaceBetween={30}
-            slidesPerView={1}
-            pagination={{ clickable: true, dynamicBullets: true }}
-            navigation
-            autoplay={{ delay: 4000 }}
-            breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            }}
-            className="pb-16 px-2"
-          >
-            {packages.map((pkg, index) => (
-              <SwiperSlide key={index}>
-                <ScrollReveal direction="up" delay={index * 0.1}>
-                  <div className="bg-white rounded-[20px] p-3 shadow-lg shadow-emerald-900/5 border border-emerald-50 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-900/10 group">
-                    <div className="relative h-60 w-full rounded-[15px] overflow-hidden">
-                      <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                      <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-emerald-800 shadow-sm flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-orange-500" /> {pkg.location}
+          <div className="dark-pagination">
+             <Swiper
+              modules={[Autoplay, Pagination, Navigation]}
+              spaceBetween={30}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              navigation
+              autoplay={{ delay: 4000 }}
+              breakpoints={{
+                640: { slidesPerView: 1 },
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              className="pb-16 px-2"
+            >
+              {packages.map((pkg, index) => (
+                <SwiperSlide key={index}>
+                  <ScrollReveal direction="up" delay={index * 0.1}>
+                    <div className="bg-white rounded-[20px] p-3 shadow-lg shadow-emerald-900/5 border border-emerald-50 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-900/10 group">
+                      <div className="relative h-60 w-full rounded-[15px] overflow-hidden">
+                        <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-emerald-800 shadow-sm flex items-center gap-1">
+                          <MapPin className="w-3 h-3 text-orange-500" /> {pkg.location}
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="pt-5 px-3 pb-3 flex-1 flex flex-col">
-                      <div className="flex justify-between items-start mb-4 gap-2">
-                        <div className="flex-1">
-                          <h3 className="text-xl font-serif font-bold text-emerald-950 leading-tight mb-2 group-hover:text-orange-600 transition-colors">{pkg.title}</h3>
-                          <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
-                            <Clock className="w-3.5 h-3.5 text-emerald-500" /> <span>{pkg.duration}</span>
+                      <div className="pt-5 px-3 pb-3 flex-1 flex flex-col">
+                        <div className="flex justify-between items-start mb-4 gap-2">
+                          <div className="flex-1">
+                            <h3 className="text-xl font-serif font-bold text-emerald-950 leading-tight mb-2 group-hover:text-orange-600 transition-colors">{pkg.title}</h3>
+                            <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
+                              <Clock className="w-3.5 h-3.5 text-orange-500" /> <span>{pkg.duration}</span>
+                            </div>
+                          </div>
+                          <div className="text-right flex-shrink-0">
+                            <p className="text-[10px] uppercase tracking-wider font-bold text-gray-400 mb-0.5">Starting</p>
+                            <p className="text-xl md:text-2xl font-extrabold text-orange-600 leading-none">{pkg.price}</p>
                           </div>
                         </div>
-                        <div className="text-right flex-shrink-0">
-                          <p className="text-[10px] uppercase tracking-wider font-bold text-gray-400 mb-0.5">Starting</p>
-                          <p className="text-xl md:text-2xl font-extrabold text-orange-600 leading-none">{pkg.price}</p>
-                        </div>
-                      </div>
 
-                      <div className="mt-auto pt-4 border-t border-dashed border-gray-100">
-                        <div className="grid grid-cols-2 gap-3">
-                          <Link to={pkg.path} className="w-full col-span-2">
-                            <button className="w-full h-11 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-orange-500 hover:to-orange-600 text-white rounded-xl font-bold text-sm shadow-md shadow-emerald-100 transition-all active:scale-95 flex items-center justify-center gap-2">
-                              Book Now <ArrowRight className="w-4 h-4" />
+                        <div className="mt-auto pt-4 border-t border-dashed border-gray-100">
+                          <div className="grid grid-cols-2 gap-3">
+                            <Link to={pkg.path} className="w-full col-span-2">
+                              {/* Main Button Orange */}
+                              <button className="w-full h-11 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-xl font-bold text-sm shadow-md shadow-orange-100 transition-all active:scale-95 flex items-center justify-center gap-2">
+                                Book Now <ArrowRight className="w-4 h-4" />
+                              </button>
+                            </Link>
+                            <button className="w-full h-10 bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 rounded-lg font-bold text-xs transition-all active:scale-95 flex items-center justify-center">
+                              View Details
                             </button>
-                          </Link>
-                          <button className="w-full h-10 bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 rounded-lg font-bold text-xs transition-all active:scale-95 flex items-center justify-center">
-                            View Details
-                          </button>
-                          <button className="w-full h-10 bg-white border border-orange-200 text-orange-600 hover:bg-orange-50 rounded-lg font-bold text-xs transition-all active:scale-95 flex items-center justify-center">
-                            Enquiry
-                          </button>
+                            <button className="w-full h-10 bg-white border border-orange-200 text-orange-600 hover:bg-orange-50 rounded-lg font-bold text-xs transition-all active:scale-95 flex items-center justify-center">
+                              Enquiry
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </ScrollReveal>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                  </ScrollReveal>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       </section>
 
@@ -354,7 +386,9 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-emerald-950"> <span className='text-emerald-700' >Explore</span><span className='text-orange-600'>Destinations</span></h2>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-emerald-950">
+                 <span className='text-orange-600'>Explore</span> <span className='text-emerald-700'>Destinations</span>
+              </h2>
 
               <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-4">Top rated destinations loved by our travelers.</p>
             </div>
@@ -370,7 +404,7 @@ export default function Index() {
               >
                 <Link to={dest.path} className="block w-full h-full relative">
                   <img src={dest.image} alt={dest.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
-                  {/* Gradient Overlay: Emerald based */}
+                  {/* Gradient Overlay: Green based for contrast */}
                   <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
 
                   <div className="absolute top-4 right-4 z-10">
@@ -388,7 +422,8 @@ export default function Index() {
                         {dest.title}
                       </h3>
                       <div className="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 group-hover:mt-4 transition-all duration-500 ease-in-out overflow-hidden">
-                        <Button className="bg-white text-emerald-900 hover:bg-orange-500 hover:text-white border-none rounded-full px-8 py-2 text-sm font-bold shadow-lg transition-colors">
+                        {/* Button on Hover - Orange */}
+                        <Button className="bg-orange-500 text-white hover:bg-white hover:text-orange-600 border-none rounded-full px-8 py-2 text-sm font-bold shadow-lg transition-colors">
                           Explore Now
                         </Button>
                       </div>
@@ -401,7 +436,7 @@ export default function Index() {
           <ScrollReveal direction="up" delay={0.6}>
             <div className="text-center mt-12">
               <Link to="/destination">
-                <Button size="lg" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200 px-8 py-6 text-lg rounded-full shadow-none hover:shadow-lg transform hover:scale-105 transition-all duration-300 font-bold">
+                <Button size="lg" className="bg-emerald-100 text-emerald-800 hover:bg-orange-500 hover:text-white px-8 py-6 text-lg rounded-full shadow-none hover:shadow-lg transform hover:scale-105 transition-all duration-300 font-bold">
                   View All Destinations <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
@@ -416,75 +451,78 @@ export default function Index() {
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
               <Badge className="bg-red-500 text-white px-4 py-1 mb-4 uppercase tracking-wider shadow-red-200 shadow-lg">Limited Time Only</Badge>
-              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-emerald-950"><span className='text-emerald-700'>Last Minute </span> <span className='text-orange-600'>Deals</span></h2>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-emerald-950"><span className='text-orange-600'>Last Minute </span> <span className='text-emerald-700'>Deals</span></h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">Unbeatable prices for spontaneous travelers. Grab them before they are gone!</p>
             </div>
           </ScrollReveal>
-          <Swiper
-            modules={[Autoplay, Pagination, Navigation]}
-            spaceBetween={30}
-            slidesPerView={1}
-            pagination={{ clickable: true }}
-            navigation
-            autoplay={{ delay: 3500 }}
-            breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            }}
-            className="pb-16 px-2"
-          >
-            {lastMinuteDeals.map((deal, index) => (
-              <SwiperSlide key={index}>
-                <ScrollReveal direction="up" delay={index * 0.1}>
-                  <div className="bg-white rounded-[20px] p-3 shadow-lg border border-red-50 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group">
-                    {/* Image Section */}
-                    <div className="relative h-56 w-full rounded-[15px] overflow-hidden">
-                      <img src={deal.image} alt={deal.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                      <div className="absolute top-4 right-4 bg-red-600 text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-md uppercase tracking-wider animate-pulse">
-                        50% OFF
+          
+          <div className="dark-pagination">
+             <Swiper
+              modules={[Autoplay, Pagination, Navigation]}
+              spaceBetween={30}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              navigation
+              autoplay={{ delay: 3500 }}
+              breakpoints={{
+                640: { slidesPerView: 1 },
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              className="pb-16 px-2"
+            >
+              {lastMinuteDeals.map((deal, index) => (
+                <SwiperSlide key={index}>
+                  <ScrollReveal direction="up" delay={index * 0.1}>
+                    <div className="bg-white rounded-[20px] p-3 shadow-lg border border-red-50 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group">
+                      {/* Image Section */}
+                      <div className="relative h-56 w-full rounded-[15px] overflow-hidden">
+                        <img src={deal.image} alt={deal.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <div className="absolute top-4 right-4 bg-red-600 text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-md uppercase tracking-wider animate-pulse">
+                          50% OFF
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Content Section */}
-                    <div className="pt-4 px-2 pb-2 flex-1 flex flex-col">
-                      <div className="flex justify-between items-start mb-4 gap-2">
-                        <div className="flex-1">
-                          <h3 className="text-xl font-serif font-bold text-emerald-950 leading-tight mb-1">{deal.title}</h3>
-                          <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
-                            <MapPin className="w-3.5 h-3.5 text-red-500" /> <span>{deal.location}</span>
-                            <span className="text-gray-300">|</span> <span>{deal.duration}</span>
+                      {/* Content Section */}
+                      <div className="pt-4 px-2 pb-2 flex-1 flex flex-col">
+                        <div className="flex justify-between items-start mb-4 gap-2">
+                          <div className="flex-1">
+                            <h3 className="text-xl font-serif font-bold text-emerald-950 leading-tight mb-1">{deal.title}</h3>
+                            <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
+                              <MapPin className="w-3.5 h-3.5 text-red-500" /> <span>{deal.location}</span>
+                              <span className="text-gray-300">|</span> <span>{deal.duration}</span>
+                            </div>
+                          </div>
+                          <div className="text-right flex-shrink-0">
+                            <p className="text-[10px] uppercase tracking-wider font-serif text-gray-400 font-bold mb-0.5 line-through">Was ₹50,000</p>
+                            <p className="text-xl md:text-2xl font-extrabold text-red-600 leading-none">{deal.price}</p>
                           </div>
                         </div>
-                        <div className="text-right flex-shrink-0">
-                          <p className="text-[10px] uppercase tracking-wider font-serif text-gray-400 font-bold mb-0.5 line-through">Was ₹50,000</p>
-                          <p className="text-xl md:text-2xl font-extrabold text-red-600 leading-none">{deal.price}</p>
-                        </div>
-                      </div>
 
-                      <div className="mt-auto">
-                        <div className="grid grid-cols-2 gap-2">
-                          <Link to={deal.path} className="w-full col-span-2">
-                            <button className="w-full h-10 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold text-xs shadow-md transition-all active:scale-95 flex items-center justify-center">
-                              Claim This Deal
+                        <div className="mt-auto">
+                          <div className="grid grid-cols-2 gap-2">
+                            <Link to={deal.path} className="w-full col-span-2">
+                              <button className="w-full h-10 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold text-xs shadow-md transition-all active:scale-95 flex items-center justify-center">
+                                Claim This Deal
+                              </button>
+                            </Link>
+                            <button className="w-full h-9 bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 rounded-lg font-bold text-[10px] transition-all active:scale-95 flex items-center justify-center">
+                              Enquiry
                             </button>
-                          </Link>
-                          <button className="w-full h-9 bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 rounded-lg font-bold text-[10px] transition-all active:scale-95 flex items-center justify-center">
-                            Enquiry
-                          </button>
-                          <Link to={deal.path} className="w-full">
-                            <button className="w-full h-9 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-emerald-700 rounded-lg font-bold text-[10px] transition-all active:scale-95 flex items-center justify-center">
-                              Details
-                            </button>
-                          </Link>
+                            <Link to={deal.path} className="w-full">
+                              <button className="w-full h-9 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-emerald-700 rounded-lg font-bold text-[10px] transition-all active:scale-95 flex items-center justify-center">
+                                Details
+                              </button>
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </ScrollReveal>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                  </ScrollReveal>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       </section>
 
@@ -530,77 +568,43 @@ export default function Index() {
             <Badge className="bg-orange-100 text-orange-700 border-orange-200 px-6 py-2 rounded-full shadow-sm mb-4">Client Love</Badge>
             <h2 className="text-3xl md:text-5xl font-bold font-serif text-emerald-950"> <span className='text-emerald-700'>What Our</span> <span className='text-orange-600'>Travelers Say</span></h2>
           </div>
-          <Swiper
-            modules={[Autoplay, Pagination, Navigation]}
-            spaceBetween={30}
-            slidesPerView={1}
-            navigation
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 3000, disableOnInteraction: false }}
-            breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            }}
-            className="pb-14"
-          >
-            {testimonials.map((t, index) => (
-              <SwiperSlide key={index}>
-                <Card className="p-8 h-full rounded-3xl shadow-xl border border-emerald-50 bg-white transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl relative">
-                  <div className="absolute top-6 right-8 text-6xl text-orange-100 font-serif leading-none">"</div>
-                  <div className="flex items-center mb-6">
-                    <img src={t.image} alt={t.name} className="w-16 h-16 rounded-full border-2 border-orange-100 shadow-lg mr-4 object-cover" />
-                    <div>
-                      <h4 className="text-lg font-bold text-emerald-950">{t.name}</h4>
-                      <p className="text-sm text-gray-500">{t.location}</p>
-                    </div>
-                  </div>
-                  <div className="flex mb-4">
-                    {Array.from({ length: t.rating }).map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-orange-400 fill-orange-400" />
-                    ))}
-                  </div>
-                  <p className="text-gray-600 mb-2 italic leading-relaxed text-sm">{t.text}</p>
-                  <p className="text-xs font-bold text-emerald-600 mt-4 uppercase tracking-wide">Trip: {t.trip}</p>
-                </Card>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </section>
-
-      {/* ================= BLOG PREVIEW ================= */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <ScrollReveal direction="up">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-emerald-950 font-serif"> <span className='text-emerald-700'>Travel</span> <span className='text-orange-600'>Stories</span></h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">Inspiration for your next journey.</p>
-            </div>
-          </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {blogPosts.map((post, index) => (
-              <ScrollReveal key={post.id} direction="up" delay={index * 0.1}>
-                <Link to={`/blog/${post.id}`}>
-                  <Card className="overflow-hidden border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col group">
-                    <div className="relative h-52 overflow-hidden">
-                      <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col bg-white">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Badge variant="outline" className="text-[10px] text-orange-600 border-orange-200 bg-orange-50">Tips</Badge>
-                        <p className="text-xs text-gray-400">{post.date}</p>
-                      </div>
-                      <h3 className="text-lg font-bold text-emerald-950 mb-3 group-hover:text-orange-600 transition-colors line-clamp-2">{post.title}</h3>
-                      <div className="mt-auto pt-4 border-t border-gray-50 flex items-center text-emerald-600 text-sm font-bold group-hover:translate-x-2 transition-transform">
-                        Read Article <ArrowRight className="w-4 h-4 ml-2" />
+          <div className="dark-pagination">
+             <Swiper
+              modules={[Autoplay, Pagination, Navigation]}
+              spaceBetween={30}
+              slidesPerView={1}
+              navigation
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              breakpoints={{
+                640: { slidesPerView: 1 },
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              className="pb-14"
+            >
+              {testimonials.map((t, index) => (
+                <SwiperSlide key={index}>
+                  <Card className="p-8 h-full rounded-3xl shadow-xl border border-emerald-50 bg-white transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl relative">
+                    <div className="absolute top-6 right-8 text-6xl text-orange-100 font-serif leading-none">"</div>
+                    <div className="flex items-center mb-6">
+                      <img src={t.image} alt={t.name} className="w-16 h-16 rounded-full border-2 border-orange-100 shadow-lg mr-4 object-cover" />
+                      <div>
+                        <h4 className="text-lg font-bold text-emerald-950">{t.name}</h4>
+                        <p className="text-sm text-gray-500">{t.location}</p>
                       </div>
                     </div>
+                    <div className="flex mb-4">
+                      {Array.from({ length: t.rating }).map((_, i) => (
+                        <Star key={i} className="w-4 h-4 text-orange-400 fill-orange-400" />
+                      ))}
+                    </div>
+                    <p className="text-gray-600 mb-2 italic leading-relaxed text-sm">{t.text}</p>
+                    <p className="text-xs font-bold text-emerald-600 mt-4 uppercase tracking-wide">Trip: {t.trip}</p>
                   </Card>
-                </Link>
-              </ScrollReveal>
-            ))}
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       </section>
