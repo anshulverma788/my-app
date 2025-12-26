@@ -21,7 +21,7 @@ import Footer from '@/components/layout/Footer';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 
 export default function Index() {
-  
+
   // ================= HERO SECTION STATE =================
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperInstanceRef = useRef(null);
@@ -126,7 +126,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-slate-50 selection:bg-orange-500 selection:text-white">
-      
+
       {/* CSS Animations */}
       <style>{`
         @keyframes slideUpFade {
@@ -143,7 +143,7 @@ export default function Index() {
       <Navbar />
 
       {/* ================= HERO SECTION ================= */}
-     {/* ================= HERO SECTION (Updated for Premium Mobile) ================= */}
+      {/* ================= HERO SECTION (Updated for Premium Mobile) ================= */}
       <section className="relative w-full h-[85vh] lg:h-screen min-h-[500px] bg-emerald-950 text-white overflow-hidden">
         <Swiper
           modules={[Autoplay, EffectFade, Navigation, Pagination]}
@@ -159,60 +159,60 @@ export default function Index() {
             <SwiperSlide key={slide.id}>
               <div className="relative w-full h-full">
                 <img src={slide.image} alt={slide.place} className="w-full h-full object-cover" />
-                
+
                 {/* Mobile Gradient: Strong bottom fade for text readability */}
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/50 to-transparent opacity-90 lg:hidden"></div>
-                
+
                 {/* Desktop Gradient */}
                 <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-transparent"></div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
-        
+
         {/* ================= MOBILE CONTENT (PREMIUM LAYOUT) ================= */}
         <div className="lg:hidden absolute inset-0 z-10 flex flex-col justify-between p-6 pb-24 pointer-events-none">
-           
-           {/* Top Badge (Float) */}
-           <div className="flex justify-end pt-20 anim-text delay-100">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
-                <Star className="w-3.5 h-3.5 text-orange-400 fill-orange-400" />
-                <span className="text-xs font-bold text-white tracking-wide">4.9/5 Rating</span>
+
+          {/* Top Badge (Float) */}
+          <div className="flex justify-end pt-20 anim-text delay-100">
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
+              <Star className="w-3.5 h-3.5 text-orange-400 fill-orange-400" />
+              <span className="text-xs font-bold text-white tracking-wide">4.9/5 Rating</span>
+            </div>
+          </div>
+
+          {/* Bottom Content (Magazine Style) */}
+          <div className="flex flex-col items-start gap-3 pointer-events-auto">
+            <div key={activeIndex} className="w-full">
+              {/* Decorative Line & Price */}
+              <div className="flex items-center gap-3 mb-2 anim-text delay-100">
+                <span className="w-8 h-[2px] bg-orange-500"></span>
+                <span className="text-orange-400 font-bold uppercase tracking-widest text-xs">
+                  {heroSlides[activeIndex].price}
+                </span>
               </div>
-           </div>
 
-           {/* Bottom Content (Magazine Style) */}
-           <div className="flex flex-col items-start gap-3 pointer-events-auto">
-              <div key={activeIndex} className="w-full">
-                 {/* Decorative Line & Price */}
-                 <div className="flex items-center gap-3 mb-2 anim-text delay-100">
-                    <span className="w-8 h-[2px] bg-orange-500"></span>
-                    <span className="text-orange-400 font-bold uppercase tracking-widest text-xs">
-                       {heroSlides[activeIndex].price}
-                    </span>
-                 </div>
+              {/* Main Title */}
+              <h1 className="text-5xl font-serif font-bold leading-none text-white mb-3 shadow-sm anim-text delay-200">
+                {heroSlides[activeIndex].place}
+              </h1>
 
-                 {/* Main Title */}
-                 <h1 className="text-5xl font-serif font-bold leading-none text-white mb-3 shadow-sm anim-text delay-200">
-                    {heroSlides[activeIndex].place}
-                 </h1>
+              {/* Short Desc */}
+              <p className="text-emerald-100/80 text-sm leading-relaxed line-clamp-2 mb-6 max-w-[90%] anim-text delay-300">
+                {heroSlides[activeIndex].desc}
+              </p>
 
-                 {/* Short Desc */}
-                 <p className="text-emerald-100/80 text-sm leading-relaxed line-clamp-2 mb-6 max-w-[90%] anim-text delay-300">
-                    {heroSlides[activeIndex].desc}
-                 </p>
-
-                 {/* Action Buttons */}
-                 <div className="flex gap-3 w-full anim-text delay-400">
-                    <Button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold h-12 rounded-xl shadow-lg shadow-orange-500/20 border border-orange-400/50">
-                       Book Now
-                    </Button>
-                    <button className="h-12 w-12 flex items-center justify-center rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20">
-                       <Play className="w-5 h-5 fill-white" />
-                    </button>
-                 </div>
+              {/* Action Buttons */}
+              <div className="flex gap-3 w-full anim-text delay-400">
+                <Button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold h-12 rounded-xl shadow-lg shadow-orange-500/20 border border-orange-400/50">
+                  Book Now
+                </Button>
+                <button className="h-12 w-12 flex items-center justify-center rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20">
+                  <Play className="w-5 h-5 fill-white" />
+                </button>
               </div>
-           </div>
+            </div>
+          </div>
         </div>
 
         {/* ================= DESKTOP CONTENT (SAME AS BEFORE) ================= */}
@@ -225,9 +225,9 @@ export default function Index() {
                 </p>
               </div>
               <div className="overflow-hidden mb-4">
-                 <h1 className="text-8xl font-serif font-bold leading-tight anim-text delay-200 drop-shadow-2xl">
-                   {heroSlides[activeIndex].place}
-                 </h1>
+                <h1 className="text-8xl font-serif font-bold leading-tight anim-text delay-200 drop-shadow-2xl">
+                  {heroSlides[activeIndex].place}
+                </h1>
               </div>
               <div className="overflow-hidden mb-8">
                 <p className="text-xl text-emerald-50 max-w-lg leading-relaxed anim-text delay-300 font-light">
@@ -235,12 +235,12 @@ export default function Index() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 anim-text delay-400">
-                 <Button className="h-14 px-8 rounded-none bg-white text-emerald-950 hover:bg-orange-600 hover:text-white transition-all duration-300 text-lg font-bold tracking-wide border-0 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                   View Details
-                 </Button>
-                 <button className="h-14 w-14 flex items-center justify-center border border-white/30 hover:bg-orange-600 hover:border-orange-600 transition-colors backdrop-blur-sm group">
-                    <Play className="w-5 h-5 fill-white group-hover:scale-110 transition-transform" />
-                 </button>
+                <Button className="h-14 px-8 rounded-none bg-white text-emerald-950 hover:bg-orange-600 hover:text-white transition-all duration-300 text-lg font-bold tracking-wide border-0 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                  View Details
+                </Button>
+                <button className="h-14 w-14 flex items-center justify-center border border-white/30 hover:bg-orange-600 hover:border-orange-600 transition-colors backdrop-blur-sm group">
+                  <Play className="w-5 h-5 fill-white group-hover:scale-110 transition-transform" />
+                </button>
               </div>
             </div>
           </div>
@@ -249,7 +249,7 @@ export default function Index() {
         {/* Sidebar (Desktop Only) */}
         <div className="hidden lg:flex absolute bottom-8 right-12 z-20 flex-col gap-4 items-end pointer-events-auto">
           <div className="text-5xl font-bold text-white/10 select-none mb-4 font-mono">
-              0{activeIndex + 1}
+            0{activeIndex + 1}
           </div>
           <div className="flex flex-col gap-4">
             {getHeroThumbnails().map((thumb, idx) => (
@@ -258,14 +258,14 @@ export default function Index() {
                   <img src={thumb.image} alt={thumb.place} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="flex-1 p-4 flex flex-col justify-center">
-                   <span className="text-[10px] text-orange-400 font-bold uppercase tracking-wider mb-1">Next</span>
-                   <h4 className="text-lg font-bold leading-none text-white font-serif">{thumb.place}</h4>
-                   <div className="flex justify-between items-center mt-2">
-                      <span className="text-xs text-gray-400">{thumb.price}</span>
-                      <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-orange-500 transition-colors text-white">
-                          <ArrowRight className="w-3 h-3" />
-                      </div>
-                   </div>
+                  <span className="text-[10px] text-orange-400 font-bold uppercase tracking-wider mb-1">Next</span>
+                  <h4 className="text-lg font-bold leading-none text-white font-serif">{thumb.place}</h4>
+                  <div className="flex justify-between items-center mt-2">
+                    <span className="text-xs text-gray-400">{thumb.price}</span>
+                    <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-orange-500 transition-colors text-white">
+                      <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -274,7 +274,7 @@ export default function Index() {
       </section>
 
       {/* ================= POPULAR PACKAGES ================= */}
-      <section className="py-16 md:py-20 relative overflow-hidden bg-orange-50/30">
+      <section className="py-16 md:py-4 relative overflow-hidden bg-orange-50/30">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
@@ -313,31 +313,31 @@ export default function Index() {
 
                     <div className="pt-5 px-3 pb-3 flex-1 flex flex-col">
                       <div className="flex justify-between items-start mb-4 gap-2">
-                          <div className="flex-1">
-                             <h3 className="text-xl font-serif font-bold text-emerald-950 leading-tight mb-2 group-hover:text-orange-600 transition-colors">{pkg.title}</h3>
-                             <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
-                               <Clock className="w-3.5 h-3.5 text-emerald-500" /> <span>{pkg.duration}</span>
-                             </div>
+                        <div className="flex-1">
+                          <h3 className="text-xl font-serif font-bold text-emerald-950 leading-tight mb-2 group-hover:text-orange-600 transition-colors">{pkg.title}</h3>
+                          <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
+                            <Clock className="w-3.5 h-3.5 text-emerald-500" /> <span>{pkg.duration}</span>
                           </div>
-                          <div className="text-right flex-shrink-0">
-                             <p className="text-[10px] uppercase tracking-wider font-bold text-gray-400 mb-0.5">Starting</p>
-                             <p className="text-xl md:text-2xl font-extrabold text-orange-600 leading-none">{pkg.price}</p>
-                          </div>
+                        </div>
+                        <div className="text-right flex-shrink-0">
+                          <p className="text-[10px] uppercase tracking-wider font-bold text-gray-400 mb-0.5">Starting</p>
+                          <p className="text-xl md:text-2xl font-extrabold text-orange-600 leading-none">{pkg.price}</p>
+                        </div>
                       </div>
 
                       <div className="mt-auto pt-4 border-t border-dashed border-gray-100">
                         <div className="grid grid-cols-2 gap-3">
-                           <Link to={pkg.path} className="w-full col-span-2">
-                             <button className="w-full h-11 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-orange-500 hover:to-orange-600 text-white rounded-xl font-bold text-sm shadow-md shadow-emerald-100 transition-all active:scale-95 flex items-center justify-center gap-2">
-                               Book Now <ArrowRight className="w-4 h-4" />
-                             </button>
-                           </Link>
-                           <button className="w-full h-10 bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 rounded-lg font-bold text-xs transition-all active:scale-95 flex items-center justify-center">
-                             View Details
-                           </button>
-                           <button className="w-full h-10 bg-white border border-orange-200 text-orange-600 hover:bg-orange-50 rounded-lg font-bold text-xs transition-all active:scale-95 flex items-center justify-center">
-                             Enquiry
-                           </button>
+                          <Link to={pkg.path} className="w-full col-span-2">
+                            <button className="w-full h-11 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-orange-500 hover:to-orange-600 text-white rounded-xl font-bold text-sm shadow-md shadow-emerald-100 transition-all active:scale-95 flex items-center justify-center gap-2">
+                              Book Now <ArrowRight className="w-4 h-4" />
+                            </button>
+                          </Link>
+                          <button className="w-full h-10 bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 rounded-lg font-bold text-xs transition-all active:scale-95 flex items-center justify-center">
+                            View Details
+                          </button>
+                          <button className="w-full h-10 bg-white border border-orange-200 text-orange-600 hover:bg-orange-50 rounded-lg font-bold text-xs transition-all active:scale-95 flex items-center justify-center">
+                            Enquiry
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -350,17 +350,18 @@ export default function Index() {
       </section>
 
       {/* ================= TOP DESTINATIONS ================= */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-10 md:py-4 bg-white">
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
             <div className="text-center mb-12">
-               <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-emerald-950">Explore Destinations</h2>
-               <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-4">Top rated destinations loved by our travelers.</p>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-emerald-950"> <span className='text-emerald-700' >Explore</span><span className='text-orange-600'>Destinations</span></h2>
+
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-4">Top rated destinations loved by our travelers.</p>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
             {destinations.map((dest, index) => (
-              <div 
+              <div
                 key={dest.id}
                 className={`relative group rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500
                   ${index === 0 ? 'lg:row-span-2 lg:col-span-1' : ''} 
@@ -371,13 +372,13 @@ export default function Index() {
                   <img src={dest.image} alt={dest.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
                   {/* Gradient Overlay: Emerald based */}
                   <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
-                  
+
                   <div className="absolute top-4 right-4 z-10">
                     <Badge className="bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold px-3 py-1 uppercase tracking-wide text-[10px] hover:bg-orange-500 hover:border-orange-500 transition-colors">
                       {dest.type}
                     </Badge>
                   </div>
-                  
+
                   <div className="absolute inset-0 flex flex-col justify-end items-center p-6 text-center pb-8">
                     <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out flex flex-col items-center w-full">
                       <div className="flex items-center gap-3 text-emerald-100 mb-2 text-sm justify-center">
@@ -410,12 +411,12 @@ export default function Index() {
       </section>
 
       {/* ================= LAST MINUTE DEALS ================= */}
-      <section className="py-16 md:py-20 relative overflow-hidden bg-slate-50">
+      <section className="py-16 md:py-4 relative overflow-hidden bg-slate-50">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
               <Badge className="bg-red-500 text-white px-4 py-1 mb-4 uppercase tracking-wider shadow-red-200 shadow-lg">Limited Time Only</Badge>
-              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-emerald-950">Last Minute Deals</h2>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-emerald-950"><span className='text-emerald-700'>Last Minute </span> <span className='text-orange-600'>Deals</span></h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">Unbeatable prices for spontaneous travelers. Grab them before they are gone!</p>
             </div>
           </ScrollReveal>
@@ -448,34 +449,34 @@ export default function Index() {
                     {/* Content Section */}
                     <div className="pt-4 px-2 pb-2 flex-1 flex flex-col">
                       <div className="flex justify-between items-start mb-4 gap-2">
-                          <div className="flex-1">
-                             <h3 className="text-xl font-serif font-bold text-emerald-950 leading-tight mb-1">{deal.title}</h3>
-                             <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
-                               <MapPin className="w-3.5 h-3.5 text-red-500" /> <span>{deal.location}</span>
-                               <span className="text-gray-300">|</span> <span>{deal.duration}</span>
-                             </div>
+                        <div className="flex-1">
+                          <h3 className="text-xl font-serif font-bold text-emerald-950 leading-tight mb-1">{deal.title}</h3>
+                          <div className="flex items-center gap-2 text-gray-500 text-xs font-medium">
+                            <MapPin className="w-3.5 h-3.5 text-red-500" /> <span>{deal.location}</span>
+                            <span className="text-gray-300">|</span> <span>{deal.duration}</span>
                           </div>
-                          <div className="text-right flex-shrink-0">
-                             <p className="text-[10px] uppercase tracking-wider font-serif text-gray-400 font-bold mb-0.5 line-through">Was ₹50,000</p>
-                             <p className="text-xl md:text-2xl font-extrabold text-red-600 leading-none">{deal.price}</p>
-                          </div>
+                        </div>
+                        <div className="text-right flex-shrink-0">
+                          <p className="text-[10px] uppercase tracking-wider font-serif text-gray-400 font-bold mb-0.5 line-through">Was ₹50,000</p>
+                          <p className="text-xl md:text-2xl font-extrabold text-red-600 leading-none">{deal.price}</p>
+                        </div>
                       </div>
 
                       <div className="mt-auto">
                         <div className="grid grid-cols-2 gap-2">
-                           <Link to={deal.path} className="w-full col-span-2">
-                             <button className="w-full h-10 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold text-xs shadow-md transition-all active:scale-95 flex items-center justify-center">
-                             Claim This Deal
-                             </button>
-                           </Link>
-                           <button className="w-full h-9 bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 rounded-lg font-bold text-[10px] transition-all active:scale-95 flex items-center justify-center">
-                             Enquiry
-                           </button>
-                           <Link to={deal.path} className="w-full">
-                             <button className="w-full h-9 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-emerald-700 rounded-lg font-bold text-[10px] transition-all active:scale-95 flex items-center justify-center">
-                             Details
-                             </button>
-                           </Link>
+                          <Link to={deal.path} className="w-full col-span-2">
+                            <button className="w-full h-10 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold text-xs shadow-md transition-all active:scale-95 flex items-center justify-center">
+                              Claim This Deal
+                            </button>
+                          </Link>
+                          <button className="w-full h-9 bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 rounded-lg font-bold text-[10px] transition-all active:scale-95 flex items-center justify-center">
+                            Enquiry
+                          </button>
+                          <Link to={deal.path} className="w-full">
+                            <button className="w-full h-9 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-emerald-700 rounded-lg font-bold text-[10px] transition-all active:scale-95 flex items-center justify-center">
+                              Details
+                            </button>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -489,37 +490,37 @@ export default function Index() {
 
       {/* ================= WHY CHOOSE US ================= */}
       <section className="py-20 bg-emerald-950 text-white relative overflow-hidden">
-          {/* Decorative Pattern */}
-         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
-         
-         <div className="container mx-auto px-4 relative z-10">
-            <ScrollReveal direction="up">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-5xl font-bold font-serif mb-6">Why Choose Himachal Destination?</h2>
-                <div className="w-24 h-1 bg-orange-500 mx-auto rounded-full"></div>
-              </div>
-            </ScrollReveal>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 justify-items-center">
-              {[
-                  { icon: ThumbsUp, num: "500+", text: "Excellent Reviews" },
-                  { icon: Award, num: "15+", text: "Years Experience" },
-                  { icon: Globe, num: "50+", text: "Destinations" },
-                  { icon: Headset, num: "24x7", text: "Support" },
-                  { icon: Users, num: "51k+", text: "Happy Clients" },
-                  { icon: ShieldCheck, num: "100%", text: "Secure" },
-              ].map((item, idx) => (
-                  <ScrollReveal key={idx} direction="up" delay={idx * 0.1}>
-                    <div className="flex flex-col items-center text-center group">
-                       <div className="mb-4 text-emerald-300 group-hover:text-orange-500 transition-colors duration-300 bg-white/10 p-4 rounded-full border border-white/5 group-hover:bg-white/20">
-                          <item.icon className="w-8 h-8 md:w-10 md:h-10" />
-                       </div>
-                       <h3 className="text-2xl font-extrabold text-white mb-1">{item.num}</h3>
-                       <p className="text-emerald-200/70 text-xs md:text-sm font-medium">{item.text}</p>
-                    </div>
-                  </ScrollReveal>
-              ))}
+        {/* Decorative Pattern */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <ScrollReveal direction="up">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-bold font-serif mb-6">Why Choose Himachal Destination?</h2>
+              <div className="w-24 h-1 bg-orange-500 mx-auto rounded-full"></div>
             </div>
-         </div>
+          </ScrollReveal>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 justify-items-center">
+            {[
+              { icon: ThumbsUp, num: "500+", text: "Excellent Reviews" },
+              { icon: Award, num: "15+", text: "Years Experience" },
+              { icon: Globe, num: "50+", text: "Destinations" },
+              { icon: Headset, num: "24x7", text: "Support" },
+              { icon: Users, num: "51k+", text: "Happy Clients" },
+              { icon: ShieldCheck, num: "100%", text: "Secure" },
+            ].map((item, idx) => (
+              <ScrollReveal key={idx} direction="up" delay={idx * 0.1}>
+                <div className="flex flex-col items-center text-center group">
+                  <div className="mb-4 text-emerald-300 group-hover:text-orange-500 transition-colors duration-300 bg-white/10 p-4 rounded-full border border-white/5 group-hover:bg-white/20">
+                    <item.icon className="w-8 h-8 md:w-10 md:h-10" />
+                  </div>
+                  <h3 className="text-2xl font-extrabold text-white mb-1">{item.num}</h3>
+                  <p className="text-emerald-200/70 text-xs md:text-sm font-medium">{item.text}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ================= TESTIMONIALS ================= */}
@@ -527,7 +528,7 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge className="bg-orange-100 text-orange-700 border-orange-200 px-6 py-2 rounded-full shadow-sm mb-4">Client Love</Badge>
-            <h2 className="text-3xl md:text-5xl font-bold font-serif text-emerald-950">What Our Travelers Say</h2>
+            <h2 className="text-3xl md:text-5xl font-bold font-serif text-emerald-950"> <span className='text-emerald-700'>What Our</span> <span className='text-orange-600'>Travelers Say</span></h2>
           </div>
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
@@ -573,7 +574,7 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-emerald-950 font-serif">Travel Stories</h2>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-emerald-950 font-serif"> <span className='text-emerald-700'>Travel</span> <span className='text-orange-600'>Stories</span></h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">Inspiration for your next journey.</p>
             </div>
           </ScrollReveal>
@@ -588,8 +589,8 @@ export default function Index() {
                     </div>
                     <div className="p-6 flex-1 flex flex-col bg-white">
                       <div className="flex items-center gap-2 mb-3">
-                         <Badge variant="outline" className="text-[10px] text-orange-600 border-orange-200 bg-orange-50">Tips</Badge>
-                         <p className="text-xs text-gray-400">{post.date}</p>
+                        <Badge variant="outline" className="text-[10px] text-orange-600 border-orange-200 bg-orange-50">Tips</Badge>
+                        <p className="text-xs text-gray-400">{post.date}</p>
                       </div>
                       <h3 className="text-lg font-bold text-emerald-950 mb-3 group-hover:text-orange-600 transition-colors line-clamp-2">{post.title}</h3>
                       <div className="mt-auto pt-4 border-t border-gray-50 flex items-center text-emerald-600 text-sm font-bold group-hover:translate-x-2 transition-transform">
@@ -606,11 +607,11 @@ export default function Index() {
 
       {/* ================= FINAL CTA ================= */}
       <section className="py-24 relative overflow-hidden">
-         {/* Background Image with Overlay */}
-         <div className="absolute inset-0 z-0">
-             <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop" alt="Background" className="w-full h-full object-cover" />
-             <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/90 to-emerald-800/80"></div>
-         </div>
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop" alt="Background" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/90 to-emerald-800/80"></div>
+        </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
