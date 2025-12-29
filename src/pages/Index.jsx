@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
@@ -9,10 +9,9 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-// Change 1: Added 'Flag' icon to imports for the new row
 import {
   ArrowRight, MapPin, Star, Calendar, Phone, ShieldCheck,
-  Headset, ThumbsUp, Globe, Users, Award, Clock, Utensils, Car, Building2, Heart, Flag
+  Headset, ThumbsUp, Globe, Users, Award, Clock, Utensils, Car, Building2, Heart, Flag, Search, ChevronDown, Check, Sun, CarFront, Camera, BedDouble, UtensilsCrossed
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -23,69 +22,82 @@ import ScrollReveal from '@/components/animations/ScrollReveal';
 
 export default function Index() {
 
-  // ================= HERO SECTION STATE =================
+  // ================= SEARCH BAR STATE =================
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [selectedDest, setSelectedDest] = useState("");
+  const [selectedDur, setSelectedDur] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  
+  const searchContainerRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+        setActiveDropdown(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const searchDestinations = [
+    "Andaman", "Amarnath Yatra", "Bhutan", "Chardham Yatra", "Dubai", "Europe",
+    "Himachal", "Kashmir", "Kerala", "Ladakh", "Manali", "Rajasthan", "Shimla", 
+    "Sikkim", "Thailand", "Vietnam"
+  ];
+
+  const searchDurations = [
+    "1 - 3 days", "4 - 6 days", "7 - 9 days", "10 - 12 days", "13+ days"
+  ];
+
+  const searchMonths = [
+    "January 2025", "February 2025", "March 2025", "April 2025", 
+    "May 2025", "June 2025", "July 2025", "August 2025", "September 2025", 
+    "October 2025", "November 2025", "December 2025"
+  ];
+
+  const filteredDestinations = searchDestinations.filter(dest => 
+    dest.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredMonths = searchMonths.filter(m => 
+    m.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const toggleDropdown = (name) => {
+    setActiveDropdown(activeDropdown === name ? null : name);
+    setSearchTerm(""); 
+  };
+
+  const handleSelection = (type, value) => {
+    if (type === 'destination') setSelectedDest(value);
+    if (type === 'duration') setSelectedDur(value);
+    if (type === 'month') setSelectedMonth(value);
+    setActiveDropdown(null);
+  };
+
+  // ================= HERO SLIDER STATE =================
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperInstanceRef = useRef(null);
 
   const heroSlides = [
-    {
-      id: 1,
-      place: "Himachal",
-      title: "The Land of Gods",
-      desc: "Experience the mystical mountains, lush valleys, and spiritual serenity of Himachal Pradesh.",
-      image: "https://cdn.pixabay.com/photo/2018/02/14/13/42/sky-3153004_1280.jpg",
-      price: "From ₹5,999",
-    },
-    {
-      id: 2,
-      place: "Kashmir",
-      title: "Paradise on Earth",
-      desc: "Discover the breathtaking beauty of snow-capped peaks and the famous Dal Lake.",
-      image: "https://cdn.pixabay.com/photo/2022/07/30/07/02/river-7353171_1280.jpg",
-      price: "From ₹8,999",
-    },
-    {
-      id: 3,
-      place: "Kerala",
-      title: "God's Own Country",
-      desc: "Sail through the backwaters and relax in the lush greenery of southern India.",
-      image: "https://cdn.pixabay.com/photo/2017/02/17/21/18/south-india-2075399_1280.jpg",
-      price: "From ₹12,499",
-    },
-    {
-      id: 4,
-      place: "Ladakh",
-      title: "Land of High Passes",
-      desc: "An adventure of a lifetime amidst the rugged terrains and monasteries.",
-      image: "https://cdn.pixabay.com/photo/2022/10/13/13/25/pangong-tso-7519104_1280.jpg",
-      price: "From ₹15,999",
-    },
-    {
-      id: 5,
-      place: "Dubai",
-      title: "City of Gold",
-      desc: "Experience luxury shopping, ultramodern architecture and lively nightlife.",
-      image: "https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg",
-      price: "From ₹25,999",
-    },
+    { id: 1, place: "Himachal", title: "The Land of Gods", desc: "Experience the mystical mountains...", image: "https://cdn.pixabay.com/photo/2018/02/14/13/42/sky-3153004_1280.jpg", price: "From ₹5,999" },
+    { id: 2, place: "Kashmir", title: "Paradise on Earth", desc: "Discover the breathtaking beauty...", image: "https://cdn.pixabay.com/photo/2022/07/30/07/02/river-7353171_1280.jpg", price: "From ₹8,999" },
+    { id: 3, place: "Kerala", title: "God's Own Country", desc: "Sail through the backwaters...", image: "https://cdn.pixabay.com/photo/2017/02/17/21/18/south-india-2075399_1280.jpg", price: "From ₹12,499" },
+    { id: 4, place: "Ladakh", title: "Land of High Passes", desc: "An adventure of a lifetime...", image: "https://cdn.pixabay.com/photo/2022/10/13/13/25/pangong-tso-7519104_1280.jpg", price: "From ₹15,999" },
+    { id: 5, place: "Dubai", title: "City of Gold", desc: "Experience luxury shopping...", image: "https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg", price: "From ₹25,999" },
   ];
 
-  // Function to change slide
   const handleThumbnailClick = (index) => {
-    if (swiperInstanceRef.current) {
-      swiperInstanceRef.current.slideToLoop(index);
-    }
+    if (swiperInstanceRef.current) swiperInstanceRef.current.slideToLoop(index);
   };
 
-  // Get Next 3 Thumbnails relative to active index
   const getHeroThumbnails = () => {
     let thumbs = [];
     for (let i = 1; i <= 3; i++) {
       const targetIndex = (activeIndex + i) % heroSlides.length;
-      thumbs.push({
-        ...heroSlides[targetIndex],
-        realIndex: targetIndex
-      });
+      thumbs.push({ ...heroSlides[targetIndex], realIndex: targetIndex });
     }
     return thumbs;
   };
@@ -155,12 +167,27 @@ export default function Index() {
         .dark-pagination .swiper-pagination-bullet-active {
           background-color: #f97316;
         }
+
+        /* Custom Scrollbar for Dropdowns */
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #f1f1f1; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #ccc; 
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #009f48; 
+        }
       `}</style>
 
       <Navbar />
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative w-full h-[50vh] lg:h-screen min-h-[400px] bg-emerald-950 text-white overflow-hidden group">
+      <section className="relative w-full h-[50vh] lg:h-screen min-h-[400px] bg-emerald-950 text-white overflow-visible group">
         <Swiper
           modules={[Autoplay, EffectFade, Navigation, Pagination]}
           effect={'fade'}
@@ -184,7 +211,7 @@ export default function Index() {
         </Swiper>
 
         {/* Mobile Content */}
-        <div className="lg:hidden absolute inset-0 z-10 flex flex-col justify-end p-5 pb-10 pointer-events-none">
+        <div className="lg:hidden absolute inset-0 z-10 flex flex-col justify-end p-5 pb-20 pointer-events-none">
           <div className="flex flex-col items-start gap-2 pointer-events-auto">
             <div key={activeIndex} className="w-full">
               <div className="flex items-center gap-2 mb-1 anim-text delay-100">
@@ -236,7 +263,7 @@ export default function Index() {
         </div>
 
         {/* Sidebar (Desktop) */}
-        <div className="hidden lg:flex absolute bottom-8 right-12 z-20 flex-col gap-4 items-end pointer-events-auto">
+        <div className="hidden lg:flex absolute bottom-36 right-12 z-20 flex-col gap-4 items-end pointer-events-auto">
           <div className="text-5xl font-bold text-white/10 select-none mb-4 font-mono">
             0{activeIndex + 1}
           </div>
@@ -260,10 +287,167 @@ export default function Index() {
             ))}
           </div>
         </div>
+
+        {/* ================= SEARCH TOUR BAR (Fixed Overlap & Spacing) ================= */}
+        {/* Adjusted bottom position to overlap perfectly */}
+        <div className="absolute left-0 right-0 z-40 w-full px-4 -bottom-[120px] lg:-bottom-[40px] pointer-events-auto">
+           <div ref={searchContainerRef} className="container mx-auto max-w-6xl bg-white rounded-md shadow-2xl border border-gray-200 overflow-visible relative transition-shadow duration-500 hover:shadow-xl">
+              <div className="flex flex-col lg:flex-row">
+                 
+                 {/* 1. DESTINATION */}
+                 <div className="flex-1 border-b lg:border-b-0 lg:border-r border-gray-200 relative">
+                    <div 
+                      onClick={() => toggleDropdown('destination')}
+                      className="p-4 h-full flex items-center gap-3 cursor-pointer group"
+                    >
+                        <MapPin className="text-gray-400 w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:text-[#009f48]" />
+                        <div className="flex-1">
+                           <span className={`block text-sm transition-colors duration-300 ${selectedDest ? 'text-black font-semibold' : 'text-gray-500 group-hover:text-gray-700'}`}>
+                             {selectedDest || "Select Destination"}
+                           </span>
+                        </div>
+                        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${activeDropdown === 'destination' ? 'rotate-180' : ''}`} />
+                    </div>
+
+                    {activeDropdown === 'destination' && (
+                      <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50 animate-in fade-in zoom-in-95 duration-200 mt-1 rounded-sm">
+                        <div className="p-2 border-b border-gray-100">
+                          <input 
+                            type="text" 
+                            className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#009f48]" 
+                            placeholder="Search..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            autoFocus
+                          />
+                        </div>
+                        <div className="max-h-64 overflow-y-auto custom-scrollbar">
+                           <div className="bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-600">Select Destination</div>
+                           {filteredDestinations.map((item, idx) => (
+                             <div 
+                                key={idx}
+                                onClick={() => handleSelection('destination', item)}
+                                className={`px-3 py-2 text-sm cursor-pointer transition-all duration-200 hover:pl-5 hover:bg-emerald-50 hover:text-[#009f48] flex justify-between items-center ${selectedDest === item ? 'bg-emerald-50 text-[#009f48] font-medium' : 'text-gray-700'}`}
+                             >
+                                {item}
+                             </div>
+                           ))}
+                        </div>
+                      </div>
+                    )}
+                 </div>
+
+                 {/* 2. DURATION */}
+                 <div className="flex-1 border-b lg:border-b-0 lg:border-r border-gray-200 relative">
+                    <div 
+                      onClick={() => toggleDropdown('duration')}
+                      className="p-4 h-full flex items-center gap-3 cursor-pointer group"
+                    >
+                        <Sun className="text-gray-400 w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:text-[#009f48]" />
+                        <div className="flex-1">
+                           <span className={`block text-sm transition-colors duration-300 ${selectedDur ? 'text-black font-semibold' : 'text-gray-500 group-hover:text-gray-700'}`}>
+                             {selectedDur || "Select Duration"}
+                           </span>
+                        </div>
+                        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${activeDropdown === 'duration' ? 'rotate-180' : ''}`} />
+                    </div>
+
+                    {activeDropdown === 'duration' && (
+                      <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50 animate-in fade-in zoom-in-95 duration-200 mt-1 rounded-sm">
+                        <div 
+                          onClick={() => handleSelection('duration', 'Not decided')}
+                          className="bg-[#009f48] text-white px-3 py-2.5 text-sm font-medium flex items-center gap-2 cursor-pointer hover:bg-[#008f45] transition-colors"
+                        >
+                           <div className="w-4 h-4 border border-white rounded bg-white flex items-center justify-center">
+                              {selectedDur === 'Not decided' && <Check className="w-3 h-3 text-[#009f48]" />}
+                           </div>
+                           Not decided
+                        </div>
+                        
+                        <div className="max-h-64 overflow-y-auto custom-scrollbar">
+                           {searchDurations.map((item, idx) => (
+                             <div 
+                                key={idx}
+                                onClick={() => handleSelection('duration', item)}
+                                className="px-3 py-2 text-sm cursor-pointer transition-all duration-200 hover:pl-5 hover:bg-emerald-50 flex items-center gap-2 border-b border-gray-100 last:border-0"
+                             >
+                                <div className={`w-4 h-4 border border-gray-300 rounded flex items-center justify-center transition-colors ${selectedDur === item ? 'bg-[#009f48] border-[#009f48]' : 'bg-white'}`}>
+                                   {selectedDur === item && <Check className="w-3 h-3 text-white" />}
+                                </div>
+                                <span className="text-gray-700 group-hover:text-black">{item}</span>
+                             </div>
+                           ))}
+                        </div>
+                      </div>
+                    )}
+                 </div>
+
+                 {/* 3. MONTH */}
+                 <div className="flex-1 border-b lg:border-b-0 relative">
+                    <div 
+                      onClick={() => toggleDropdown('month')}
+                      className="p-4 h-full flex items-center gap-3 cursor-pointer group"
+                    >
+                        <Calendar className="text-gray-400 w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:text-[#009f48]" />
+                        <div className="flex-1">
+                           <span className={`block text-sm transition-colors duration-300 ${selectedMonth ? 'text-black font-semibold' : 'text-gray-500 group-hover:text-gray-700'}`}>
+                             {selectedMonth || "Select Month"}
+                           </span>
+                        </div>
+                        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${activeDropdown === 'month' ? 'rotate-180' : ''}`} />
+                    </div>
+
+                    {activeDropdown === 'month' && (
+                      <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50 animate-in fade-in zoom-in-95 duration-200 mt-1 rounded-sm">
+                         <div className="bg-[#009f48] text-white px-3 py-2 text-sm font-medium">
+                            Select Month
+                         </div>
+                         <div className="p-2 border-b border-gray-100">
+                          <input 
+                            type="text" 
+                            className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#009f48]" 
+                            placeholder="Filter..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                          />
+                        </div>
+                        <div className="max-h-64 overflow-y-auto custom-scrollbar">
+                           <div 
+                              onClick={() => handleSelection('month', 'Not Sure')}
+                              className={`px-3 py-2 text-sm cursor-pointer transition-all duration-200 hover:pl-5 hover:bg-emerald-50 hover:text-[#009f48] border-b border-gray-100 ${selectedMonth === 'Not Sure' ? 'text-[#009f48] font-medium' : 'text-gray-700'}`}
+                           >
+                              Not Sure
+                           </div>
+                           {filteredMonths.map((item, idx) => (
+                             <div 
+                                key={idx}
+                                onClick={() => handleSelection('month', item)}
+                                className={`px-3 py-2 text-sm cursor-pointer transition-all duration-200 hover:pl-5 hover:bg-emerald-50 hover:text-[#009f48] border-b border-gray-100 last:border-0 ${selectedMonth === item ? 'text-[#009f48] font-medium' : 'text-gray-700'}`}
+                             >
+                                {item}
+                             </div>
+                           ))}
+                        </div>
+                      </div>
+                    )}
+                 </div>
+
+                 {/* SEARCH BUTTON */}
+                 <div className="lg:w-auto">
+                    <Button className="w-full lg:w-48 h-full min-h-[56px] bg-[#009f48] hover:bg-[#008f45] text-white font-bold text-sm uppercase rounded-none lg:rounded-r-md rounded-b-md lg:rounded-bl-none flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:brightness-110">
+                       <Search className="w-5 h-5" /> SEARCH TOURS
+                    </Button>
+                 </div>
+
+              </div>
+           </div>
+        </div>
+
       </section>
 
-      {/* ================= POPULAR PACKAGES (MODERN CARD DESIGN) ================= */}
-      <section className="py-16 md:py-5 relative overflow-hidden bg-orange-50/30">
+      {/* ================= POPULAR PACKAGES ================= */}
+      {/* Increased Margin Top (mt-[150px] for Mobile, mt-24 for Desktop) AND increased Swiper Padding (pb-14) for bullets */}
+      <section className="py-16 md:py-5 relative overflow-hidden bg-orange-50/30 mt-[150px] lg:mt-24">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-10">
@@ -273,6 +457,8 @@ export default function Index() {
               <div className="w-20 h-1 bg-orange-400 mx-auto mt-6 rounded-full"></div>
             </div>
           </ScrollReveal>
+          
+          {/* Changed pb-5 to pb-14 to show pagination bullets */}
           <div className="dark-pagination">
             <Swiper
               modules={[Autoplay, Pagination, Navigation]}
@@ -286,11 +472,10 @@ export default function Index() {
                 768: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
               }}
-              className="pb-5 px-2">
+              className="pb-14 px-2"> 
               {packages.map((pkg, index) => (
-                <SwiperSlide key={index} className="h-full pb-10">
+                <SwiperSlide key={index} className="h-full">
                   <ScrollReveal direction="up" delay={index * 0.1}>
-                    {/* h-full rakha hai taaki saare cards same row mein barabar height ke dikhein */}
                     <div className="group bg-white rounded-2xl p-2 overflow-hidden border border-gray-200/80 shadow-md hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-500 h-full flex flex-col relative">
 
                       {/* --- Image Section --- */}
@@ -314,7 +499,7 @@ export default function Index() {
                         </div>
                       </div>
 
-                      {/* --- CHANGE 1: ADDED INFO ROW AS PER PHOTO (Duration, Start, End) --- */}
+                      {/* --- INFO ROW --- */}
                       <div className="bg-emerald-50/50 border-b border-emerald-100 px-4 py-3 flex items-center justify-between gap-2 text-[10px] md:text-[11px] font-medium text-emerald-800">
                           {/* Duration */}
                           <div className="flex flex-col items-center leading-tight">
@@ -324,9 +509,8 @@ export default function Index() {
                              </div>
                              <span className="font-bold text-gray-700">{pkg.duration}</span>
                           </div>
-                          {/* Divider */}
                           <div className="w-px h-6 bg-emerald-200"></div>
-                          {/* Start From (Used Location as dynamic data) */}
+                          {/* Start */}
                           <div className="flex flex-col items-center leading-tight">
                              <div className="flex items-center gap-1 mb-0.5 text-orange-600">
                                 <MapPin className="w-3.5 h-3.5" />
@@ -334,9 +518,8 @@ export default function Index() {
                              </div>
                              <span className="font-bold text-gray-700">{pkg.location}</span>
                           </div>
-                          {/* Divider */}
                           <div className="w-px h-6 bg-emerald-200"></div>
-                          {/* Finish At */}
+                          {/* End */}
                           <div className="flex flex-col items-center leading-tight">
                              <div className="flex items-center gap-1 mb-0.5 text-orange-600">
                                 <Flag className="w-3.5 h-3.5" />
@@ -348,35 +531,58 @@ export default function Index() {
 
                       {/* --- Content Body --- */}
                       <div className="p-4 flex-1 flex flex-col">
-
-                        {/* Title - Limit removed (Wrap text allowed) */}
                         <div className="mb-3">
                           <h3 className="text-lg font-serif font-bold text-gray-800 leading-tight transition-colors">
                             {pkg.title}
                           </h3>
                         </div>
 
-                        {/* Amenities Icons */}
-                        <div className="flex gap-3 mb-5 border-y border-gray-100 py-3 justify-between px-1">
-                          <div className="flex flex-col items-center gap-1 text-gray-500">
-                            <Building2 className="w-3.5 h-3.5 text-emerald-600" />
-                            <span className="text-[9px] font-medium uppercase">Hotel</span>
+                        {/* --- Premium Black Amenities Section --- */}
+                        <div className="grid grid-cols-4 gap-3 mb-6 py-5 border-y border-dashed border-gray-200">
+                          
+                          {/* 1. Cab */}
+                          <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
+                            <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300 ">
+                              <CarFront className="w-5 h-5 text-gray-700  transition-colors duration-300" />
+                            </div>
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/icon:text-black transition-colors duration-300">
+                              Cab
+                            </span>
                           </div>
-                          <div className="flex flex-col items-center gap-1 text-gray-500">
-                            <Utensils className="w-3.5 h-3.5 text-emerald-600" />
-                            <span className="text-[9px] font-medium uppercase">Meals</span>
+
+                          {/* 2. Sightseeing */}
+                          <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
+                            <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300 ">
+                              <Camera className="w-5 h-5 text-gray-700 transition-colors duration-300" />
+                            </div>
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/icon:text-black transition-colors duration-300 text-center leading-none">
+                              Sightseeing
+                            </span>
                           </div>
-                          <div className="flex flex-col items-center gap-1 text-gray-500">
-                            <Car className="w-3.5 h-3.5 text-emerald-600" />
-                            <span className="text-[9px] font-medium uppercase">Cab</span>
+
+                          {/* 3. Hotel */}
+                          <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
+                            <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300 ">
+                              <BedDouble className="w-5 h-5 text-gray-700  transition-colors duration-300" />
+                            </div>
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/icon:text-black transition-colors duration-300">
+                              Hotel
+                            </span>
                           </div>
-                          <div className="flex flex-col items-center gap-1 text-gray-500">
-                            <Clock className="w-3.5 h-3.5 text-orange-500" />
-                            <span className="text-[9px] font-medium uppercase">{pkg.duration}</span>
+
+                          {/* 4. Meals */}
+                          <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
+                            <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300 ">
+                              <UtensilsCrossed className="w-5 h-5 text-gray-700  transition-colors duration-300" />
+                            </div>
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/icon:text-black transition-colors duration-300">
+                              Meals
+                            </span>
                           </div>
+
                         </div>
 
-                        {/* Price & Action Section */}
+                        {/* Price */}
                         <div className="mt-auto">
                           <div className="flex justify-between items-end mb-3">
                             <div>
@@ -390,9 +596,7 @@ export default function Index() {
                               <p className="text-[10px] text-gray-400 line-through mb-0 leading-none decoration-red-500 decoration-1">
                                 ₹{parseInt(pkg.price.replace(/[^\d]/g, '')) + 1500}
                               </p>
-                              <p className="text-[10px] font-bold text-orange-600">
-                                30% OFF
-                              </p>
+                              <p className="text-[10px] font-bold text-orange-600">30% OFF</p>
                             </div>
                           </div>
 
@@ -420,7 +624,6 @@ export default function Index() {
             </Swiper>
           </div>
 
-          {/* --- CHANGE 2: ADDED VIEW ALL PACKAGES BUTTON --- */}
           <div className="text-center mt-8">
              <Link to="/package">
                 <Button className="bg-emerald-900 text-white hover:bg-emerald-800 rounded-full px-8 py-6 text-lg font-bold shadow-lg transition-all hover:scale-105">
@@ -479,7 +682,7 @@ export default function Index() {
           <ScrollReveal direction="up" delay={0.6}>
             <div className="text-center mt-12">
               <Link to="/destination">
-                <Button size="lg" className="bg-emerald-100 text-emerald-800 hover:bg-orange-500 hover:text-white px-8 py-6 text-lg rounded-full shadow-none hover:shadow-lg transform hover:scale-105 transition-all duration-300 font-bold">
+                <Button className="bg-emerald-900 text-white hover:bg-emerald-800 rounded-full px-8 py-6 text-lg font-bold shadow-lg transition-all hover:scale-105">
                   View All Destinations <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
@@ -488,7 +691,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ================= LAST MINUTE DEALS (UPDATED TO MATCH CARD DESIGN - RED THEME) ================= */}
+      {/* ================= LAST MINUTE DEALS ================= */}
       <section className="py-16 md:py-4 relative overflow-hidden bg-slate-50">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
