@@ -9,9 +9,10 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+// Change 1: Added 'Flag' icon to imports for the new row
 import {
   ArrowRight, MapPin, Star, Calendar, Phone, ShieldCheck,
-  Headset, ThumbsUp, Globe, Users, Award, Clock, Utensils, Car, Building2, Heart
+  Headset, ThumbsUp, Globe, Users, Award, Clock, Utensils, Car, Building2, Heart, Flag
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -91,10 +92,10 @@ export default function Index() {
 
   // ================= PAGE DATA =================
   const packages = [
-    { name: 'Shimla', image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg', path: '/package/shimla', title: 'Shimla Manali Tour package ', location: 'Himachal', duration: '3 Days', price: '₹5,999' },
-    { name: 'Manali', image: 'https://i.pinimg.com/736x/49/7e/49/497e495ee05c0ea5d5de82e7c4e3f653.jpg', path: '/package/shimla-manali', title: 'Magical Manali', location: 'Himachal', duration: '4 Days', price: '₹7,999' },
-    { name: 'Triund', image: 'https://i.pinimg.com/736x/f6/7a/3e/f67a3e0a96ba728d80001bf6bd06ca03.jpg', path: '/package/dharamshala', title: 'Triund Trek', location: 'Dharamshala', duration: '2 Days', price: '₹3,499' },
-    { name: 'Yulla Kanda', image: 'https://i.pinimg.com/1200x/b2/ea/99/b2ea99c22fe47b745fa1554e9454f7b7.jpg', path: '/package/kinnaur', title: 'Kinnaur Valley', location: 'Kinnaur', duration: '5 Days', price: '₹12,499' },
+    { name: 'Shimla', image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg', path: '/package/shimla', title: 'Himalayan Delight: Shimla Manali Group Tour ', location: 'Himachal', duration: '3 Days/2 night', price: '₹5,999' },
+    { name: 'Manali', image: 'https://i.pinimg.com/736x/49/7e/49/497e495ee05c0ea5d5de82e7c4e3f653.jpg', path: '/package/shimla-manali', title: 'Manali Magic: A Himalayan Getaway for Group - family tour', location: 'Himachal', duration: '4 Days', price: '₹7,999' },
+    { name: 'Dharamshala', image: 'https://i.pinimg.com/736x/f6/7a/3e/f67a3e0a96ba728d80001bf6bd06ca03.jpg', path: '/package/dharamshala', title: 'Tri-City Escape: Dharamshala, Dalhousie & Amritsar for Group', location: 'Dharamshala', duration: '2 Days', price: '₹3,499' },
+    { name: 'Yulla Kanda', image: 'https://i.pinimg.com/1200x/b2/ea/99/b2ea99c22fe47b745fa1554e9454f7b7.jpg', path: '/package/kinnaur', title: 'Yulla Kanda Trek: Sacred High Altitude Lake Adventure in Himachal Himalayas', location: 'Kinnaur', duration: '5 Days', price: '₹12,499' },
     { name: 'Spiti', image: 'https://i.pinimg.com/1200x/43/b0/49/43b049fe3071e512697a9160ff648da3.jpg', path: '/package/spiti-8day', title: 'Spiti Expedition', location: 'Spiti Valley', duration: '7 Days', price: '₹18,999' },
   ];
 
@@ -260,15 +261,15 @@ export default function Index() {
           </div>
         </div>
       </section>
+
       {/* ================= POPULAR PACKAGES (MODERN CARD DESIGN) ================= */}
-      <section className="py-16 md:py-4 relative overflow-hidden bg-orange-50/30">
+      <section className="py-16 md:py-5 relative overflow-hidden bg-orange-50/30">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
-            <div className="text-center mb-10 md:mb-16">
+            <div className="text-center mb-10 md:mb-10">
               <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-black">
                 Popular Packages
               </h2>
-              <p className="text-lg text-gray-600 font-medium max-w-2xl mx-auto">Choose from our best-selling itineraries crafted by travel experts.</p>
               <div className="w-20 h-1 bg-orange-400 mx-auto mt-6 rounded-full"></div>
             </div>
           </ScrollReveal>
@@ -285,19 +286,26 @@ export default function Index() {
                 768: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
               }}
-              className="pb-16 px-2">
+              className="pb-5 px-2">
               {packages.map((pkg, index) => (
                 <SwiperSlide key={index} className="h-full pb-10">
                   <ScrollReveal direction="up" delay={index * 0.1}>
-                    <div className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-lg hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300 h-full flex flex-col relative">
-                      <div className="relative h-64 overflow-hidden">
+                    {/* h-full rakha hai taaki saare cards same row mein barabar height ke dikhein */}
+                    <div className="group bg-white rounded-2xl p-2 overflow-hidden border border-gray-200/80 shadow-md hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-500 h-full flex flex-col relative">
+
+                      {/* --- Image Section --- */}
+                      <div className="relative h-64 flex-shrink-0 rounded-xl overflow-hidden transition-all duration-500 group-hover:rounded-[20px] group-hover:shadow-sm">
                         <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                        <div className="absolute top-4 left-4 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-md z-10">
-                          Best Seller
+
+                        {/* 20% OFF Ribbon */}
+                        <div className="absolute top-[14px] left-[-34px] bg-[#6d1526] text-white text-[10px] font-bold w-[120px] py-1 -rotate-45 text-center shadow-lg z-20 uppercase tracking-wider border-y border-[#57111f]">
+                          20% OFF
                         </div>
+
                         <button className="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-white hover:text-red-500 transition-colors z-10">
                           <Heart className="w-4 h-4 fill-current" />
                         </button>
+
                         <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4 pt-10">
                           <div className="flex items-center gap-1 text-white text-xs font-medium">
                             <MapPin className="w-3.5 h-3.5 text-orange-400" />
@@ -305,21 +313,51 @@ export default function Index() {
                           </div>
                         </div>
                       </div>
+
+                      {/* --- CHANGE 1: ADDED INFO ROW AS PER PHOTO (Duration, Start, End) --- */}
+                      <div className="bg-emerald-50/50 border-b border-emerald-100 px-4 py-3 flex items-center justify-between gap-2 text-[10px] md:text-[11px] font-medium text-emerald-800">
+                          {/* Duration */}
+                          <div className="flex flex-col items-center leading-tight">
+                             <div className="flex items-center gap-1 mb-0.5 text-orange-600">
+                                <Clock className="w-3.5 h-3.5" />
+                                <span>Duration</span>
+                             </div>
+                             <span className="font-bold text-gray-700">{pkg.duration}</span>
+                          </div>
+                          {/* Divider */}
+                          <div className="w-px h-6 bg-emerald-200"></div>
+                          {/* Start From (Used Location as dynamic data) */}
+                          <div className="flex flex-col items-center leading-tight">
+                             <div className="flex items-center gap-1 mb-0.5 text-orange-600">
+                                <MapPin className="w-3.5 h-3.5" />
+                                <span>Start</span>
+                             </div>
+                             <span className="font-bold text-gray-700">{pkg.location}</span>
+                          </div>
+                          {/* Divider */}
+                          <div className="w-px h-6 bg-emerald-200"></div>
+                          {/* Finish At */}
+                          <div className="flex flex-col items-center leading-tight">
+                             <div className="flex items-center gap-1 mb-0.5 text-orange-600">
+                                <Flag className="w-3.5 h-3.5" />
+                                <span>End</span>
+                             </div>
+                             <span className="font-bold text-gray-700">{pkg.location}</span>
+                          </div>
+                      </div>
+
+                      {/* --- Content Body --- */}
                       <div className="p-4 flex-1 flex flex-col">
-                        <div className="flex justify-between items-start mb-2">
-                          <h3 className="text-lg font-serif font-bold text-gray-800 leading-tight  transition-colors line-clamp-1">
+
+                        {/* Title - Limit removed (Wrap text allowed) */}
+                        <div className="mb-3">
+                          <h3 className="text-lg font-serif font-bold text-gray-800 leading-tight transition-colors">
                             {pkg.title}
                           </h3>
                         </div>
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="flex text-yellow-400">
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="w-3 h-3 fill-current" />
-                            ))}
-                          </div>
-                          <span className="text-xs text-gray-400 font-medium">(45 Reviews)</span>
-                        </div>
-                        <div className="flex gap-3 mb-4 border-y border-gray-100 py-2 justify-between px-1">
+
+                        {/* Amenities Icons */}
+                        <div className="flex gap-3 mb-5 border-y border-gray-100 py-3 justify-between px-1">
                           <div className="flex flex-col items-center gap-1 text-gray-500">
                             <Building2 className="w-3.5 h-3.5 text-emerald-600" />
                             <span className="text-[9px] font-medium uppercase">Hotel</span>
@@ -337,8 +375,11 @@ export default function Index() {
                             <span className="text-[9px] font-medium uppercase">{pkg.duration}</span>
                           </div>
                         </div>
+
+                        {/* Price & Action Section */}
                         <div className="mt-auto">
-                          <div className="flex justify-between items-end mb-3">                            <div>
+                          <div className="flex justify-between items-end mb-3">
+                            <div>
                               <p className="text-[10px] text-gray-400 font-medium mb-0 leading-none">Starting from</p>
                               <div className="flex items-baseline gap-1">
                                 <span className="text-xl font-bold text-emerald-700">{pkg.price}</span>
@@ -354,6 +395,7 @@ export default function Index() {
                               </p>
                             </div>
                           </div>
+
                           <div className="flex gap-2 w-full pt-3 border-t border-dashed border-gray-100">
                             <Link to="/booking" className="flex-1">
                               <button className="w-full h-9 border border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white rounded-md font-bold text-[10px] md:text-[11px] shadow-sm transition-all active:scale-95 flex items-center justify-center">
@@ -377,6 +419,16 @@ export default function Index() {
               ))}
             </Swiper>
           </div>
+
+          {/* --- CHANGE 2: ADDED VIEW ALL PACKAGES BUTTON --- */}
+          <div className="text-center mt-8">
+             <Link to="/package">
+                <Button className="bg-emerald-900 text-white hover:bg-emerald-800 rounded-full px-8 py-6 text-lg font-bold shadow-lg transition-all hover:scale-105">
+                   View All Packages <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+             </Link>
+          </div>
+
         </div>
       </section>
 
@@ -386,7 +438,6 @@ export default function Index() {
           <ScrollReveal direction="up">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-black">Explore Destinations </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-4">Top rated destinations loved by our travelers.</p>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
@@ -442,7 +493,6 @@ export default function Index() {
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
-              <Badge className="bg-red-500 text-white px-4 py-1 mb-4 uppercase tracking-wider shadow-red-200 shadow-lg">Limited Time Only</Badge>
               <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-black">Last Minute Deals</h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">Unbeatable prices for spontaneous travelers. Grab them before they are gone!</p>
             </div>

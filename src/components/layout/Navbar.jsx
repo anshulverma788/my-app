@@ -9,25 +9,7 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  // Scroll State
-  const [isScrolled, setIsScrolled] = useState(false);
-  
   const location = useLocation();
-  const isHome = location.pathname === "/"; 
-
-  // Scroll Event Listener
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
@@ -38,13 +20,41 @@ export default function Navbar() {
     }
   }, [isMobileMenuOpen]);
 
+  // --- DATA FOR MENUS ---
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Tour Package", path: "/Package", hasMegaMenu: true },
-    { name: "Destinations", path: "/Destination",},
+    { 
+      name: "Destinations", 
+      path: "/Destination", 
+      hasDropdown: true, 
+      subItems: [
+        { name: "Shimla", path: "/destination/shimla" },
+        { name: "Manali", path: "/destination/manali" },
+        { name: "Spiti Valley", path: "/destination/spiti" },
+        { name: "Dharamshala", path: "/destination/dharamshala" },
+        { name: "Dalhousie", path: "/destination/dalhousie" },
+        { name: "Kasol", path: "/destination/kasol" },
+      ]
+    },
     { name: "About", path: "/about" },
     { name: "Gallery", path: "/gallery" },
     { name: "Contact", path: "/contact" },
+  ];
+
+  // --- DATA FOR PACKAGE MEGA MENU ---
+  const domesticPackages = [
+    { name: "Shimla & Manali", path: "/package/shimla-manali" },
+    { name: "Dharamshala", path: "/package/dharamshala" },
+    { name: "Spiti Valley", path: "/package/spiti-valley" },
+    { name: "Dalhousie", path: "/package/dalhousie" }
+  ];
+
+  const internationalPackages = [
+    { name: "Dubai Special", path: "/package/dubai" },
+    { name: "Thailand Trip", path: "/package/thailand" },
+    { name: "Maldives Honeymoon", path: "/package/maldives" },
+    { name: "Europe Tour", path: "/package/europe" }
   ];
 
   const handleOpenBooking = () => {
@@ -52,22 +62,11 @@ export default function Navbar() {
     setIsModalOpen(true);
   };
 
-  // --- COLOR LOGIC FOR PREMIUM THEME ---
-  
-  const isTransparent = isHome && !isScrolled;
-
-  // Background: White with mild transparency and blur for premium glass effect when scrolled
-  const navbarClasses = isTransparent
-    ? "bg-transparent border-transparent py-5"
-    : "bg-white/95 backdrop-blur-md border-emerald-100/50 shadow-sm py-3";
-
-  // Text Colors
-  const textColorClass = isTransparent 
-    ? "text-white hover:text-orange-300" 
-    : "text-emerald-950 hover:text-orange-600"; // Emerald-950 is darker/richer than gray
-    
-  const logoTextMain = isTransparent ? "text-white" : "text-emerald-800";
-  const mobileMenuIconClass = isTransparent ? "text-white hover:bg-white/10" : "text-emerald-900 hover:bg-emerald-50";
+  // --- STYLES ---
+  const navbarClasses = "bg-white/95 backdrop-blur-md border-b border-emerald-100/50 shadow-sm py-4";
+  const textColorClass = "text-emerald-950 hover:text-orange-600";
+  const logoTextMain = "text-emerald-800";
+  const mobileMenuIconClass = "text-emerald-900 hover:bg-emerald-50";
 
   return (
     <>
@@ -78,7 +77,6 @@ export default function Navbar() {
             
             {/* LOGO */}
             <Link to="/" className="flex items-center gap-2 group z-50">
-              {/* Premium Gradient Logo Box */}
               <div className="w-10 h-10 bg-gradient-to-br from-emerald-600 to-green-500 rounded-lg flex items-center justify-center text-white shadow-lg shadow-emerald-200/50 group-hover:rotate-6 transition-transform border border-white/20">
                 <MapPin className="w-6 h-6" />
               </div>
@@ -86,7 +84,7 @@ export default function Navbar() {
                 <span className={`text-2xl font-bold tracking-tight transition-colors duration-300 flex gap-1 ${logoTextMain}`}>
                   <span>Himachal</span><span className="text-orange-500">Destination</span>
                 </span>
-                <span className={`text-[10px] uppercase tracking-[0.2em] font-bold transition-colors duration-300 ${isTransparent ? 'text-orange-200' : 'text-orange-600/80'}`}>
+                <span className="text-[10px] uppercase tracking-[0.2em] font-bold transition-colors duration-300 text-orange-600/80">
                   Explore the Unseen
                 </span>
               </div>
@@ -97,7 +95,7 @@ export default function Navbar() {
               {navLinks.map((link) => (
                 <div
                   key={link.name}
-                  className="relative group h-full py-2"
+                  className="relative group h-full py-2 flex items-center"
                   onMouseEnter={() => setActiveDropdown(link.name)}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
@@ -105,7 +103,7 @@ export default function Navbar() {
                     to={link.path}
                     className={`flex items-center gap-1 text-sm font-bold transition-colors duration-300 ${
                       location.pathname === link.path
-                        ? "text-orange-500" // Active Link Color
+                        ? "text-orange-500"
                         : textColorClass
                     }`}
                   >
@@ -115,72 +113,98 @@ export default function Navbar() {
                     )}
                   </Link>
 
-                  {/* Active Line Animation - Orange */}
+                  {/* Active Line Animation */}
                   <span
                     className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-orange-500 to-orange-400 transform scale-x-0 transition-transform duration-300 origin-left group-hover:scale-x-100 ${
                       location.pathname === link.path ? "scale-x-100" : ""
                     }`}
                   />
 
-                  {/* MEGA MENU */}
+                  {/* --- MEGA MENU (Tour Package) --- */}
                   {link.hasMegaMenu && activeDropdown === link.name && (
-                    <div className="absolute top-full -left-20 mt-4 w-[650px] p-6 bg-white rounded-2xl shadow-xl shadow-emerald-900/10 border border-emerald-50 animate-in fade-in slide-in-from-top-4 duration-200 z-50 text-slate-900">
+                    <div className="absolute top-full -left-20 pt-6 w-[650px] z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                       
-                      {/* Triangle Pointer */}
-                      <div className="absolute -top-2 left-24 w-4 h-4 bg-white rotate-45 border-l border-t border-emerald-50"></div>
-                      
-                      <div className="grid grid-cols-3 gap-8">
-                        {/* Column 1 */}
-                        <div>
-                          <h4 className="text-emerald-800 font-extrabold mb-4 text-xs uppercase tracking-wider border-b border-orange-100 pb-2">Top Domestic</h4>
-                          <ul className="space-y-3 text-sm text-gray-600">
-                            {[
-                              "Shimla & Manali", 
-                              "Dharamshala", 
-                              "Spiti Valley", 
-                              "Dalhousie"
-                            ].map((item) => (
-                              <li key={item} className="group/item flex items-center gap-2 cursor-pointer hover:text-orange-600 transition-colors">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-200 group-hover/item:bg-orange-500 transition-colors"></span> 
-                                {item}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                      <div className="relative p-6 bg-white rounded-2xl shadow-xl shadow-emerald-900/10 border border-emerald-50 text-slate-900 cursor-default">
+                        {/* Triangle Pointer */}
+                        <div className="absolute -top-2 left-24 w-4 h-4 bg-white rotate-45 border-l border-t border-emerald-50"></div>
+                        
+                        <div className="grid grid-cols-3 gap-8">
+                          {/* Column 1: Domestic Packages */}
+                          <div>
+                            <h4 className="text-emerald-800 font-extrabold mb-4 text-xs uppercase tracking-wider border-b border-orange-100 pb-2">Top Domestic</h4>
+                            <ul className="space-y-3 text-sm text-gray-600">
+                              {domesticPackages.map((item) => (
+                                <li key={item.name}>
+                                  <Link 
+                                    to={item.path} 
+                                    className="group/item flex items-center gap-2 cursor-pointer hover:text-orange-600 transition-colors"
+                                  >
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-200 group-hover/item:bg-orange-500 transition-colors"></span> 
+                                    {item.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
 
-                        {/* Column 2 */}
-                        <div>
-                          <h4 className="text-emerald-800 font-extrabold mb-4 text-xs uppercase tracking-wider border-b border-orange-100 pb-2">International</h4>
-                          <ul className="space-y-3 text-sm text-gray-600">
-                             {[
-                              "Dubai Special", 
-                              "Thailand Trip", 
-                              "Maldives Honeymoon", 
-                              "Europe Tour"
-                            ].map((item) => (
-                              <li key={item} className="group/item flex items-center gap-2 cursor-pointer hover:text-orange-600 transition-colors">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-200 group-hover/item:bg-orange-500 transition-colors"></span> 
-                                {item}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                          {/* Column 2: International Packages */}
+                          <div>
+                            <h4 className="text-emerald-800 font-extrabold mb-4 text-xs uppercase tracking-wider border-b border-orange-100 pb-2">International</h4>
+                            <ul className="space-y-3 text-sm text-gray-600">
+                               {internationalPackages.map((item) => (
+                                <li key={item.name}>
+                                  <Link 
+                                    to={item.path} 
+                                    className="group/item flex items-center gap-2 cursor-pointer hover:text-orange-600 transition-colors"
+                                  >
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-200 group-hover/item:bg-orange-500 transition-colors"></span> 
+                                    {item.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
 
-                        {/* Column 3 - Featured Image */}
-                        <div className="relative rounded-xl overflow-hidden group/card cursor-pointer h-full min-h-[160px] shadow-md">
-                          <img 
-                            src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=600&auto=format&fit=crop" 
-                            alt="Featured" 
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 to-transparent flex flex-col justify-end p-4">
-                            <span className="text-white text-[10px] font-bold bg-orange-500 px-2 py-0.5 rounded-full w-fit mb-2 shadow-sm">TRENDING</span>
-                            <span className="text-white font-bold text-sm leading-tight">Manali Winter Special 2024</span>
+                          {/* Column 3: Featured Image */}
+                          <div className="relative rounded-xl overflow-hidden group/card cursor-pointer h-full min-h-[160px] shadow-md">
+                            <img 
+                              src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=600&auto=format&fit=crop" 
+                              alt="Featured" 
+                              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 to-transparent flex flex-col justify-end p-4">
+                              <span className="text-white text-[10px] font-bold bg-orange-500 px-2 py-0.5 rounded-full w-fit mb-2 shadow-sm">TRENDING</span>
+                              <span className="text-white font-bold text-sm leading-tight">Manali Winter Special 2024</span>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   )}
+
+                  {/* --- DROPDOWN (Destinations) --- */}
+                  {link.hasDropdown && activeDropdown === link.name && (
+                    <div className="absolute top-full left-0 pt-6 w-56 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                      
+                      <div className="relative p-2 bg-white rounded-xl shadow-xl shadow-emerald-900/10 border border-emerald-50 text-slate-900">
+                        <div className="absolute -top-2 left-6 w-4 h-4 bg-white rotate-45 border-l border-t border-emerald-50"></div>
+                        
+                        <div className="flex flex-col gap-1">
+                          {link.subItems.map((subItem) => (
+                            <Link 
+                              key={subItem.name}
+                              to={subItem.path}
+                              className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-orange-50 hover:text-orange-600 text-sm font-medium text-gray-600 transition-all group/sub"
+                            >
+                               {subItem.name}
+                               <ArrowRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover/sub:opacity-100 group-hover/sub:translate-x-0 transition-all text-orange-400"/>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                 </div>
               ))}
             </div>
@@ -189,9 +213,9 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-5">
               <a
                 href="tel:+919876543210"
-                className={`flex items-center gap-2 font-semibold transition-colors group ${isTransparent ? 'text-white hover:text-orange-200' : 'text-emerald-950 hover:text-orange-600'}`}
+                className="flex items-center gap-2 font-semibold transition-colors group text-emerald-950 hover:text-orange-600"
               >
-                <div className={`w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-300 ${isTransparent ? 'bg-white/10 border-white/20 text-white group-hover:bg-orange-500 group-hover:border-orange-500' : 'bg-orange-50 border-orange-100 text-orange-600 group-hover:bg-orange-500 group-hover:text-white'}`}>
+                <div className="w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-300 bg-orange-50 border-orange-100 text-orange-600 group-hover:bg-orange-500 group-hover:text-white">
                     <Phone className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col items-start leading-none">
@@ -200,7 +224,6 @@ export default function Navbar() {
                 </div>
               </a>
 
-              {/* Gradient Button - Premium Feel */}
               <Button 
                 onClick={handleOpenBooking}
                 className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-orange-500 hover:to-orange-600 text-white rounded-full px-7 h-11 shadow-lg shadow-emerald-200 hover:shadow-orange-200 transition-all duration-300 hover:scale-105 border-none font-bold tracking-wide"
@@ -251,19 +274,35 @@ export default function Navbar() {
 
             <div className="flex flex-col gap-2 overflow-y-auto flex-1">
               {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center justify-between p-3.5 rounded-xl transition-all ${
-                    location.pathname === link.path
-                      ? "bg-orange-50 text-orange-600 font-bold border border-orange-100"
-                      : "text-emerald-900 font-medium hover:bg-gray-50 hover:text-orange-600"
-                  }`}
-                >
-                  {link.name}
-                  <ArrowRight className={`w-4 h-4 ${location.pathname === link.path ? "opacity-100" : "opacity-30"}`} />
-                </Link>
+                <div key={link.name}>
+                  <Link
+                    to={link.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center justify-between p-3.5 rounded-xl transition-all ${
+                      location.pathname === link.path
+                        ? "bg-orange-50 text-orange-600 font-bold border border-orange-100"
+                        : "text-emerald-900 font-medium hover:bg-gray-50 hover:text-orange-600"
+                    }`}
+                  >
+                    {link.name}
+                    <ArrowRight className={`w-4 h-4 ${location.pathname === link.path ? "opacity-100" : "opacity-30"}`} />
+                  </Link>
+                  
+                  {link.hasDropdown && (
+                     <div className="pl-6 flex flex-col gap-2 mt-1 border-l-2 border-orange-100 ml-4">
+                        {link.subItems.map((sub) => (
+                          <Link 
+                            key={sub.name} 
+                            to={sub.path} 
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="text-sm text-gray-500 py-1 hover:text-orange-500"
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                     </div>
+                  )}
+                </div>
               ))}
             </div>
 
