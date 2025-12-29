@@ -289,8 +289,8 @@ export default function Index() {
         </div>
 
         {/* ================= SEARCH TOUR BAR (Fixed Overlap & Spacing) ================= */}
-        {/* Adjusted bottom position to overlap perfectly */}
-        <div className="absolute left-0 right-0 z-40 w-full px-4 -bottom-[120px] lg:-bottom-[40px] pointer-events-auto">
+        {/* Adjusted: Mobile uses top-[75%] to position below hero text, Desktop keeps bottom positioning */}
+        <div className="absolute left-0 right-0 z-40 w-full px-4 top-[100%] lg:top-auto lg:-bottom-[40px] pointer-events-auto">
            <div ref={searchContainerRef} className="container mx-auto max-w-6xl bg-white rounded-md shadow-2xl border border-gray-200 overflow-visible relative transition-shadow duration-500 hover:shadow-xl">
               <div className="flex flex-col lg:flex-row">
                  
@@ -399,17 +399,17 @@ export default function Index() {
 
                     {activeDropdown === 'month' && (
                       <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50 animate-in fade-in zoom-in-95 duration-200 mt-1 rounded-sm">
-                         <div className="bg-[#009f48] text-white px-3 py-2 text-sm font-medium">
-                            Select Month
-                         </div>
-                         <div className="p-2 border-b border-gray-100">
-                          <input 
-                            type="text" 
-                            className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#009f48]" 
-                            placeholder="Filter..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                          />
+                          <div className="bg-[#009f48] text-white px-3 py-2 text-sm font-medium">
+                             Select Month
+                          </div>
+                          <div className="p-2 border-b border-gray-100">
+                           <input 
+                             type="text" 
+                             className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#009f48]" 
+                             placeholder="Filter..."
+                             value={searchTerm}
+                             onChange={(e) => setSearchTerm(e.target.value)}
+                           />
                         </div>
                         <div className="max-h-64 overflow-y-auto custom-scrollbar">
                            <div 
@@ -446,8 +446,8 @@ export default function Index() {
       </section>
 
       {/* ================= POPULAR PACKAGES ================= */}
-      {/* Increased Margin Top (mt-[150px] for Mobile, mt-24 for Desktop) AND increased Swiper Padding (pb-14) for bullets */}
-      <section className="py-16 md:py-5 relative overflow-hidden bg-orange-50/30 mt-[150px] lg:mt-24">
+      {/* Increased Mobile Margin Top (mt-[320px]) to prevent search bar overlap */}
+      <section className=" md:py-5 relative overflow-hidden bg-orange-50/30 mt-[250px] lg:mt-24">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-10">
@@ -458,7 +458,6 @@ export default function Index() {
             </div>
           </ScrollReveal>
           
-          {/* Changed pb-5 to pb-14 to show pagination bullets */}
           <div className="dark-pagination">
             <Swiper
               modules={[Autoplay, Pagination, Navigation]}
@@ -679,7 +678,6 @@ export default function Index() {
               </div>
             ))}
           </div>
-          <ScrollReveal direction="up" delay={0.6}>
             <div className="text-center mt-12">
               <Link to="/destination">
                 <Button className="bg-emerald-900 text-white hover:bg-emerald-800 rounded-full px-8 py-6 text-lg font-bold shadow-lg transition-all hover:scale-105">
@@ -687,7 +685,6 @@ export default function Index() {
                 </Button>
               </Link>
             </div>
-          </ScrollReveal>
         </div>
       </section>
 
