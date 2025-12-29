@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
-import { motion } from 'framer-motion'; 
+import { motion } from 'framer-motion';
 
 // CSS Imports
 import 'swiper/css';
@@ -44,7 +44,7 @@ export default function Index() {
   const [selectedDur, setSelectedDur] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   const searchContainerRef = useRef(null);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export default function Index() {
 
   const searchDestinations = [
     "Andaman", "Amarnath Yatra", "Bhutan", "Chardham Yatra", "Dubai", "Europe",
-    "Himachal", "Kashmir", "Kerala", "Ladakh", "Manali", "Rajasthan", "Shimla", 
+    "Himachal", "Kashmir", "Kerala", "Ladakh", "Manali", "Rajasthan", "Shimla",
     "Sikkim", "Thailand", "Vietnam"
   ];
 
@@ -68,22 +68,22 @@ export default function Index() {
   ];
 
   const searchMonths = [
-    "January 2025", "February 2025", "March 2025", "April 2025", 
-    "May 2025", "June 2025", "July 2025", "August 2025", "September 2025", 
+    "January 2025", "February 2025", "March 2025", "April 2025",
+    "May 2025", "June 2025", "July 2025", "August 2025", "September 2025",
     "October 2025", "November 2025", "December 2025"
   ];
 
-  const filteredDestinations = searchDestinations.filter(dest => 
+  const filteredDestinations = searchDestinations.filter(dest =>
     dest.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const filteredMonths = searchMonths.filter(m => 
+  const filteredMonths = searchMonths.filter(m =>
     m.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const toggleDropdown = (name) => {
     setActiveDropdown(activeDropdown === name ? null : name);
-    setSearchTerm(""); 
+    setSearchTerm("");
   };
 
   const handleSelection = (type, value) => {
@@ -308,163 +308,163 @@ export default function Index() {
 
         {/* ================= SEARCH TOUR BAR ================= */}
         <div className="absolute left-0 right-0 z-40 w-full px-4 top-[100%] lg:top-auto lg:-bottom-[40px] pointer-events-auto">
-           <div ref={searchContainerRef} className="container mx-auto max-w-6xl bg-white rounded-md shadow-2xl border border-gray-200 overflow-visible relative transition-shadow duration-500 hover:shadow-xl">
-              <div className="flex flex-col lg:flex-row">
-                 
-                 {/* 1. DESTINATION */}
-                 <div className="flex-1 border-b lg:border-b-0 lg:border-r border-gray-200 relative">
-                    <div 
-                      onClick={() => toggleDropdown('destination')}
-                      className="p-4 h-full flex items-center gap-3 cursor-pointer group"
-                    >
-                        <MapPin className="text-gray-400 w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:text-[#009f48]" />
-                        <div className="flex-1">
-                           <span className={`block text-sm transition-colors duration-300 ${selectedDest ? 'text-black font-semibold' : 'text-gray-500 group-hover:text-gray-700'}`}>
-                             {selectedDest || "Select Destination"}
-                           </span>
-                        </div>
-                        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${activeDropdown === 'destination' ? 'rotate-180' : ''}`} />
+          <div ref={searchContainerRef} className="container mx-auto max-w-6xl bg-white rounded-md shadow-2xl border border-gray-200 overflow-visible relative transition-shadow duration-500 hover:shadow-xl">
+            <div className="flex flex-col lg:flex-row">
+
+              {/* 1. DESTINATION */}
+              <div className="flex-1 border-b lg:border-b-0 lg:border-r border-gray-200 relative">
+                <div
+                  onClick={() => toggleDropdown('destination')}
+                  className="p-4 h-full flex items-center gap-3 cursor-pointer group"
+                >
+                  <MapPin className="text-gray-400 w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:text-[#009f48]" />
+                  <div className="flex-1">
+                    <span className={`block text-sm transition-colors duration-300 ${selectedDest ? 'text-black font-semibold' : 'text-gray-500 group-hover:text-gray-700'}`}>
+                      {selectedDest || "Select Destination"}
+                    </span>
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${activeDropdown === 'destination' ? 'rotate-180' : ''}`} />
+                </div>
+
+                {activeDropdown === 'destination' && (
+                  <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50 animate-in fade-in zoom-in-95 duration-200 mt-1 rounded-sm">
+                    <div className="p-2 border-b border-gray-100">
+                      <input
+                        type="text"
+                        className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#009f48]"
+                        placeholder="Search..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        autoFocus
+                      />
                     </div>
-
-                    {activeDropdown === 'destination' && (
-                      <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50 animate-in fade-in zoom-in-95 duration-200 mt-1 rounded-sm">
-                        <div className="p-2 border-b border-gray-100">
-                          <input 
-                            type="text" 
-                            className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#009f48]" 
-                            placeholder="Search..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            autoFocus
-                          />
-                        </div>
-                        <div className="max-h-64 overflow-y-auto custom-scrollbar">
-                           <div className="bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-600">Select Destination</div>
-                           {filteredDestinations.map((item, idx) => (
-                             <div 
-                               key={idx}
-                               onClick={() => handleSelection('destination', item)}
-                               className={`px-3 py-2 text-sm cursor-pointer transition-all duration-200 hover:pl-5 hover:bg-emerald-50 hover:text-[#009f48] flex justify-between items-center ${selectedDest === item ? 'bg-emerald-50 text-[#009f48] font-medium' : 'text-gray-700'}`}
-                             >
-                                {item}
-                             </div>
-                           ))}
-                        </div>
-                      </div>
-                    )}
-                 </div>
-
-                 {/* 2. DURATION */}
-                 <div className="flex-1 border-b lg:border-b-0 lg:border-r border-gray-200 relative">
-                    <div 
-                      onClick={() => toggleDropdown('duration')}
-                      className="p-4 h-full flex items-center gap-3 cursor-pointer group"
-                    >
-                        <Sun className="text-gray-400 w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:text-[#009f48]" />
-                        <div className="flex-1">
-                           <span className={`block text-sm transition-colors duration-300 ${selectedDur ? 'text-black font-semibold' : 'text-gray-500 group-hover:text-gray-700'}`}>
-                             {selectedDur || "Select Duration"}
-                           </span>
-                        </div>
-                        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${activeDropdown === 'duration' ? 'rotate-180' : ''}`} />
-                    </div>
-
-                    {activeDropdown === 'duration' && (
-                      <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50 animate-in fade-in zoom-in-95 duration-200 mt-1 rounded-sm">
-                        <div 
-                          onClick={() => handleSelection('duration', 'Not decided')}
-                          className="bg-[#009f48] text-white px-3 py-2.5 text-sm font-medium flex items-center gap-2 cursor-pointer hover:bg-[#008f45] transition-colors"
+                    <div className="max-h-64 overflow-y-auto custom-scrollbar">
+                      <div className="bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-600">Select Destination</div>
+                      {filteredDestinations.map((item, idx) => (
+                        <div
+                          key={idx}
+                          onClick={() => handleSelection('destination', item)}
+                          className={`px-3 py-2 text-sm cursor-pointer transition-all duration-200 hover:pl-5 hover:bg-emerald-50 hover:text-[#009f48] flex justify-between items-center ${selectedDest === item ? 'bg-emerald-50 text-[#009f48] font-medium' : 'text-gray-700'}`}
                         >
-                           <div className="w-4 h-4 border border-white rounded bg-white flex items-center justify-center">
-                              {selectedDur === 'Not decided' && <Check className="w-3 h-3 text-[#009f48]" />}
-                           </div>
-                           Not decided
+                          {item}
                         </div>
-                        
-                        <div className="max-h-64 overflow-y-auto custom-scrollbar">
-                           {searchDurations.map((item, idx) => (
-                             <div 
-                               key={idx}
-                               onClick={() => handleSelection('duration', item)}
-                               className="px-3 py-2 text-sm cursor-pointer transition-all duration-200 hover:pl-5 hover:bg-emerald-50 flex items-center gap-2 border-b border-gray-100 last:border-0"
-                             >
-                                <div className={`w-4 h-4 border border-gray-300 rounded flex items-center justify-center transition-colors ${selectedDur === item ? 'bg-[#009f48] border-[#009f48]' : 'bg-white'}`}>
-                                   {selectedDur === item && <Check className="w-3 h-3 text-white" />}
-                                </div>
-                                <span className="text-gray-700 group-hover:text-black">{item}</span>
-                             </div>
-                           ))}
-                        </div>
-                      </div>
-                    )}
-                 </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
 
-                 {/* 3. MONTH */}
-                 <div className="flex-1 border-b lg:border-b-0 relative">
-                    <div 
-                      onClick={() => toggleDropdown('month')}
-                      className="p-4 h-full flex items-center gap-3 cursor-pointer group"
+              {/* 2. DURATION */}
+              <div className="flex-1 border-b lg:border-b-0 lg:border-r border-gray-200 relative">
+                <div
+                  onClick={() => toggleDropdown('duration')}
+                  className="p-4 h-full flex items-center gap-3 cursor-pointer group"
+                >
+                  <Sun className="text-gray-400 w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:text-[#009f48]" />
+                  <div className="flex-1">
+                    <span className={`block text-sm transition-colors duration-300 ${selectedDur ? 'text-black font-semibold' : 'text-gray-500 group-hover:text-gray-700'}`}>
+                      {selectedDur || "Select Duration"}
+                    </span>
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${activeDropdown === 'duration' ? 'rotate-180' : ''}`} />
+                </div>
+
+                {activeDropdown === 'duration' && (
+                  <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50 animate-in fade-in zoom-in-95 duration-200 mt-1 rounded-sm">
+                    <div
+                      onClick={() => handleSelection('duration', 'Not decided')}
+                      className="bg-[#009f48] text-white px-3 py-2.5 text-sm font-medium flex items-center gap-2 cursor-pointer hover:bg-[#008f45] transition-colors"
                     >
-                        <Calendar className="text-gray-400 w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:text-[#009f48]" />
-                        <div className="flex-1">
-                           <span className={`block text-sm transition-colors duration-300 ${selectedMonth ? 'text-black font-semibold' : 'text-gray-500 group-hover:text-gray-700'}`}>
-                             {selectedMonth || "Select Month"}
-                           </span>
-                        </div>
-                        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${activeDropdown === 'month' ? 'rotate-180' : ''}`} />
+                      <div className="w-4 h-4 border border-white rounded bg-white flex items-center justify-center">
+                        {selectedDur === 'Not decided' && <Check className="w-3 h-3 text-[#009f48]" />}
+                      </div>
+                      Not decided
                     </div>
 
-                    {activeDropdown === 'month' && (
-                      <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50 animate-in fade-in zoom-in-95 duration-200 mt-1 rounded-sm">
-                          <div className="bg-[#009f48] text-white px-3 py-2 text-sm font-medium">
-                             Select Month
+                    <div className="max-h-64 overflow-y-auto custom-scrollbar">
+                      {searchDurations.map((item, idx) => (
+                        <div
+                          key={idx}
+                          onClick={() => handleSelection('duration', item)}
+                          className="px-3 py-2 text-sm cursor-pointer transition-all duration-200 hover:pl-5 hover:bg-emerald-50 flex items-center gap-2 border-b border-gray-100 last:border-0"
+                        >
+                          <div className={`w-4 h-4 border border-gray-300 rounded flex items-center justify-center transition-colors ${selectedDur === item ? 'bg-[#009f48] border-[#009f48]' : 'bg-white'}`}>
+                            {selectedDur === item && <Check className="w-3 h-3 text-white" />}
                           </div>
-                          <div className="p-2 border-b border-gray-100">
-                           <input 
-                             type="text" 
-                             className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#009f48]" 
-                             placeholder="Filter..."
-                             value={searchTerm}
-                             onChange={(e) => setSearchTerm(e.target.value)}
-                           />
+                          <span className="text-gray-700 group-hover:text-black">{item}</span>
                         </div>
-                        <div className="max-h-64 overflow-y-auto custom-scrollbar">
-                           <div 
-                              onClick={() => handleSelection('month', 'Not Sure')}
-                              className={`px-3 py-2 text-sm cursor-pointer transition-all duration-200 hover:pl-5 hover:bg-emerald-50 hover:text-[#009f48] border-b border-gray-100 ${selectedMonth === 'Not Sure' ? 'text-[#009f48] font-medium' : 'text-gray-700'}`}
-                           >
-                              Not Sure
-                           </div>
-                           {filteredMonths.map((item, idx) => (
-                             <div 
-                               key={idx}
-                               onClick={() => handleSelection('month', item)}
-                               className={`px-3 py-2 text-sm cursor-pointer transition-all duration-200 hover:pl-5 hover:bg-emerald-50 hover:text-[#009f48] border-b border-gray-100 last:border-0 ${selectedMonth === item ? 'text-[#009f48] font-medium' : 'text-gray-700'}`}
-                             >
-                                {item}
-                             </div>
-                           ))}
-                        </div>
-                      </div>
-                    )}
-                 </div>
-
-                 {/* SEARCH BUTTON */}
-                 <div className="lg:w-auto">
-                    <Button className="w-full lg:w-48 h-full min-h-[56px] bg-[#009f48] hover:bg-[#008f45] text-white font-bold text-sm uppercase rounded-none lg:rounded-r-md rounded-b-md lg:rounded-bl-none flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:brightness-110">
-                       <Search className="w-5 h-5" /> SEARCH TOURS
-                    </Button>
-                 </div>
-
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-           </div>
+
+              {/* 3. MONTH */}
+              <div className="flex-1 border-b lg:border-b-0 relative">
+                <div
+                  onClick={() => toggleDropdown('month')}
+                  className="p-4 h-full flex items-center gap-3 cursor-pointer group"
+                >
+                  <Calendar className="text-gray-400 w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:text-[#009f48]" />
+                  <div className="flex-1">
+                    <span className={`block text-sm transition-colors duration-300 ${selectedMonth ? 'text-black font-semibold' : 'text-gray-500 group-hover:text-gray-700'}`}>
+                      {selectedMonth || "Select Month"}
+                    </span>
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${activeDropdown === 'month' ? 'rotate-180' : ''}`} />
+                </div>
+
+                {activeDropdown === 'month' && (
+                  <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50 animate-in fade-in zoom-in-95 duration-200 mt-1 rounded-sm">
+                    <div className="bg-[#009f48] text-white px-3 py-2 text-sm font-medium">
+                      Select Month
+                    </div>
+                    <div className="p-2 border-b border-gray-100">
+                      <input
+                        type="text"
+                        className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#009f48]"
+                        placeholder="Filter..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                      />
+                    </div>
+                    <div className="max-h-64 overflow-y-auto custom-scrollbar">
+                      <div
+                        onClick={() => handleSelection('month', 'Not Sure')}
+                        className={`px-3 py-2 text-sm cursor-pointer transition-all duration-200 hover:pl-5 hover:bg-emerald-50 hover:text-[#009f48] border-b border-gray-100 ${selectedMonth === 'Not Sure' ? 'text-[#009f48] font-medium' : 'text-gray-700'}`}
+                      >
+                        Not Sure
+                      </div>
+                      {filteredMonths.map((item, idx) => (
+                        <div
+                          key={idx}
+                          onClick={() => handleSelection('month', item)}
+                          className={`px-3 py-2 text-sm cursor-pointer transition-all duration-200 hover:pl-5 hover:bg-emerald-50 hover:text-[#009f48] border-b border-gray-100 last:border-0 ${selectedMonth === item ? 'text-[#009f48] font-medium' : 'text-gray-700'}`}
+                        >
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* SEARCH BUTTON */}
+              <div className="lg:w-auto">
+                <Button className="w-full lg:w-48 h-full min-h-[56px] bg-[#009f48] hover:bg-[#008f45] text-white font-bold text-sm uppercase rounded-none lg:rounded-r-md rounded-b-md lg:rounded-bl-none flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:brightness-110">
+                  <Search className="w-5 h-5" /> SEARCH TOURS
+                </Button>
+              </div>
+
+            </div>
+          </div>
         </div>
 
       </section>
 
       {/* ================= POPULAR PACKAGES ================= */}
       {/* Increased Mobile Margin Top to prevent search bar overlap */}
-      <section className=" md:py-5 relative overflow-hidden bg-orange-50/30 mt-[250px] lg:mt-24">
+      <section className=" md:py-5 relative overflow-hidden bg-orange-50/30 mt-[250px] lg:mt-12">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-10">
@@ -474,7 +474,7 @@ export default function Index() {
               <div className="w-20 h-1 bg-orange-400 mx-auto mt-6 rounded-full"></div>
             </div>
           </ScrollReveal>
-          
+
           <div className="dark-pagination">
             <Swiper
               modules={[Autoplay, Pagination, Navigation]}
@@ -488,7 +488,7 @@ export default function Index() {
                 768: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
               }}
-              className="pb-14 px-2"> 
+              className="pb-14 px-2">
               {packages.map((pkg, index) => (
                 <SwiperSlide key={index} className="h-full">
                   <ScrollReveal direction="up" delay={index * 0.1}>
@@ -517,32 +517,32 @@ export default function Index() {
 
                       {/* --- INFO ROW --- */}
                       <div className="bg-emerald-50/50 border-b border-emerald-100 px-4 py-3 flex items-center justify-between gap-2 text-[10px] md:text-[11px] font-bold text-emerald-800">
-                          {/* Duration */}
-                          <div className="flex flex-col items-center leading-tight">
-                             <div className="flex items-center gap-1 mb-0.5 text-orange-600">
-                                <Clock className="w-3.5 h-3.5" />
-                                <span>Duration</span>
-                             </div>
-                             <span className="font-bold text-gray-700">{pkg.duration}</span>
+                        {/* Duration */}
+                        <div className="flex flex-col items-center leading-tight">
+                          <div className="flex items-center gap-1 mb-0.5 text-orange-600">
+                            <Clock className="w-3.5 h-3.5" />
+                            <span>Duration</span>
                           </div>
-                          <div className="w-px h-6 bg-emerald-200"></div>
-                          {/* Start */}
-                          <div className="flex flex-col items-center leading-tight">
-                             <div className="flex items-center gap-1 mb-0.5 text-orange-600">
-                                <MapPin className="w-3.5 h-3.5" />
-                                <span>Start</span>
-                             </div>
-                             <span className="font-bold text-gray-700">{pkg.location}</span>
+                          <span className="font-bold text-gray-700">{pkg.duration}</span>
+                        </div>
+                        <div className="w-px h-6 bg-emerald-200"></div>
+                        {/* Start */}
+                        <div className="flex flex-col items-center leading-tight">
+                          <div className="flex items-center gap-1 mb-0.5 text-orange-600">
+                            <MapPin className="w-3.5 h-3.5" />
+                            <span>Start</span>
                           </div>
-                          <div className="w-px h-6 bg-emerald-200"></div>
-                          {/* End */}
-                          <div className="flex flex-col items-center leading-tight">
-                             <div className="flex items-center gap-1 mb-0.5 text-orange-600">
-                                <Flag className="w-3.5 h-3.5" />
-                                <span>End</span>
-                             </div>
-                             <span className="font-bold text-gray-700">{pkg.location}</span>
+                          <span className="font-bold text-gray-700">{pkg.location}</span>
+                        </div>
+                        <div className="w-px h-6 bg-emerald-200"></div>
+                        {/* End */}
+                        <div className="flex flex-col items-center leading-tight">
+                          <div className="flex items-center gap-1 mb-0.5 text-orange-600">
+                            <Flag className="w-3.5 h-3.5" />
+                            <span>End</span>
                           </div>
+                          <span className="font-bold text-gray-700">{pkg.location}</span>
+                        </div>
                       </div>
 
                       {/* --- Content Body --- */}
@@ -555,7 +555,7 @@ export default function Index() {
 
                         {/* --- Premium Black Amenities Section --- */}
                         <div className="grid grid-cols-4 gap-3 mb-6 py-5 border-y border-dashed border-gray-200">
-                          
+
                           {/* 1. Cab */}
                           <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
                             <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300 ">
@@ -641,11 +641,11 @@ export default function Index() {
           </div>
 
           <div className="text-center mt-8">
-             <Link to="/package">
-                <Button className="bg-emerald-900 text-white hover:bg-emerald-800 rounded-full px-8 py-6 text-lg font-bold shadow-lg transition-all hover:scale-105">
-                   View All Packages <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-             </Link>
+            <Link to="/package">
+              <Button className="bg-emerald-900 text-white hover:bg-emerald-800 rounded-full px-8 py-6 text-lg font-bold shadow-lg transition-all hover:scale-105">
+                View All Packages <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
           </div>
 
         </div>
@@ -695,18 +695,16 @@ export default function Index() {
               </div>
             ))}
           </div>
-            <div className="text-center mt-12">
-              <Link to="/destination">
-                <Button className="bg-emerald-900 text-white hover:bg-emerald-800 rounded-full px-8 py-6 text-lg font-bold shadow-lg transition-all hover:scale-105">
-                  View All Destinations <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-            </div>
+          <div className="text-center mt-12">
+            <Link to="/destination">
+              <Button className="bg-emerald-900 text-white hover:bg-emerald-800 rounded-full px-8 py-6 text-lg font-bold shadow-lg transition-all hover:scale-105">
+                View All Destinations <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
-
-     {/* ================= LAST MINUTE DEALS (Blue Theme) ================= */}
-   {/* ================= LAST MINUTE DEALS (Green & Orange Mix) ================= */}
+      {/* Last Minute Deal */}
       <section className="py-16 md:py-5 relative overflow-hidden bg-orange-50/30">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
@@ -729,7 +727,7 @@ export default function Index() {
                 768: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
               }}
-              className="pb-16 px-2"
+              className="pb-1 px-2"
             >
               {lastMinuteDeals.map((deal, index) => (
                 <SwiperSlide key={index} className="h-full pb-10">
@@ -759,32 +757,32 @@ export default function Index() {
 
                       {/* --- INFO ROW (Green Background, Orange Icons) --- */}
                       <div className="bg-emerald-50/50 border-b border-emerald-100 px-4 py-3 flex items-center justify-between gap-2 text-[10px] md:text-[11px] font-bold text-emerald-900">
-                          {/* Duration */}
-                          <div className="flex flex-col items-center leading-tight">
-                             <div className="flex items-center gap-1 mb-0.5 text-orange-600">
-                                <Clock className="w-3.5 h-3.5" />
-                                <span>Duration</span>
-                             </div>
-                             <span className="font-bold text-gray-700">{deal.duration}</span>
+                        {/* Duration */}
+                        <div className="flex flex-col items-center leading-tight">
+                          <div className="flex items-center gap-1 mb-0.5 text-orange-600">
+                            <Clock className="w-3.5 h-3.5" />
+                            <span>Duration</span>
                           </div>
-                          <div className="w-px h-6 bg-emerald-200"></div>
-                          {/* Location */}
-                          <div className="flex flex-col items-center leading-tight">
-                             <div className="flex items-center gap-1 mb-0.5 text-orange-600">
-                                <MapPin className="w-3.5 h-3.5" />
-                                <span>Location</span>
-                             </div>
-                             <span className="font-bold text-gray-700">{deal.location}</span>
+                          <span className="font-bold text-gray-700">{deal.duration}</span>
+                        </div>
+                        <div className="w-px h-6 bg-emerald-200"></div>
+                        {/* Location */}
+                        <div className="flex flex-col items-center leading-tight">
+                          <div className="flex items-center gap-1 mb-0.5 text-orange-600">
+                            <MapPin className="w-3.5 h-3.5" />
+                            <span>Location</span>
                           </div>
-                          <div className="w-px h-6 bg-emerald-200"></div>
-                          {/* Type */}
-                          <div className="flex flex-col items-center leading-tight">
-                             <div className="flex items-center gap-1 mb-0.5 text-orange-600">
-                                <Building2 className="w-3.5 h-3.5" />
-                                <span>Type</span>
-                             </div>
-                             <span className="font-bold text-gray-700">Premium</span>
+                          <span className="font-bold text-gray-700">{deal.location}</span>
+                        </div>
+                        <div className="w-px h-6 bg-emerald-200"></div>
+                        {/* Type */}
+                        <div className="flex flex-col items-center leading-tight">
+                          <div className="flex items-center gap-1 mb-0.5 text-orange-600">
+                            <Building2 className="w-3.5 h-3.5" />
+                            <span>Type</span>
                           </div>
+                          <span className="font-bold text-gray-700">Premium</span>
+                        </div>
                       </div>
 
                       {/* --- Content Body --- */}
@@ -904,7 +902,8 @@ export default function Index() {
       </section>
 
       {/* ================= TESTIMONIALS (Corrected) ================= */}
-      <section className="py-24 bg-[#F8F9FE] relative">
+
+      <section className="py-10 bg-[#F8F9FE] relative">
         <div className="container mx-auto px-6 relative z-10">
           <FadeInUp>
             <div className="text-center mb-16">
@@ -914,67 +913,69 @@ export default function Index() {
               </p>
             </div>
           </FadeInUp>
+          <div className="dark-pagination">
+            <Swiper
+              modules={[Autoplay, Pagination, Navigation]}
+              spaceBetween={30}
+              slidesPerView={1}
+              breakpoints={{
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              autoplay={{ delay: 4000, disableOnInteraction: false }}
+              pagination={{ clickable: true }}
+              className="pb-16"
+            >
+              {testimonials.map((item, index) => (
+                <SwiperSlide key={index} className="h-auto pb-10">
+                  <div className="bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 h-full relative">
 
-          <Swiper
-            modules={[Autoplay, Pagination, Navigation]}
-            spaceBetween={30}
-            slidesPerView={1}
-            breakpoints={{
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            }}
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
-            className="pb-16"
-          >
-            {testimonials.map((item, index) => (
-              <SwiperSlide key={index} className="h-auto pb-10"> 
-                <div className="bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 h-full relative">
-                  
-                  {/* User Profile */}
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="relative">
-                      <img
-                        src={item.img}
-                        alt={item.name}
-                        className="w-16 h-16 rounded-full object-cover"
-                      />
-                      <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-sm cursor-pointer">
-                        <div className="bg-blue-500 rounded-full p-1 text-white">
-                          <Play size={10} fill="currentColor" />
+                    {/* User Profile */}
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="relative">
+                        <img
+                          src={item.img}
+                          alt={item.name}
+                          className="w-16 h-16 rounded-full object-cover"
+                        />
+                        <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-sm cursor-pointer">
+                          <div className="bg-blue-500 rounded-full p-1 text-white">
+                            <Play size={10} fill="currentColor" />
+                          </div>
                         </div>
                       </div>
+                      <div>
+                        <h4 className="font-bold text-lg text-slate-900">{item.name}</h4>
+                        <p className="text-sm text-slate-500">{item.role}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-lg text-slate-900">{item.name}</h4>
-                      <p className="text-sm text-slate-500">{item.role}</p>
+
+                    {/* Rating Stars */}
+                    <div className="flex gap-1 mb-4 text-[#00BFA6] relative">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={18}
+                          fill={i < Math.floor(item.rating) ? "currentColor" : "none"}
+                          strokeWidth={1}
+                          className={i < Math.floor(item.rating) ? "text-[#00BFA6]" : "text-gray-300"}
+                        />
+                      ))}
                     </div>
+
+                    {/* Spacer */}
+                    <div className="h-2"></div>
+
+                    <h5 className="font-bold text-lg mb-2">{item.title}</h5>
+                    <p className="text-slate-600 leading-relaxed text-sm">
+                      {item.desc}
+                    </p>
                   </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
 
-                  {/* Rating Stars */}
-                  <div className="flex gap-1 mb-4 text-[#00BFA6] relative">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        size={18}
-                        fill={i < Math.floor(item.rating) ? "currentColor" : "none"}
-                        strokeWidth={1}
-                        className={i < Math.floor(item.rating) ? "text-[#00BFA6]" : "text-gray-300"}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Spacer */}
-                  <div className="h-2"></div>
-
-                  <h5 className="font-bold text-lg mb-2">{item.title}</h5>
-                  <p className="text-slate-600 leading-relaxed text-sm">
-                    {item.desc}
-                  </p>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          </div>
         </div>
       </section>
 
