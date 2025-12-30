@@ -1,8 +1,19 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
-  Menu, X, ChevronDown, Phone, MapPin, ArrowRight, LayoutDashboard, 
-  Tent, History, Users, Binoculars, Building2, ShieldCheck 
+  Menu,
+  X,
+  ChevronDown,
+  Phone,
+  MapPin,
+  ArrowRight,
+  LayoutDashboard,
+  Mountain,
+  HeartHandshake,
+  Users,
+  User,
+  Compass,
+  Landmark,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BookingModal from "@/pages/booking/BookingModal";
@@ -13,27 +24,21 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentDestIndex, setCurrentDestIndex] = useState(0);
-  
-  // NEW: Scroll State
   const [isScrolled, setIsScrolled] = useState(false);
 
   const location = useLocation();
-  const isHome = location.pathname === "/"; // Sirf Home page par transparent effect chahiye
+  const isHome = location.pathname === "/";
 
-  // --- SCROLL LISTENER ---
+  // --- SCROLL EFFECT ---
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // --- BODY SCROLL LOCK ---
   useEffect(() => {
     if (isMobileMenuOpen || isSidebarOpen) {
       document.body.style.overflow = "hidden";
@@ -42,7 +47,7 @@ export default function Navbar() {
     }
   }, [isMobileMenuOpen, isSidebarOpen]);
 
-  // --- AUTO SLIDER LOGIC ---
+  // --- AUTO SLIDER ---
   useEffect(() => {
     if (!isSidebarOpen) return;
     const timer = setInterval(() => {
@@ -74,14 +79,39 @@ export default function Navbar() {
     { name: "Contact", path: "/contact" },
   ];
 
-  const tourTypes = [
-    { name: "Adventure", path: "/tours/adventure", icon: <Tent className="w-8 h-8" /> },
-    { name: "Historical", path: "/tours/historical", icon: <History className="w-8 h-8" /> },
-    { name: "Cultural", path: "/tours/cultural", icon: <Users className="w-8 h-8" /> },
-    { name: "Wildlife", path: "/tours/wildlife", icon: <Binoculars className="w-8 h-8" /> },
-    { name: "City Tour", path: "/tours/city", icon: <Building2 className="w-8 h-8" /> },
-    { name: "Private", path: "/tours/private", icon: <ShieldCheck className="w-8 h-8" /> },
-  ];
+ const tourTypes = [
+  { 
+    name: "Hills Station", 
+    path: "/tours/hills", 
+    icon: Mountain 
+  },
+  { 
+    name: "Couple Tour", 
+    path: "/tours/honeymoon", 
+    icon: HeartHandshake 
+  },
+  { 
+    name: "Group Tour", 
+    path: "/tours/group", 
+    icon: Users 
+  },
+  { 
+    name: "Single Tour", 
+    path: "/tours/solo", 
+    icon: User 
+  },
+  { 
+    name: "Adventure", 
+    path: "/tours/adventure", 
+    icon: Compass
+  },
+  { 
+    name: "Religious", 
+    path: "/tours/religious", 
+    icon: Landmark 
+  },
+];
+
 
   const sidebarDestinations = [
     { name: "Manali Trip", image: "https://i.pinimg.com/736x/c4/1b/24/c41b245b832fffa9e3ea316f8bcec015.jpg", tours: 5 },
@@ -110,16 +140,12 @@ export default function Navbar() {
     setIsModalOpen(true);
   };
 
-  // --- DYNAMIC STYLES ---
-  // Agar Home page hai aur scroll nahi kiya hai => Transparent
-  // Warna => Solid White
   const isTransparent = isHome && !isScrolled;
 
   const navbarClasses = isTransparent
-    ? "bg-transparent border-transparent py-4 lg:py-5" // Transparent state
-    : "bg-white/95 backdrop-blur-md border-b border-emerald-100/50 shadow-sm py-3 lg:py-4"; // Solid state
+    ? "bg-transparent border-transparent py-4 lg:py-5" 
+    : "bg-white/95 backdrop-blur-md border-b border-emerald-100/50 shadow-sm py-3 lg:py-4"; 
 
-  // Colors change based on transparency
   const textColorClass = isTransparent
     ? "text-white hover:text-orange-400"
     : "text-emerald-950 hover:text-orange-600";
@@ -131,7 +157,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* NAVBAR */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navbarClasses}`}>
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex justify-between items-center">
@@ -173,10 +198,9 @@ export default function Navbar() {
                       <ChevronDown className={`w-3.5 h-3.5 transition-transform group-hover:rotate-180 ${location.pathname === link.path ? "text-orange-500" : ""}`} />
                     )}
                   </Link>
-                  
                   <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-orange-500 to-orange-400 transform scale-x-0 transition-transform duration-300 origin-left group-hover:scale-x-100 ${location.pathname === link.path ? "scale-x-100" : ""}`} />
 
-                  {/* MEGA MENU & DROPDOWNS (Kept same) */}
+                  {/* MEGA MENU & DROPDOWNS */}
                   {link.hasMegaMenu && activeDropdown === link.name && (
                     <div className="absolute top-full -left-20 pt-6 w-[650px] z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                       <div className="relative p-6 bg-white rounded-2xl shadow-xl shadow-emerald-900/10 border border-emerald-50 text-slate-900 cursor-default">
@@ -239,8 +263,6 @@ export default function Navbar() {
 
             {/* RIGHT SIDE ACTIONS */}
             <div className="flex items-center gap-3 lg:gap-5">
-              
-              {/* --- SIMPLE LayoutDashboard BUTTON (Clean Version) --- */}
               <button 
                 onClick={() => setIsSidebarOpen(true)}
                 className={`p-2 lg:p-2.5 rounded-full transition-all duration-300 ${actionButtonClass}`}
@@ -249,14 +271,12 @@ export default function Navbar() {
                 <LayoutDashboard className="w-6 h-6" />
               </button>
 
-              {/* DESKTOP ONLY: Phone & Book Button */}
               <div className="hidden lg:flex items-center gap-5">
                 <Button onClick={handleOpenBooking} className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-orange-500 hover:to-orange-600 text-white rounded-full px-7 h-11 shadow-lg shadow-emerald-200 hover:shadow-orange-200 transition-all duration-300 hover:scale-105 border-none font-bold tracking-wide">
                   Book Now
                 </Button>
               </div>
 
-              {/* MOBILE MENU TOGGLE */}
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
                 className={`lg:hidden p-2 rounded-full transition-colors ${hamburgerClass}`}
@@ -291,20 +311,21 @@ export default function Navbar() {
             </div>
 
             <div className="p-6 lg:p-8 space-y-10">
-              {/* Tour Type Grid (Links Added) */}
+              
+              {/* Tour Type Grid (FIXED ICONS) */}
               <div>
                 <h3 className="text-xl font-bold text-emerald-950 mb-6">Tour Type</h3>
                 <div className="grid grid-cols-3 gap-3 sm:gap-4">
                   {tourTypes.map((type) => (
-                    // UPDATED: Changed div to Link and added to={type.path}
                     <Link 
                       key={type.name} 
                       to={type.path} 
                       onClick={() => setIsSidebarOpen(false)}
                       className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl bg-emerald-50/50 hover:bg-orange-50 cursor-pointer transition-colors group"
                     >
-                      <div className="text-emerald-700 group-hover:text-orange-500 transition-colors mb-2">
-                        {type.icon}
+                      <div className="mb-2 transition-transform group-hover:scale-110 duration-300 bg-white p-2.5 rounded-full shadow-sm">
+                        {/* ICON COMPONENT RENDER KAR RAHE HAIN */}
+                        <type.icon className="w-6 h-6 text-emerald-600 group-hover:text-orange-500 transition-colors" />
                       </div>
                       <span className="text-[11px] font-bold text-center text-emerald-900 leading-tight">
                         {type.name}
@@ -316,7 +337,6 @@ export default function Navbar() {
 
               {/* --- AUTO SLIDER --- */}
               <div>
-                {/* UPDATED: Added Flex container and View All Button */}
                 <div className="flex justify-between items-end mb-6">
                   <h3 className="text-xl font-bold text-emerald-950">Featured Destinations</h3>
                   <Link 
@@ -378,7 +398,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* MOBILE MENU (Existing) */}
+      {/* MOBILE MENU */}
       <div className={`fixed inset-0 z-[60] lg:hidden transition-all duration-300 ${isMobileMenuOpen ? "visible" : "invisible"}`}>
         <div className={`absolute inset-0 bg-emerald-950/60 backdrop-blur-sm transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-100" : "opacity-0"}`} onClick={() => setIsMobileMenuOpen(false)}/>
         <div className={`absolute right-0 top-0 h-full w-[280px] bg-white shadow-2xl transition-transform duration-300 transform ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}>

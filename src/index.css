@@ -25,10 +25,9 @@
     @apply hidden !important;
   }
 
-  /* 🆕 Yahan maine Lobster font ki class banayi hai */
   .font-lobster {
     font-family: "Lobster", cursive;
-    letter-spacing: 1px; /* Lobster thoda spacing ke sath better lagta hai */
+    letter-spacing: 1px; 
   }
 
   @keyframes float-slow {
@@ -41,9 +40,5 @@
   }
 }
 
-body {
-  font-family: "Roboto Flex", sans-serif;
-}
 
-/* 🆕 Yahan maine URL update kiya hai taaki Lobster load ho jaye */
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+

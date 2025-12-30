@@ -232,7 +232,7 @@ export default function Index() {
                   {heroSlides[activeIndex].price}
                 </span>
               </div>
-              <h1 className="text-4xl font-serif font-bold leading-none text-white mb-2 shadow-sm anim-text delay-200">
+              <h1 className="text-4xl font-Lobster font-bold leading-none text-white mb-2 shadow-sm anim-text delay-200">
                 {heroSlides[activeIndex].place}
               </h1>
               <p className="text-emerald-100/80 text-xs leading-relaxed line-clamp-2 mb-4 max-w-[90%] anim-text delay-300">
@@ -257,7 +257,7 @@ export default function Index() {
                 </p>
               </div>
               <div className="overflow-hidden mb-4">
-                <h1 className="text-8xl font-serif font-bold leading-tight anim-text delay-200 drop-shadow-2xl">
+                <h1 className="text-8xl font-Lobster font-bold leading-tight anim-text delay-200 drop-shadow-2xl">
                   {heroSlides[activeIndex].place}
                 </h1>
               </div>
@@ -288,7 +288,7 @@ export default function Index() {
                 </div>
                 <div className="flex-1 p-4 flex flex-col justify-center">
                   <span className="text-[10px] text-orange-400 font-bold uppercase tracking-wider mb-1">Next</span>
-                  <h4 className="text-lg font-bold leading-none text-white font-serif">{thumb.place}</h4>
+                  <h4 className="text-lg font-bold leading-none text-white font-Lobster">{thumb.place}</h4>
                   <div className="flex justify-between items-center mt-2">
                     <span className="text-xs text-gray-400">{thumb.price}</span>
                     <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-orange-500 transition-colors text-white">
@@ -485,7 +485,7 @@ export default function Index() {
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-10">
-              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-black">
+              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">
                 Popular Packages
               </h2>
               <div className="w-20 h-1 bg-orange-400 mx-auto mt-6 rounded-full"></div>
@@ -513,7 +513,7 @@ export default function Index() {
 
                       {/* --- Image Section --- */}
                       <div className="relative h-64 flex-shrink-0 rounded-xl overflow-hidden transition-all duration-500 group-hover:rounded-[20px] group-hover:shadow-sm">
-                        <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover transition-transform duration-700 font-Lobster group-hover:scale-110" />
 
                         {/* 20% OFF Ribbon */}
                         <div className="absolute top-[14px] left-[-34px] bg-[#6d1526] text-white text-[10px] font-bold w-[120px] py-1 -rotate-45 text-center shadow-lg z-20 uppercase tracking-wider border-y border-[#57111f]">
@@ -525,8 +525,8 @@ export default function Index() {
                         </button>
 
                         <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4 pt-10">
-                          <div className="flex items-center gap-1 text-white text-xs font-medium">
-                            <MapPin className="w-3.5 h-3.5 text-orange-400" />
+                          <div className="flex items-center gap-1 text-white text-xs font-bold">
+                            <MapPin className="w-3.5 h-3.5 text-orange-400 font-bold" />
                             {pkg.location}
                           </div>
                         </div>
@@ -565,7 +565,7 @@ export default function Index() {
                       {/* --- Content Body --- */}
                       <div className="p-4 flex-1 flex flex-col">
                         <div className="mb-3">
-                          <h3 className="text-lg font-serif font-bold text-gray-800 leading-tight transition-colors">
+                          <h3 className="text-lg font-Lobster font-bold text-gray-800 leading-tight transition-colors">
                             {pkg.title}
                           </h3>
                         </div>
@@ -673,7 +673,7 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-black">Explore Destinations </h2>
+              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">Explore Destinations </h2>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
@@ -698,7 +698,7 @@ export default function Index() {
                       <div className="flex items-center gap-3 text-emerald-100 mb-2 text-sm justify-center">
                         <span className="flex items-center gap-1"><MapPin className="w-3 h-3 text-orange-400" /> {dest.location}</span>
                       </div>
-                      <h3 className="text-3xl md:text-4xl font-serif font-bold text-white mb-2 leading-tight">
+                      <h3 className="text-3xl md:text-4xl font-Lobster font-bold text-white mb-2 leading-tight">
                         {dest.title}
                       </h3>
                       <div className="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 group-hover:mt-4 transition-all duration-500 ease-in-out overflow-hidden">
@@ -727,7 +727,7 @@ export default function Index() {
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
-              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 md:mb-6 text-black">Last Minute Deals</h2>
+              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">Last Minute Deals</h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">Unbeatable prices for spontaneous travelers. Grab them before they are gone!</p>
             </div>
           </ScrollReveal>
@@ -806,7 +806,7 @@ export default function Index() {
                       {/* --- Content Body --- */}
                       <div className="p-4 flex-1 flex flex-col">
                         <div className="mb-3">
-                          <h3 className="text-lg font-serif font-bold text-gray-800 leading-tight transition-colors group-hover:text-blue-700">
+                          <h3 className="text-lg font-Lobster font-bold text-gray-800 leading-tight transition-colors group-hover:text-blue-700">
                             {deal.title}
                           </h3>
                         </div>
@@ -889,7 +889,7 @@ export default function Index() {
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold font-serif mb-6">Why Choose Himachal Destination?</h2>
+              <h2 className="text-3xl md:text-5xl font-bold font-Lobster mb-6">Why Choose Himachal Destination?</h2>
               <div className="w-24 h-1 bg-orange-500 mx-auto rounded-full"></div>
             </div>
           </ScrollReveal>
@@ -1000,7 +1000,7 @@ export default function Index() {
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-4xl md:text-6xl font-bold font-serif text-white mb-6">Ready to Start Your Adventure?</h2>
+              <h2 className="text-4xl md:text-6xl font-bold font-Lobster text-white mb-6">Ready to Start Your Adventure?</h2>
               <p className="text-xl md:text-2xl text-emerald-100/90 mb-10 font-light">Let our travel experts create a personalized itinerary just for you.</p>
               <div className="flex flex-col sm:flex-row gap-5 justify-center">
                 <Link to="/booking/customize">
