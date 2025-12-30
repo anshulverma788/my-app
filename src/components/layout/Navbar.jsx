@@ -14,7 +14,25 @@ export default function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentDestIndex, setCurrentDestIndex] = useState(0);
   
+  // NEW: Scroll State
+  const [isScrolled, setIsScrolled] = useState(false);
+
   const location = useLocation();
+  const isHome = location.pathname === "/"; // Sirf Home page par transparent effect chahiye
+
+  // --- SCROLL LISTENER ---
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (isMobileMenuOpen || isSidebarOpen) {
@@ -56,7 +74,6 @@ export default function Navbar() {
     { name: "Contact", path: "/contact" },
   ];
 
-  // UPDATED: Added path for links
   const tourTypes = [
     { name: "Adventure", path: "/tours/adventure", icon: <Tent className="w-8 h-8" /> },
     { name: "Historical", path: "/tours/historical", icon: <History className="w-8 h-8" /> },
@@ -93,9 +110,24 @@ export default function Navbar() {
     setIsModalOpen(true);
   };
 
-  const navbarClasses = "bg-white/95 backdrop-blur-md border-b border-emerald-100/50 shadow-sm py-3 lg:py-4";
-  const textColorClass = "text-emerald-950 hover:text-orange-600";
-  const logoTextMain = "text-emerald-800";
+  // --- DYNAMIC STYLES ---
+  // Agar Home page hai aur scroll nahi kiya hai => Transparent
+  // Warna => Solid White
+  const isTransparent = isHome && !isScrolled;
+
+  const navbarClasses = isTransparent
+    ? "bg-transparent border-transparent py-4 lg:py-5" // Transparent state
+    : "bg-white/95 backdrop-blur-md border-b border-emerald-100/50 shadow-sm py-3 lg:py-4"; // Solid state
+
+  // Colors change based on transparency
+  const textColorClass = isTransparent
+    ? "text-white hover:text-orange-400"
+    : "text-emerald-950 hover:text-orange-600";
+    
+  const logoTextMain = isTransparent ? "text-white" : "text-emerald-800";
+  const logoSubText = isTransparent ? "text-white/80" : "text-orange-600/80";
+  const actionButtonClass = isTransparent ? "text-white hover:bg-white/10" : "text-emerald-950 hover:bg-orange-50";
+  const hamburgerClass = isTransparent ? "text-white hover:bg-white/10" : "text-emerald-950 hover:bg-emerald-50";
 
   return (
     <>
@@ -111,9 +143,9 @@ export default function Navbar() {
               </div>
               <div className="flex flex-col leading-none">
                 <span className={`text-xl lg:text-2xl font-bold tracking-tight transition-colors duration-300 flex gap-1 ${logoTextMain}`}>
-                  <span>Himachal</span><span className="text-orange-500">Destination</span>
+                  <span>Himachal</span><span className={isTransparent ? "text-orange-400" : "text-orange-500"}>Destination</span>
                 </span>
-                <span className="text-[9px] lg:text-[10px] uppercase tracking-[0.2em] font-bold transition-colors duration-300 text-orange-600/80">
+                <span className={`text-[9px] lg:text-[10px] uppercase tracking-[0.2em] font-bold transition-colors duration-300 ${logoSubText}`}>
                   Explore the Unseen
                 </span>
               </div>
@@ -211,7 +243,7 @@ export default function Navbar() {
               {/* --- SIMPLE LayoutDashboard BUTTON (Clean Version) --- */}
               <button 
                 onClick={() => setIsSidebarOpen(true)}
-                className="p-2 lg:p-2.5 rounded-full text-emerald-950 hover:bg-orange-50 hover:text-orange-600 transition-all duration-300"
+                className={`p-2 lg:p-2.5 rounded-full transition-all duration-300 ${actionButtonClass}`}
                 title="More Info"
               >
                 <LayoutDashboard className="w-6 h-6" />
@@ -227,7 +259,7 @@ export default function Navbar() {
               {/* MOBILE MENU TOGGLE */}
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="lg:hidden p-2 rounded-full text-emerald-950 hover:bg-emerald-50 transition-colors"
+                className={`lg:hidden p-2 rounded-full transition-colors ${hamburgerClass}`}
               >
                 <Menu className="w-7 h-7" />
               </button>
