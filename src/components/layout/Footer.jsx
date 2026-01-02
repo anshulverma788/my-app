@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { 
-  Globe, Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube, 
-  ArrowUp, Send, CheckCircle2, ChevronRight 
+import {
+  Globe, Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube,
+  ArrowUp, Send, CheckCircle2, ChevronRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  
+
   // --- STATE FOR NEWSLETTER FUNCTIONALITY ---
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -17,14 +17,14 @@ export default function Footer() {
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (!email) return;
-    
+
     // Yahan aap backend API call laga sakte hain
     console.log("Subscribing email:", email);
-    
+
     // Simulate success
     setIsSubscribed(true);
     setEmail("");
-    
+
     // Reset message after 3 seconds
     setTimeout(() => setIsSubscribed(false), 3000);
   };
@@ -39,64 +39,18 @@ export default function Footer() {
 
   return (
     <footer className="bg-emerald-950 text-white relative pt-20 overflow-hidden mt-20">
-      
+
       {/* Decorative Top Border */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-900 via-orange-500 to-emerald-900"></div>
-
       <div className="container mx-auto px-4 relative z-10">
-        
-        {/* === SECTION 1: TOP CTA & NEWSLETTER === */}
-        <div className="bg-emerald-900/50 rounded-3xl p-8 md:p-12 border border-emerald-800 backdrop-blur-sm mb-16 relative overflow-hidden">
-          {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
-          
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <span className="text-orange-400 font-bold tracking-wider text-sm uppercase mb-2 block">Join Our Community</span>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
-                Explore the Himalayas with us
-              </h2>
-              <p className="text-emerald-100/70 text-lg">
-                Subscribe to get special offers, free travel guides, and 20% discount on your first trek.
-              </p>
-            </div>
-
-            <div className="bg-emerald-950/50 p-2 rounded-2xl border border-emerald-800">
-              {isSubscribed ? (
-                <div className="h-14 flex items-center justify-center gap-2 text-green-400 font-bold bg-green-400/10 rounded-xl animate-in fade-in zoom-in">
-                  <CheckCircle2 className="w-6 h-6" /> Subscribed Successfully!
-                </div>
-              ) : (
-                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
-                  <Input 
-                    type="email" 
-                    placeholder="Enter your email address" 
-                    className="flex-1 bg-transparent border-none text-white placeholder:text-emerald-500/50 h-14 px-6 focus-visible:ring-0 text-base"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                  <Button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white h-14 px-8 rounded-xl font-bold shadow-lg shadow-orange-500/20 transition-all duration-300">
-                    Subscribe <Send className="w-4 h-4 ml-2" />
-                  </Button>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* === SECTION 2: MAIN GRID === */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16 border-b border-emerald-900 pb-16">
-          
-          {/* COL 1: BRAND (Span 4) */}
           <div className="lg:col-span-4 space-y-6">
             <Link to="/" className="inline-flex items-center gap-3 group">
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-emerald-900 shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <Globe className="w-7 h-7" />
               </div>
               <div>
-                 <h3 className="text-2xl font-serif font-bold leading-none">Himachal</h3>
-                 <p className="text-orange-500 text-sm font-bold tracking-[0.2em] uppercase">Destination</p>
+                <h3 className="text-2xl font-serif font-bold leading-none">Himachal</h3>
+                <p className="text-orange-500 text-sm font-bold tracking-[0.2em] uppercase">Destination</p>
               </div>
             </Link>
             <p className="text-emerald-100/60 leading-relaxed">
@@ -154,8 +108,8 @@ export default function Footer() {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                   <p className="text-xs text-emerald-400 font-bold uppercase mb-1">Head Office</p>
-                   <p className="text-emerald-100/80 text-sm">Mall Road, Shimla,<br/>Himachal Pradesh, 171001</p>
+                  <p className="text-xs text-emerald-400 font-bold uppercase mb-1">Head Office</p>
+                  <p className="text-emerald-100/80 text-sm">Mall Road, Shimla,<br />Himachal Pradesh, 171001</p>
                 </div>
               </li>
               <li className="flex gap-4 items-center group">
@@ -163,8 +117,8 @@ export default function Footer() {
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                   <p className="text-xs text-emerald-400 font-bold uppercase mb-1">Phone</p>
-                   <p className="text-emerald-100/80 text-sm hover:text-white cursor-pointer">+91 98765 43210</p>
+                  <p className="text-xs text-emerald-400 font-bold uppercase mb-1">Phone</p>
+                  <p className="text-emerald-100/80 text-sm hover:text-white cursor-pointer">+91 98765 43210</p>
                 </div>
               </li>
               <li className="flex gap-4 items-center group">
@@ -172,8 +126,8 @@ export default function Footer() {
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                   <p className="text-xs text-emerald-400 font-bold uppercase mb-1">Email</p>
-                   <p className="text-emerald-100/80 text-sm hover:text-white cursor-pointer">info@himachaldestination.com</p>
+                  <p className="text-xs text-emerald-400 font-bold uppercase mb-1">Email</p>
+                  <p className="text-emerald-100/80 text-sm hover:text-white cursor-pointer">info@himachaldestination.com</p>
                 </div>
               </li>
             </ul>
@@ -186,20 +140,20 @@ export default function Footer() {
           <p className="text-emerald-100/40 text-sm text-center md:text-left">
             © {currentYear} Himachal Destination. All rights reserved.
           </p>
-          
+
           <div className="flex gap-6 text-sm font-medium">
-             <Link to="/privacy" className="text-emerald-100/60 hover:text-orange-400 transition-colors">Privacy Policy</Link>
-             <Link to="/terms" className="text-emerald-100/60 hover:text-orange-400 transition-colors">Terms of Service</Link>
+            <Link to="/privacy" className="text-emerald-100/60 hover:text-orange-400 transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="text-emerald-100/60 hover:text-orange-400 transition-colors">Terms of Service</Link>
           </div>
 
           {/* Scroll To Top Button */}
-          <button 
+          <button
             onClick={scrollToTop}
             className="group flex items-center gap-2 text-sm font-bold text-orange-500 hover:text-white transition-colors"
           >
             Back to Top
             <div className="w-8 h-8 rounded-full border border-orange-500 flex items-center justify-center group-hover:bg-orange-500 group-hover:text-white transition-all">
-               <ArrowUp className="w-4 h-4" />
+              <ArrowUp className="w-4 h-4" />
             </div>
           </button>
         </div>
