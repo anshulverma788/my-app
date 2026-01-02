@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   MapPin, Star, Search, 
   Utensils, Car, BedDouble, 
-  Phone, CheckCircle2,
-  ChevronLeft, ChevronRight
+  Phone, CheckCircle2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -25,22 +24,20 @@ export default function Package() {
       id: 1,
       image: "https://cdn.pixabay.com/photo/2016/10/15/16/26/trekking-1742821_1280.jpg", 
       title: "Discover the Magic of Himachal",
-      subtitle: "From snowy peaks to lush green valleys, find your perfect escape."
     },
     {
       id: 2,
       image: "https://cdn.pixabay.com/photo/2023/07/13/05/36/mountains-8123933_1280.jpg", 
       title: "Spiritual Journeys in Uttarakhand",
-      subtitle: "Experience peace and adventure in the land of gods."
     },
     {
       id: 3,
       image: "https://cdn.pixabay.com/photo/2021/07/08/03/55/mount-everest-6395759_1280.jpg", 
       title: "Explore Unseen Destinations",
-      subtitle: "Curated tour packages for memories that last a lifetime."
     }
   ];
 
+  // Auto Slider Logic
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
@@ -48,13 +45,7 @@ export default function Package() {
     return () => clearInterval(timer);
   }, []);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? heroSlides.length - 1 : prev - 1));
-  };
+  // Note: nextSlide aur prevSlide functions hata diye gaye hain kyunki ab buttons nahi hain.
   // ---------------------------
 
   const Package = [
@@ -254,7 +245,7 @@ export default function Package() {
 
       {/* HERO SLIDER SECTION */}
       {/* UPDATE: h-[55vh] for mobile, h-[600px] for desktop */}
-      <section className="relative h-[55vh] md:h-[600px] overflow-hidden">
+      <section className="relative h-[40vh] md:h-[600px] overflow-hidden">
         {heroSlides.map((slide, index) => (
           <div
             key={slide.id}
@@ -262,7 +253,7 @@ export default function Package() {
               index === currentSlide ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            {/* Background Image - UPDATED to IMG tag for better object-fit */}
+            {/* Background Image */}
             <img 
               src={slide.image} 
               alt={slide.title}
@@ -277,34 +268,13 @@ export default function Package() {
               <ScrollReveal direction="up" key={index}>
                 <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 max-w-4xl drop-shadow-lg leading-tight">
                   {slide.title}
-                </h1>
-                <p className="text-sm md:text-xl text-gray-100 max-w-2xl mb-6 md:mb-8 drop-shadow-md px-2">
-                  {slide.subtitle}
-                </p>
-                <div className="flex gap-4">
-                  {/* HERO BUTTON - ORANGE */}
-                  <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white rounded-full px-6 md:px-8 text-sm md:text-lg shadow-xl hover:scale-105 transition-transform">
-                    Explore Packages
-                  </Button>
-                </div>
+                </h1>               
               </ScrollReveal>
             </div>
           </div>
         ))}
 
-        {/* Navigation Arrows */}
-        <button 
-          onClick={prevSlide}
-          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-black/50 text-white p-2 md:p-3 rounded-full backdrop-blur-sm transition-all hover:scale-110"
-        >
-          <ChevronLeft className="w-5 h-5 md:w-8 md:h-8" />
-        </button>
-        <button 
-          onClick={nextSlide}
-          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-black/50 text-white p-2 md:p-3 rounded-full backdrop-blur-sm transition-all hover:scale-110"
-        >
-          <ChevronRight className="w-5 h-5 md:w-8 md:h-8" />
-        </button>
+        {/* --- NAVIGATION ARROWS REMOVED HERE --- */}
 
         {/* Dots Indicators */}
         <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">

@@ -24,6 +24,8 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentDestIndex, setCurrentDestIndex] = useState(0);
+  
+  // State for Scroll
   const [isScrolled, setIsScrolled] = useState(false);
 
   const location = useLocation();
@@ -31,11 +33,16 @@ export default function Navbar() {
   // --- SCROLL EFFECT ---
   useEffect(() => {
     const handleScroll = () => {
+      // Jab bhi scroll 50px se zyada ho, isScrolled true ho jayega
       setIsScrolled(window.scrollY > 50);
     };
+
+    // Page load hone par check karein (taaki refresh par glitch na ho)
+    handleScroll();
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [location.pathname]); // Location change hone par bhi check karein
 
   // --- BODY SCROLL LOCK ---
   useEffect(() => {
@@ -59,10 +66,10 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Tour Package", path: "/Package", hasMegaMenu: true },
+    { name: "Tour Package", path: "/package", hasMegaMenu: true },
     { 
       name: "Destinations", 
-      path: "/Destination", 
+      path: "/destination", 
       hasDropdown: true, 
       subItems: [
         { name: "Shimla", path: "/destination/shimla" },
@@ -114,15 +121,11 @@ export default function Navbar() {
     setIsModalOpen(true);
   };
 
-  // --- TRANSPARENCY LOGIC ---
-  // Yahan un pages ke path likhein jahan Navbar transparent chahiye
-  const transparentPaths = ["/", "/Package", "/Destination"]; 
+  // --- UPDATED TRANSPARENCY LOGIC (UNIVERSAL) ---
   
-  // Check karein ki current page list me hai ya nahi
-  const isTransparentPage = transparentPaths.includes(location.pathname);
-
-  // Logic: Agar Transparent page hai aur scroll nahi kiya hai
-  const isTransparent = isTransparentPage && !isScrolled;
+  // Logic: Agar Scroll nahi kiya hai (!isScrolled), to Transparent rahega.
+  // Har page par top par transparent, scroll karne par solid.
+  const isTransparent = !isScrolled;
 
   const navbarClasses = isTransparent
     ? "bg-gradient-to-b from-black/60 to-transparent border-transparent py-5 lg:py-6" 
@@ -170,7 +173,8 @@ export default function Navbar() {
                   <Link
                     to={link.path}
                     className={`flex items-center gap-1 text-sm font-bold transition-colors duration-300 ${
-                      location.pathname === link.path
+                      location.pathname === link.path || 
+                      (location.pathname.toLowerCase() === link.path.toLowerCase()) // Case insensitive check
                         ? "text-orange-500"
                         : textColorClass
                     }`}
