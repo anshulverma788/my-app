@@ -15,7 +15,7 @@ import {
   Compass,
   Landmark,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import BookingModal from "@/pages/booking/BookingModal";
 
 export default function Navbar() {
@@ -27,12 +27,11 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const location = useLocation();
-  const isHome = location.pathname === "/";
 
   // --- SCROLL EFFECT ---
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -80,38 +79,13 @@ export default function Navbar() {
   ];
 
  const tourTypes = [
-  { 
-    name: "Hills Station", 
-    path: "/tours/hills", 
-    icon: Mountain 
-  },
-  { 
-    name: "Couple Tour", 
-    path: "/tours/honeymoon", 
-    icon: HeartHandshake 
-  },
-  { 
-    name: "Group Tour", 
-    path: "/tours/group", 
-    icon: Users 
-  },
-  { 
-    name: "Single Tour", 
-    path: "/tours/solo", 
-    icon: User 
-  },
-  { 
-    name: "Adventure", 
-    path: "/tours/adventure", 
-    icon: Compass
-  },
-  { 
-    name: "Religious", 
-    path: "/tours/religious", 
-    icon: Landmark 
-  },
+  { name: "Hills Station", path: "/tours/hills", icon: Mountain },
+  { name: "Couple Tour", path: "/tours/honeymoon", icon: HeartHandshake },
+  { name: "Group Tour", path: "/tours/group", icon: Users },
+  { name: "Single Tour", path: "/tours/solo", icon: User },
+  { name: "Adventure", path: "/tours/adventure", icon: Compass },
+  { name: "Religious", path: "/tours/religious", icon: Landmark },
 ];
-
 
   const sidebarDestinations = [
     { name: "Manali Trip", image: "https://i.pinimg.com/736x/c4/1b/24/c41b245b832fffa9e3ea316f8bcec015.jpg", tours: 5 },
@@ -140,10 +114,18 @@ export default function Navbar() {
     setIsModalOpen(true);
   };
 
-  const isTransparent = isHome && !isScrolled;
+  // --- TRANSPARENCY LOGIC ---
+  // Yahan un pages ke path likhein jahan Navbar transparent chahiye
+  const transparentPaths = ["/", "/Package", "/Destination"]; 
+  
+  // Check karein ki current page list me hai ya nahi
+  const isTransparentPage = transparentPaths.includes(location.pathname);
+
+  // Logic: Agar Transparent page hai aur scroll nahi kiya hai
+  const isTransparent = isTransparentPage && !isScrolled;
 
   const navbarClasses = isTransparent
-    ? "bg-transparent border-transparent py-4 lg:py-5" 
+    ? "bg-gradient-to-b from-black/60 to-transparent border-transparent py-5 lg:py-6" 
     : "bg-white/95 backdrop-blur-md border-b border-emerald-100/50 shadow-sm py-3 lg:py-4"; 
 
   const textColorClass = isTransparent
@@ -152,8 +134,8 @@ export default function Navbar() {
     
   const logoTextMain = isTransparent ? "text-white" : "text-emerald-800";
   const logoSubText = isTransparent ? "text-white/80" : "text-orange-600/80";
-  const actionButtonClass = isTransparent ? "text-white hover:bg-white/10" : "text-emerald-950 hover:bg-orange-50";
-  const hamburgerClass = isTransparent ? "text-white hover:bg-white/10" : "text-emerald-950 hover:bg-emerald-50";
+  const actionButtonClass = isTransparent ? "text-white hover:bg-white/20" : "text-emerald-950 hover:bg-orange-50";
+  const hamburgerClass = isTransparent ? "text-white hover:bg-white/20" : "text-emerald-950 hover:bg-emerald-50";
 
   return (
     <>

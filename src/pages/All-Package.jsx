@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import { 
   MapPin, Star, Search, 
   Utensils, Car, BedDouble, 
-  Phone, MessageCircle, CheckCircle2,
+  Phone, CheckCircle2,
   ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -211,7 +210,7 @@ export default function Package() {
     },
     {
      name: 'Goa: Sun, Sand & Sea Beach Tour',
-      region: 'Goa', // Dhyan rahe: 'regions' array mein 'Goa' add karna na bhulein
+      region: 'Goa', 
       image: 'https://i.pinimg.com/736x/dd/c6/c7/ddc6c7a5db8817e7605dded58314b0ce.jpg',
       description: 'Experience the ultimate beach vacation with nightlife.',
       price: '5,999',
@@ -227,7 +226,7 @@ export default function Package() {
     {
       name: 'Kerala: God\'s Own Country Tour',
       region: 'Kerala',
-      image: 'https://i.pinimg.com/736x/23/bc/01/23bc0131b8ae332e29be3b06570c1d8d.jpg', // Kerala Houseboat Image
+      image: 'https://i.pinimg.com/736x/23/bc/01/23bc0131b8ae332e29be3b06570c1d8d.jpg', 
       description: 'Relax in the backwaters and explore lush green tea gardens.',
       price: '9,499',
       originalPrice: '13,500',
@@ -254,7 +253,8 @@ export default function Package() {
       <Navbar />
 
       {/* HERO SLIDER SECTION */}
-      <section className="relative h-[600px] overflow-hidden">
+      {/* UPDATE: h-[55vh] for mobile, h-[600px] for desktop */}
+      <section className="relative h-[55vh] md:h-[600px] overflow-hidden">
         {heroSlides.map((slide, index) => (
           <div
             key={slide.id}
@@ -262,26 +262,28 @@ export default function Package() {
               index === currentSlide ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            {/* Background Image - STATIC, NO ZOOM */}
-            <div 
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${slide.image})` }}
-            >
-              <div className="absolute inset-0 bg-black/40 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
-            </div>
+            {/* Background Image - UPDATED to IMG tag for better object-fit */}
+            <img 
+              src={slide.image} 
+              alt={slide.title}
+              className="w-full h-full object-cover object-center"
+            />
+            
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black/40 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
 
             {/* Content */}
-            <div className="relative h-full container mx-auto px-4 flex flex-col justify-center items-center text-center text-white z-10 pt-20">
+            <div className="absolute inset-0 h-full container mx-auto px-4 flex flex-col justify-center items-center text-center text-white z-10 pt-10 md:pt-20">
               <ScrollReveal direction="up" key={index}>
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 max-w-4xl drop-shadow-lg leading-tight">
+                <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 max-w-4xl drop-shadow-lg leading-tight">
                   {slide.title}
                 </h1>
-                <p className="text-lg md:text-xl text-gray-100 max-w-2xl mb-8 drop-shadow-md">
+                <p className="text-sm md:text-xl text-gray-100 max-w-2xl mb-6 md:mb-8 drop-shadow-md px-2">
                   {slide.subtitle}
                 </p>
                 <div className="flex gap-4">
                   {/* HERO BUTTON - ORANGE */}
-                  <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white rounded-full px-8 text-lg shadow-xl hover:scale-105 transition-transform">
+                  <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white rounded-full px-6 md:px-8 text-sm md:text-lg shadow-xl hover:scale-105 transition-transform">
                     Explore Packages
                   </Button>
                 </div>
@@ -293,25 +295,25 @@ export default function Package() {
         {/* Navigation Arrows */}
         <button 
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full backdrop-blur-sm transition-all hover:scale-110"
+          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-black/50 text-white p-2 md:p-3 rounded-full backdrop-blur-sm transition-all hover:scale-110"
         >
-          <ChevronLeft className="w-8 h-8" />
+          <ChevronLeft className="w-5 h-5 md:w-8 md:h-8" />
         </button>
         <button 
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full backdrop-blur-sm transition-all hover:scale-110"
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-black/50 text-white p-2 md:p-3 rounded-full backdrop-blur-sm transition-all hover:scale-110"
         >
-          <ChevronRight className="w-8 h-8" />
+          <ChevronRight className="w-5 h-5 md:w-8 md:h-8" />
         </button>
 
         {/* Dots Indicators */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
           {heroSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentSlide ? 'bg-orange-500 w-8' : 'bg-white/50 hover:bg-white/80'
+              className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
+                index === currentSlide ? 'bg-orange-500 w-6 md:w-8' : 'bg-white/50 hover:bg-white/80'
               }`}
             />
           ))}
@@ -319,9 +321,9 @@ export default function Package() {
       </section>
 
       {/* SEARCH BAR & GRID FILTERS */}
-      <section className="relative z-20 -mt-8">
+      <section className="relative z-20 -mt-6 md:-mt-8">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl p-4 flex flex-col md:flex-row gap-4 items-center">
+          <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl p-3 md:p-4 flex flex-col md:flex-row gap-3 md:gap-4 items-center">
             
             {/* Search Input */}
             <div className="flex-1 relative w-full">
@@ -330,7 +332,7 @@ export default function Package() {
                 placeholder="Search destination..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-12 h-12 rounded-xl border-gray-200 bg-gray-50 focus:bg-white transition-all w-full focus:ring-orange-500 focus:border-orange-500"
+                className="pl-12 h-10 md:h-12 rounded-xl border-gray-200 bg-gray-50 focus:bg-white transition-all w-full focus:ring-orange-500 focus:border-orange-500"
               />
             </div>
 
@@ -341,7 +343,7 @@ export default function Package() {
                   key={region}
                   onClick={() => setSelectedRegion(region)}
                   variant={selectedRegion === region ? 'default' : 'outline'}
-                  className={`rounded-xl whitespace-nowrap px-2 md:px-6 text-xs md:text-sm h-10 md:h-12 w-full md:w-auto transition-colors ${
+                  className={`rounded-xl whitespace-nowrap px-2 md:px-6 text-xs md:text-sm h-9 md:h-12 w-full md:w-auto transition-colors ${
                     selectedRegion === region
                       ? 'bg-orange-500 hover:bg-orange-600 text-white border-transparent'
                       : 'border-gray-200 text-gray-600 hover:bg-orange-50 hover:text-orange-600 hover:border-orange-200'
@@ -357,7 +359,7 @@ export default function Package() {
       </section>
 
       {/* PACKAGES GRID */}
-      <section className="py-20">
+      <section className="py-12 md:py-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredPackage.map((dest, index) => (
@@ -365,7 +367,7 @@ export default function Package() {
                 <Link to={dest.path}>
                   <Card className="group bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col relative">
                     
-                   {/* Image Section */}
+                    {/* Image Section */}
                     <div className="relative h-56 overflow-hidden">
                       <div className="absolute top-2 left-2 z-20">
                         {/* RIBBON - STRAIGHT (SIDHA) */}
@@ -374,7 +376,7 @@ export default function Package() {
                         </div>
                       </div>
 
-                     <img
+                      <img
                         src={dest.image}
                         alt={dest.name}
                         // Changes: 'object-cover' ko 'object-fill' kiya, aur 'scale-110' hata diya
@@ -447,7 +449,7 @@ export default function Package() {
                       </div>
                       {/* --- NEW PRICE SECTION ENDS HERE --- */}
 
-                     <div className="grid grid-cols-[auto_auto_1fr] gap-2 pt-3 border-t border-gray-100">
+                      <div className="grid grid-cols-[auto_auto_1fr] gap-2 pt-3 border-t border-gray-100">
                         {/* WhatsApp Button - GREEN */}
                         <Button 
                           variant="outline" 
