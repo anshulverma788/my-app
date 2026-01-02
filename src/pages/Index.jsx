@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async'; // SEO Import
 
 // CSS Imports
 import 'swiper/css';
@@ -11,7 +12,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import {
-  ArrowRight, MapPin, Star, Calendar, Phone, ShieldCheck, Quote, CheckCircle2, ChevronLeft, ChevronRight,
+  ArrowRight, ArrowUpRight, User, MapPin, Star, Calendar, Phone, ShieldCheck, Quote, CheckCircle2, ChevronLeft, ChevronRight,
   Headset, ThumbsUp, Globe, Users, Award, Clock, Utensils, Car, Building2, Heart, Flag, Search, ChevronDown, Check, Sun, CarFront, Camera, BedDouble, UtensilsCrossed, Play
 } from 'lucide-react';
 
@@ -147,9 +148,64 @@ export default function Index() {
     { name: "Karan Patel", role: "Goa, India", img: "https://i.pravatar.cc/150?img=3", rating: 5, desc: "Stunning beaches and perfect arrangements — best trip ever!", title: "Goa Beach Holiday" },
     { name: "Sneha Gupta", role: "Jaipur, India", img: "https://i.pravatar.cc/150?img=9", rating: 5, desc: "The cultural heritage tour was mind-blowing. The guide was very knowledgeable.", title: "Royal Rajasthan" },
   ];
+  // ================= BLOG DATA =================
+  const blogPosts = [
+    {
+      id: 1,
+      image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2000&auto=format&fit=crop",
+      date: "Dec 25, 2024",
+      author: "Rahul Verma",
+      category: "Travel Tips",
+      title: "10 Hidden Gems in Himachal You Must Visit",
+      excerpt: "Discover the untouched beauty of Himachal Pradesh beyond Shimla and Manali. Explore these secret valleys..."
+    },
+    {
+      id: 2,
+      image: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=2000&auto=format&fit=crop",
+      date: "Jan 05, 2025",
+      author: "Aditi Singh",
+      category: "Adventure",
+      title: "The Ultimate Guide to Spiti Valley Bike Trip",
+      excerpt: "Planning a road trip to Spiti? Here is everything you need to know about routes, permits, and best time to visit."
+    },
+    {
+      id: 3,
+      image: "https://images.unsplash.com/photo-1593181629936-11c609b8db9b?q=80&w=2000&auto=format&fit=crop",
+      date: "Jan 12, 2025",
+      author: "Team HD",
+      category: "Culture",
+      title: "Experience the Rich Culture of Kinnaur",
+      excerpt: "From apple orchards to ancient monasteries, dive deep into the traditional lifestyle of Kinnaur district."
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-slate-50 selection:bg-orange-500 selection:text-white">
+
+      {/* --- SEO META TAGS --- */}
+      <Helmet>
+        <title>Himachal Destination | Best Tour Packages for Shimla, Manali & Spiti Valley</title>
+        <meta name="description" content="Book affordable Himachal tour packages. Explore Shimla, Manali, Spiti, and Kashmir with Himachal Destination. Best deals on family and group tours." />
+        <meta name="keywords" content="Himachal tourism, Manali tour package, Shimla hotels, Spiti valley trek, travel agency himachal, best tour operator india" />
+        <link rel="canonical" href="https://yourwebsite.com/" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourwebsite.com/" />
+        <meta property="og:title" content="Himachal Destination - The Land of Gods" />
+        <meta property="og:description" content="Plan your perfect trip to Himachal. Get up to 30% OFF on group bookings." />
+        <meta property="og:image" content="https://cdn.pixabay.com/photo/2018/02/14/13/42/sky-3153004_1280.jpg" />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://yourwebsite.com/" />
+        <meta property="twitter:title" content="Himachal Destination | Best Tour Packages" />
+        <meta property="twitter:description" content="Plan your perfect trip to Himachal. Get up to 30% OFF on group bookings." />
+        <meta property="twitter:image" content="https://cdn.pixabay.com/photo/2018/02/14/13/42/sky-3153004_1280.jpg" />
+      </Helmet>
+
+      {/* --- SEO: Semantic Main Heading (Hidden but read by bots) --- */}
+      <h1 className="sr-only">Himachal Destination - Best Travel Agency for Shimla, Manali, and Spiti Valley Tours</h1>
 
       {/* CSS Animations & Custom Styles */}
       <style>{`
@@ -195,12 +251,24 @@ export default function Index() {
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: #009f48; 
         }
+        /* Utility for screen reader only text */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
       `}</style>
 
       <Navbar />
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative w-full h-[50vh] lg:h-screen min-h-[400px] bg-emerald-950 text-white overflow-visible group">
+      <section className="relative w-full h-[50vh] lg:h-screen min-h-[400px] bg-emerald-950 text-white overflow-visible group" aria-label="Hero Slider">
         <Swiper
           modules={[Autoplay, EffectFade, Navigation, Pagination]}
           effect={'fade'}
@@ -212,10 +280,16 @@ export default function Index() {
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
           className="absolute inset-0 w-full h-full z-0"
         >
-          {heroSlides.map((slide) => (
+          {heroSlides.map((slide, index) => (
             <SwiperSlide key={slide.id}>
               <div className="relative w-full h-full">
-                <img src={slide.image} alt={slide.place} className="w-full h-full object-cover" />
+                {/* LCP Optimization: Load first image eagerly, others lazy */}
+                <img 
+                  src={slide.image} 
+                  alt={`${slide.place} Tour Package - Himachal Destination`} 
+                  loading={index === 0 ? "eager" : "lazy"}
+                  className="w-full h-full object-cover" 
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/40 to-transparent opacity-90 lg:hidden"></div>
                 <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-transparent"></div>
               </div>
@@ -232,9 +306,10 @@ export default function Index() {
                   {heroSlides[activeIndex].price}
                 </span>
               </div>
-              <h1 className="text-4xl font-Lobster font-bold leading-none text-white mb-2 shadow-sm anim-text delay-200">
+              {/* Changed h1 to h2 for semantic SEO (Main H1 is hidden above) */}
+              <h2 className="text-4xl font-Lobster font-bold leading-none text-white mb-2 shadow-sm anim-text delay-200">
                 {heroSlides[activeIndex].place}
-              </h1>
+              </h2>
               <p className="text-emerald-100/80 text-xs leading-relaxed line-clamp-2 mb-4 max-w-[90%] anim-text delay-300">
                 {heroSlides[activeIndex].desc}
               </p>
@@ -257,9 +332,10 @@ export default function Index() {
                 </p>
               </div>
               <div className="overflow-hidden mb-4">
-                <h1 className="text-8xl font-Lobster font-bold leading-tight anim-text delay-200 drop-shadow-2xl">
+                {/* Changed h1 to h2 for SEO */}
+                <h2 className="text-8xl font-Lobster font-bold leading-tight anim-text delay-200 drop-shadow-2xl text-white">
                   {heroSlides[activeIndex].place}
-                </h1>
+                </h2>
               </div>
               <div className="overflow-hidden mb-8">
                 <p className="text-xl text-emerald-50 max-w-lg leading-relaxed anim-text delay-300 font-light">
@@ -284,7 +360,7 @@ export default function Index() {
             {getHeroThumbnails().map((thumb, idx) => (
               <div key={idx} onClick={() => handleThumbnailClick(thumb.realIndex)} className="group relative w-64 h-28 rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-orange-500 transition-all duration-300 bg-emerald-950/60 backdrop-blur-md shadow-2xl flex items-center">
                 <div className="w-24 h-full relative overflow-hidden">
-                  <img src={thumb.image} alt={thumb.place} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img src={thumb.image} alt={thumb.place} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="flex-1 p-4 flex flex-col justify-center">
                   <span className="text-[10px] text-orange-400 font-bold uppercase tracking-wider mb-1">Next</span>
@@ -303,7 +379,7 @@ export default function Index() {
 
       </section>
 
-      {/* ================= SEARCH TOUR BAR (Revised to Match Reference) ================= */}
+      {/* ================= SEARCH TOUR BAR ================= */}
       {/* Wrapper: Relative below Hero on Mobile (White Background), Floating on Desktop */}
       <div className="relative z-40 w-full px-4 lg:absolute lg:left-0 lg:right-0 lg:-bottom-[40px] pointer-events-auto py-4 lg:py-0 bg-white lg:bg-transparent">
         
@@ -311,7 +387,6 @@ export default function Index() {
         <div ref={searchContainerRef} className="container mx-auto max-w-6xl">
           <div className={`
             flex flex-col lg:flex-row 
-            ${/* Mobile: Transparent container, separate blocks */ ''}
             ${/* Desktop: White card shadow container */ 'lg:bg-white lg:rounded-md lg:shadow-2xl lg:border lg:border-gray-200'}
           `}>
 
@@ -480,15 +555,13 @@ export default function Index() {
       </div>
 
       {/* ================= POPULAR PACKAGES ================= */}
-      {/* Adjusted Margin Top: Now small margin on Mobile (since search is block) and larger on Desktop (since search overlaps) */}
-      <section className=" md:py-5 relative overflow-hidden bg-orange-50/30 mt-12 lg:mt-16">
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="md:py-5 relative overflow-hidden bg-orange-50/30 mt-12 lg:mt-16" id="packages">
+        <div className="container mx-auto relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-10">
               <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">
                 Popular Packages
               </h2>
-              <div className="w-20 h-1 bg-orange-400 mx-auto mt-6 rounded-full"></div>
             </div>
           </ScrollReveal>
           
@@ -505,7 +578,8 @@ export default function Index() {
                 768: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
               }}
-              className="pb-14 px-2"> 
+              className="pb-14 "
+            > 
               {packages.map((pkg, index) => (
                 <SwiperSlide key={index} className="h-full">
                   <ScrollReveal direction="up" delay={index * 0.1}>
@@ -513,14 +587,21 @@ export default function Index() {
 
                       {/* --- Image Section --- */}
                       <div className="relative h-64 flex-shrink-0 rounded-xl overflow-hidden transition-all duration-500 group-hover:rounded-[20px] group-hover:shadow-sm">
-                        <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover transition-transform duration-700 font-Lobster group-hover:scale-110" />
+                        <img 
+                            src={pkg.image} 
+                            alt={`${pkg.title} Tour Package`} 
+                            loading="lazy" 
+                            width="400" 
+                            height="300"
+                            className="w-full h-full object-cover transition-transform duration-700 font-Lobster group-hover:scale-110" 
+                        />
 
                         {/* 20% OFF Ribbon */}
                         <div className="absolute top-[14px] left-[-34px] bg-[#6d1526] text-white text-[10px] font-bold w-[120px] py-1 -rotate-45 text-center shadow-lg z-20 uppercase tracking-wider border-y border-[#57111f]">
                           20% OFF
                         </div>
 
-                        <button className="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-white hover:text-red-500 transition-colors z-10">
+                        <button className="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-white hover:text-red-500 transition-colors z-10" aria-label="Add to Wishlist">
                           <Heart className="w-4 h-4 fill-current" />
                         </button>
 
@@ -532,36 +613,6 @@ export default function Index() {
                         </div>
                       </div>
 
-                      {/* --- INFO ROW --- */}
-                      {/* <div className="bg-emerald-50/50 border-b border-emerald-100 px-4 py-3 flex items-center justify-between gap-2 text-[10px] md:text-[11px] font-bold text-emerald-800"> */}
-                          {/* Duration */}
-                          {/* <div className="flex flex-col items-center leading-tight">
-                             <div className="flex items-center gap-1 mb-0.5 text-orange-600">
-                                <Clock className="w-3.5 h-3.5" />
-                                <span>Duration</span>
-                             </div>
-                             <span className="font-bold text-gray-700">{pkg.duration}</span>
-                          </div> */}
-                          {/* <div className="w-px h-6 bg-emerald-200"></div> */}
-                          {/* Start */}
-                          {/* <div className="flex flex-col items-center leading-tight">
-                             <div className="flex items-center gap-1 mb-0.5 text-orange-600">
-                                <MapPin className="w-3.5 h-3.5" />
-                                <span>Start</span>
-                             </div>
-                             <span className="font-bold text-gray-700">{pkg.location}</span>
-                          </div> */}
-                          {/* <div className="w-px h-6 bg-emerald-200"></div> */}
-                          {/* End */}
-                          {/* <div className="flex flex-col items-center leading-tight">
-                             <div className="flex items-center gap-1 mb-0.5 text-orange-600">
-                                <Flag className="w-3.5 h-3.5" />
-                                <span>End</span>
-                             </div>
-                             <span className="font-bold text-gray-700">{pkg.location}</span>
-                          </div>
-                      </div> */}
-
                       {/* --- Content Body --- */}
                       <div className="p-4 flex-1 flex flex-col">
                         <div className="mb-3">
@@ -569,51 +620,6 @@ export default function Index() {
                             {pkg.title}
                           </h3>
                         </div>
-
-                        {/* --- Premium Black Amenities Section --- */}
-                        {/* <div className="grid grid-cols-4 gap-3 mb-6 py-5 border-y border-dashed border-gray-200"> */}
-                          
-                          {/* 1. Cab */}
-                          {/* <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
-                            <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300 ">
-                              <CarFront className="w-5 h-5 text-gray-700  transition-colors duration-300" />
-                            </div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/icon:text-black transition-colors duration-300">
-                              Cab
-                            </span>
-                          </div> */}
-
-                          {/* 2. Sightseeing */}
-                          {/* <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
-                            <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300 ">
-                              <Camera className="w-5 h-5 text-gray-700 transition-colors duration-300" />
-                            </div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/icon:text-black transition-colors duration-300 text-center leading-none">
-                              Sightseeing
-                            </span>
-                          </div> */}
-
-                          {/* 3. Hotel */}
-                          {/* <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
-                            <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300 ">
-                              <BedDouble className="w-5 h-5 text-gray-700  transition-colors duration-300" />
-                            </div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/icon:text-black transition-colors duration-300">
-                              Hotel
-                            </span>
-                          </div> */}
-
-                          {/* 4. Meals */}
-                          {/* <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
-                            <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300 ">
-                              <UtensilsCrossed className="w-5 h-5 text-gray-700  transition-colors duration-300" />
-                            </div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/icon:text-black transition-colors duration-300">
-                              Meals
-                            </span>
-                          </div> */}
-
-                        {/* </div> */}
 
                         {/* Price */}
                         <div className="mt-auto">
@@ -669,7 +675,7 @@ export default function Index() {
       </section>
 
       {/* ================= TOP DESTINATIONS ================= */}
-      <section className="py-10 md:py-4 bg-white">
+      <section className="py-10 md:py-4 bg-white" id="destinations">
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
             <div className="text-center mb-12">
@@ -686,7 +692,12 @@ export default function Index() {
                 `}
               >
                 <Link to={dest.path} className="block w-full h-full relative">
-                  <img src={dest.image} alt={dest.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
+                  <img 
+                    src={dest.image} 
+                    alt={`Trip to ${dest.title}`} 
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" 
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
                   <div className="absolute top-4 right-4 z-10">
                     <Badge className="bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold px-3 py-1 uppercase tracking-wide text-[10px] hover:bg-orange-500 hover:border-orange-500 transition-colors">
@@ -722,7 +733,7 @@ export default function Index() {
         </div>
       </section>
 
-     {/* ================= LAST MINUTE DEALS (Blue Theme) ================= */}
+      {/* ================= LAST MINUTE DEALS (Blue Theme) ================= */}
       <section className="py-16 md:py-5 relative overflow-hidden bg-blue-50/30">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
@@ -754,14 +765,19 @@ export default function Index() {
 
                       {/* --- Image Section --- */}
                       <div className="relative h-64 flex-shrink-0 rounded-xl overflow-hidden transition-all duration-500 group-hover:rounded-[20px] group-hover:shadow-sm">
-                        <img src={deal.image} alt={deal.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <img 
+                            src={deal.image} 
+                            alt={`${deal.title} Deal`} 
+                            loading="lazy"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                        />
 
                         {/* 50% OFF Ribbon (Blue) */}
                         <div className="absolute top-[14px] left-[-34px] bg-[#2563eb] text-white text-[10px] font-bold w-[120px] py-1 -rotate-45 text-center shadow-lg z-20 uppercase tracking-wider border-y border-[#1d4ed8] animate-pulse">
                           50% OFF
                         </div>
 
-                        <button className="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-white hover:text-blue-600 transition-colors z-10">
+                        <button className="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-white hover:text-blue-600 transition-colors z-10" aria-label="Save Deal">
                           <Heart className="w-4 h-4 fill-current" />
                         </button>
 
@@ -773,36 +789,6 @@ export default function Index() {
                         </div>
                       </div>
 
-                      {/* --- INFO ROW (Blue Theme) --- */}
-                      {/* <div className="bg-blue-50/50 border-b border-blue-100 px-4 py-3 flex items-center justify-between gap-2 text-[10px] md:text-[11px] font-bold text-blue-900"> */}
-                          {/* Duration */}
-                          {/* <div className="flex flex-col items-center leading-tight">
-                             <div className="flex items-center gap-1 mb-0.5 text-blue-600">
-                                <Clock className="w-3.5 h-3.5" />
-                                <span>Duration</span>
-                             </div>
-                             <span className="font-bold text-gray-700">{deal.duration}</span>
-                          </div>
-                          <div className="w-px h-6 bg-blue-200"></div> */}
-                          {/* Location */}
-                          {/* <div className="flex flex-col items-center leading-tight">
-                             <div className="flex items-center gap-1 mb-0.5 text-blue-600">
-                                <MapPin className="w-3.5 h-3.5" />
-                                <span>Location</span>
-                             </div>
-                             <span className="font-bold text-gray-700">{deal.location}</span>
-                          </div>
-                          <div className="w-px h-6 bg-blue-200"></div> */}
-                          {/* Type */}
-                          {/* <div className="flex flex-col items-center leading-tight">
-                             <div className="flex items-center gap-1 mb-0.5 text-blue-600">
-                                <Building2 className="w-3.5 h-3.5" />
-                                <span>Type</span>
-                             </div>
-                             <span className="font-bold text-gray-700">Premium</span>
-                          </div>
-                      </div> */}
-
                       {/* --- Content Body --- */}
                       <div className="p-4 flex-1 flex flex-col">
                         <div className="mb-3">
@@ -810,34 +796,6 @@ export default function Index() {
                             {deal.title}
                           </h3>
                         </div>
-
-                        {/* --- Amenities Grid ---
-                        <div className="grid grid-cols-4 gap-3 mb-6 py-5 border-y border-dashed border-gray-200">
-                          <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
-                            <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300">
-                              <CarFront className="w-5 h-5 text-gray-700 transition-colors duration-300" />
-                            </div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/icon:text-black transition-colors duration-300">Cab</span>
-                          </div>
-                          <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
-                            <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300">
-                              <Camera className="w-5 h-5 text-gray-700 transition-colors duration-300" />
-                            </div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/icon:text-black transition-colors duration-300">Sightseeing</span>
-                          </div>
-                          <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
-                            <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300">
-                              <BedDouble className="w-5 h-5 text-gray-700 transition-colors duration-300" />
-                            </div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/icon:text-black transition-colors duration-300">Hotel</span>
-                          </div>
-                          <div className="flex flex-col items-center justify-center gap-2 group/icon cursor-pointer">
-                            <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center transition-all duration-300">
-                              <UtensilsCrossed className="w-5 h-5 text-gray-700 transition-colors duration-300" />
-                            </div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover/icon:text-black transition-colors duration-300">Meals</span>
-                          </div>
-                        </div> */}
 
                         {/* Price */}
                         <div className="mt-auto">
@@ -916,7 +874,108 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ================= TESTIMONIALS (Corrected) ================= */}
+      {/* ================= LATEST BLOGS / STORIES ================= */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10">
+          
+          <ScrollReveal direction="up">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+              <div className="text-left">
+                <span className="text-orange-500 font-bold tracking-wider uppercase text-sm mb-2 block">
+                  Travel Inspiration
+                </span>
+                <h2 className="text-3xl md:text-5xl font-Lobster font-bold text-black">
+                  Latest Travel Stories
+                </h2>
+              </div>
+
+              {/* DESKTOP VIEW ALL */}
+              <Link to="/blogs">
+                <Button
+                  variant="outline"
+                  className="hidden md:flex border-emerald-900 text-emerald-900 hover:bg-emerald-900 hover:text-white rounded-full px-6 gap-2 transition-all"
+                >
+                  View All Blogs <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          {/* BLOG GRID */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {blogPosts.map((post, index) => (
+              <ScrollReveal key={post.id} direction="up" delay={index * 0.1}>
+                <div className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-orange-100 shadow-sm hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-500">
+
+                  {/* IMAGE */}
+                  <div className="relative h-60 overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={`Blog: ${post.title}`}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+
+                    {/* DATE */}
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-emerald-800 shadow-lg flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5 text-orange-500" />
+                      {post.date}
+                    </div>
+
+                    {/* CATEGORY */}
+                    <div className="absolute bottom-4 left-4">
+                      <span className="bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                        {post.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* CONTENT */}
+                  <div className="p-6 flex-1 flex flex-col">
+                    <div className="flex items-center gap-2 text-xs text-gray-500 mb-3 font-medium">
+                      <User className="w-3.5 h-3.5 text-emerald-600" />
+                      By {post.author}
+                    </div>
+
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 leading-snug group-hover:text-orange-600 transition-colors line-clamp-2 font-Lobster tracking-wide">
+                      <Link to={`/blog/${post.id}`}>
+                        {post.title}
+                      </Link>
+                    </h3>
+
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
+                      {post.excerpt}
+                    </p>
+
+                    <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                      <Link
+                        to={`/blog/${post.id}`}
+                        className="inline-flex items-center gap-1 text-sm font-bold text-emerald-700 hover:text-orange-600 transition-colors group/link"
+                      >
+                        Read More
+                        <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* MOBILE VIEW ALL */}
+          <div className="mt-8 text-center md:hidden">
+            <Link to="/blogs">
+              <Button className="bg-emerald-900 text-white hover:bg-emerald-800 rounded-full px-8 py-3 w-full">
+                View All Blogs
+              </Button>
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ================= TESTIMONIALS ================= */}
       <section className="py-24 bg-[#F8F9FE] relative">
         <div className="container mx-auto px-6 relative z-10">
           <FadeInUp>
@@ -949,10 +1008,11 @@ export default function Index() {
                     <div className="relative">
                       <img
                         src={item.img}
-                        alt={item.name}
+                        alt={`Testimonial by ${item.name}`}
+                        loading="lazy"
                         className="w-16 h-16 rounded-full object-cover"
                       />
-                      <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-sm cursor-pointer">
+                      <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-sm cursor-pointer" aria-label="Watch video review">
                         <div className="bg-blue-500 rounded-full p-1 text-white">
                           <Play size={10} fill="currentColor" />
                         </div>
@@ -988,34 +1048,6 @@ export default function Index() {
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
-      </section>
-
-      {/* ================= FINAL CTA ================= */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop" alt="Background" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/90 to-emerald-800/80"></div>
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <ScrollReveal direction="up">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-4xl md:text-6xl font-bold font-Lobster text-white mb-6">Ready to Start Your Adventure?</h2>
-              <p className="text-xl md:text-2xl text-emerald-100/90 mb-10 font-light">Let our travel experts create a personalized itinerary just for you.</p>
-              <div className="flex flex-col sm:flex-row gap-5 justify-center">
-                <Link to="/booking/customize">
-                  <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-7 text-lg rounded-full shadow-2xl hover:shadow-orange-500/30 transform hover:scale-105 transition-all duration-300 w-full sm:w-auto font-bold border border-orange-400">
-                    <Calendar className="w-5 h-5 mr-2" /> Plan My Trip
-                  </Button>
-                </Link>
-                <a href="tel:+1234567890">
-                  <Button size="lg" variant="outline" className="border-2 border-white text-emerald-900 hover:bg-emerald-800 hover:text-white hover:border-emerald-800 px-10 py-7 text-lg rounded-full backdrop-blur-sm bg-white transition-all duration-300 w-full sm:w-auto font-bold">
-                    <Phone className="w-5 h-5 mr-2" /> Call Us Now
-                  </Button>
-                </a>
-              </div>
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 
