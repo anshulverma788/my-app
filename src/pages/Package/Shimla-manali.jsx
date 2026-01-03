@@ -27,7 +27,6 @@ import {
   ChevronDown,
   MapPinned,
   ArrowRight,
-  // New Icons for Grid
   Car,
   Languages,
   PawPrint,
@@ -61,19 +60,19 @@ const itemVariants = {
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 50 } }
 };
 
-// ---------- NEW: TOUR DETAILS GRID SECTION ----------
+// ---------- NEW: TOUR DETAILS GRID SECTION (MODIFIED FOR 3 COLUMNS) ----------
 
 // Shimla-Manali Specific Data for the Grid
 const tourDetailsData = [
-  { icon: Hotel, label: "Accommodation", value: "3★ Family Hotels" },
-  { icon: Utensils, label: "Meals", value: "Breakfast & Dinner" },
-  { icon: Car, label: "Transportation", value: "Private Cab / Tempo" },
-  { icon: Users, label: "Group Size", value: "Family / Private" },
-  { icon: Languages, label: "Language", value: "Hindi, English" },
-  { icon: Snowflake, label: "Best Season", value: "Oct to June" },
-  { icon: CalendarClock, label: "Duration", value: "7 Days / 6 Nights" },
-  { icon: Tent, label: "Category", value: "Nature & Hill Station" },
-  { icon: PawPrint, label: "Pet Policy", value: "On Request" },
+  { icon: Hotel, label: "Stay", value: "3★ Hotels" }, // Shortened text for mobile 3-grid
+  { icon: Utensils, label: "Meals", value: "bf & Dinner" },
+  { icon: Car, label: "Travel", value: "Private Cab" },
+  { icon: Users, label: "Group", value: "Family" },
+  { icon: Languages, label: "Lang", value: "Hin, Eng" },
+  { icon: Snowflake, label: "Season", value: "All Year" },
+  { icon: CalendarClock, label: "Time", value: "7D / 6N" },
+  { icon: Tent, label: "Type", value: "Hill Stn" },
+  { icon: PawPrint, label: "Pets", value: "Allowed" },
 ];
 
 const gridContainerVariants = {
@@ -96,26 +95,29 @@ const TourDetailsGrid = () => {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-50px" }}
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6"
+      // CHANGED: grid-cols-3 for mobile, gap reduced for mobile
+      className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-6 mt-6"
     >
       {tourDetailsData.map((item, idx) => (
         <motion.div
           key={idx}
           variants={gridItemVariants}
           whileHover={{ y: -5, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.1)" }}
-          className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm transition-all duration-300"
+          // CHANGED: Layout to flex-col (vertical) for mobile to fit 3 items
+          className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4 p-2 sm:p-5 bg-white rounded-xl sm:rounded-2xl border border-orange-100 shadow-sm transition-all duration-300"
         >
-          {/* Icon Box */}
-          <div className="w-12 h-12 shrink-0 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
-            <item.icon className="w-6 h-6 stroke-[1.5]" />
+          {/* Icon Box - CHANGED COLORS to Orange */}
+          <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center">
+            <item.icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.5]" />
           </div>
           
           {/* Text Content */}
           <div>
-            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-0.5">
+            <p className="text-[10px] sm:text-xs font-medium text-slate-400 uppercase tracking-wider mb-0.5">
               {item.label}
             </p>
-            <p className="text-sm sm:text-base font-bold text-slate-800 leading-tight">
+            {/* Reduced font size for mobile to prevent overflow in 3-col grid */}
+            <p className="text-[11px] sm:text-base font-bold text-slate-800 leading-tight">
               {item.value}
             </p>
           </div>
@@ -130,21 +132,21 @@ const TourDetailsGrid = () => {
 const heroSlides = [
   {
     image: 'https://cdn.pixabay.com/photo/2013/12/22/22/01/india-232725_1280.jpg',
-    title: 'Shimla • Manali Family Trip',
-    subtitle: 'Hill Stations, Snow & Scenic Drives',
-    days: '7 Days | 6 Nights',
+    // title: 'Shimla • Manali Family Trip',
+    // subtitle: 'Hill Stations, Snow & Scenic Drives',
+    // days: '7 Days | 6 Nights',
   },
   {
     image: 'https://images.unsplash.com/photo-1655470062377-ef3f5161960a?q=80&w=1170&auto=format&fit=crop',
-    title: 'Kufri • Manali • Solang Valley',
-    subtitle: 'Perfect Family Holiday in Himachal',
-    days: '7 Days | Customizable',
+    // title: 'Kufri • Manali • Solang Valley',
+    // subtitle: 'Perfect Family Holiday in Himachal',
+    // days: '7 Days | Customizable',
   },
   {
     image: 'https://images.unsplash.com/photo-1597167231350-d057a45dc868?q=80&w=1982&auto=format&fit=crop',
-    title: 'Snow • Adventure • Relax',
-    subtitle: 'Comfortable Stays for Your Family',
-    days: '7 Days | 6 Nights',
+    // title: 'Snow • Adventure • Relax',
+    // subtitle: 'Comfortable Stays for Your Family',
+    // days: '7 Days | 6 Nights',
   },
 ];
 
@@ -186,59 +188,45 @@ const tourHighlights = [
 const itinerary = [
   {
     day: 'Day 01',
-    title: 'Delhi / Chandigarh → Shimla (Arrival in Hills)',
-    description:
-      'Pickup from Delhi/Chandigarh and smooth drive to Shimla via beautiful valleys and mountain views.',
-    details:
-      'Morning pickup from Delhi/Chandigarh. Start your journey towards Shimla. Enroute enjoy views of the Shivalik hills, lush green valleys & small towns. On arrival in Shimla, check in to your hotel. Evening free to relax or explore nearby market area on your own. Overnight stay at Shimla.',
+    title: 'Delhi / Chandigarh → Shimla',
+    description: 'Pickup from Delhi/Chandigarh and smooth drive to Shimla via beautiful valleys.',
+    details: 'Morning pickup from Delhi/Chandigarh. Start your journey towards Shimla. Enroute enjoy views of the Shivalik hills, lush green valleys & small towns. On arrival in Shimla, check in to your hotel. Evening free to relax. Overnight stay at Shimla.',
   },
   {
     day: 'Day 02',
     title: 'Shimla Local Sightseeing',
-    description:
-      'Explore the best of Shimla – Ridge, Mall Road, Christ Church & nearby points.',
-    details:
-      'After breakfast, head for local sightseeing of Shimla. Visit The Ridge, Christ Church, Lakkar Bazaar, Kali Bari Temple and stroll around the famous Mall Road. Enjoy street food, shopping & cafés. Evening at leisure. Overnight stay at Shimla with dinner.',
+    description: 'Explore the best of Shimla – Ridge, Mall Road, Christ Church & nearby points.',
+    details: 'After breakfast, head for local sightseeing of Shimla. Visit The Ridge, Christ Church, Lakkar Bazaar, Kali Bari Temple and stroll around the famous Mall Road. Enjoy street food, shopping & cafés. Evening at leisure. Overnight stay at Shimla with dinner.',
   },
   {
     day: 'Day 03',
-    title: 'Kufri Excursion & Mashobra / Naldehra',
-    description:
-      'Full day trip to Kufri snow point with option to visit Mashobra / Naldehra.',
-    details:
-      'Post breakfast, proceed for a day excursion to Kufri – a popular snow destination (seasonal). Enjoy horse riding, yak rides, viewpoints and family photo spots. Later you can visit Mashobra / Naldehra (subject to time & traffic) known for scenic beauty and pine forests. Return to Shimla in the evening. Overnight stay at Shimla.',
+    title: 'Kufri Excursion & Mashobra',
+    description: 'Full day trip to Kufri snow point with option to visit Mashobra / Naldehra.',
+    details: 'Post breakfast, proceed for a day excursion to Kufri – a popular snow destination (seasonal). Enjoy horse riding, yak rides, viewpoints and family photo spots. Later you can visit Mashobra / Naldehra. Return to Shimla in the evening. Overnight stay at Shimla.',
   },
   {
     day: 'Day 04',
     title: 'Shimla → Manali via Kullu',
-    description:
-      'Scenic transfer from Shimla to Manali with enroute sightseeing at Kullu region.',
-    details:
-      'After breakfast, check out from the Shimla hotel and drive towards Manali. Enroute enjoy views of rivers, valleys & mountains. Stop near Kullu for local sightseeing, shawl factory visit & optional river rafting (on extra cost, subject to season). By evening reach Manali, check in at hotel and relax. Overnight stay at Manali.',
+    description: 'Scenic transfer from Shimla to Manali with enroute sightseeing at Kullu region.',
+    details: 'After breakfast, check out from the Shimla hotel and drive towards Manali. Enroute enjoy views of rivers, valleys & mountains. Stop near Kullu for local sightseeing, shawl factory visit & optional river rafting. By evening reach Manali, check in at hotel and relax. Overnight stay at Manali.',
   },
   {
     day: 'Day 05',
     title: 'Manali Local Sightseeing',
-    description:
-      'Discover Manali town – Hadimba Temple, Vashisht, Club House & Mall Road.',
-    details:
-      'Post breakfast, start Manali local sightseeing – visit Hadimba Devi Temple surrounded by deodar trees, Vashisht Temple & Hot Springs, Club House and Tibetan Monastery. Later in the evening, spend free time at Mall Road for shopping and café hopping. Overnight stay at Manali with dinner.',
+    description: 'Discover Manali town – Hadimba Temple, Vashisht, Club House & Mall Road.',
+    details: 'Post breakfast, start Manali local sightseeing – visit Hadimba Devi Temple surrounded by deodar trees, Vashisht Temple & Hot Springs, Club House and Tibetan Monastery. Later in the evening, spend free time at Mall Road for shopping and café hopping. Overnight stay at Manali with dinner.',
   },
   {
     day: 'Day 06',
-    title: 'Solang Valley • Optional Atal Tunnel (Extra Cost)',
-    description:
-      'Day trip to Solang Valley for snow & adventure activities. Optional Atal Tunnel trip.',
-    details:
-      'After breakfast, proceed towards Solang Valley – famous for its snow views and adventure activities like skiing, tube rides, paragliding, ATV rides (activities on direct payment & subject to weather). If roads & permits allow, you can also opt for an additional excursion to Atal Tunnel / Sissu on extra cost. Return to Manali by evening. Overnight stay at Manali.',
+    title: 'Solang Valley • Optional Atal Tunnel',
+    description: 'Day trip to Solang Valley for snow & adventure activities. Optional Atal Tunnel trip.',
+    details: 'After breakfast, proceed towards Solang Valley – famous for its snow views and adventure activities like skiing, tube rides, paragliding, ATV rides. If roads & permits allow, you can also opt for an additional excursion to Atal Tunnel / Sissu on extra cost. Return to Manali by evening. Overnight stay at Manali.',
   },
   {
     day: 'Day 07',
-    title: 'Manali → Delhi / Chandigarh (Return Journey)',
-    description:
-      'Check out from hotel and start your return journey with beautiful memories.',
-    details:
-      'After breakfast, check out from hotel. Drive back towards Delhi / Chandigarh with amazing memories of your Shimla – Manali family trip. Drop at your desired point & tour ends with happy faces.',
+    title: 'Manali → Delhi / Chandigarh',
+    description: 'Check out from hotel and start your return journey with beautiful memories.',
+    details: 'After breakfast, check out from hotel. Drive back towards Delhi / Chandigarh with amazing memories of your Shimla – Manali family trip. Drop at your desired point & tour ends with happy faces.',
   },
 ];
 
@@ -258,24 +246,6 @@ const excludeFeatures = [
   'Adventure activities, monument entry fees & ropeways etc. (direct payment).',
   'Atal Tunnel / Rohtang excursion charges & permits (if opted).',
   'Anything not specifically mentioned in the inclusions list.',
-];
-
-const faqs = [
-  {
-    question: 'Best time to visit Shimla Manali with family?',
-    answer:
-      'For pleasant weather – March to June. For snow experience – December to February (subject to snowfall). October & November are also good with clear views.',
-  },
-  {
-    question: 'Is this package comfortable for kids and elders?',
-    answer:
-      'Yes, yeh package specially family-friendly design kiya gaya hai. Smooth transfers, comfortable 3★ hotels & easy sightseeing cover kiya jata hai, jisse kids & elders dono enjoy kar sakte hain.',
-  },
-  {
-    question: 'Can we customize hotels, cab type & number of days?',
-    answer:
-      'Bilkul! Aap hotel category (3★ / 4★), private cab / tempo traveller, nights in Shimla & Manali sab customize kar sakte ho as per your budget & requirement.',
-  },
 ];
 
 const reviewBreakup = [
@@ -314,21 +284,21 @@ const relevantPackages = [
 
 export default function ShimlaManali() {
   const [openDayIndex, setOpenDayIndex] = useState(null);
-  const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-blue-50 font-sans">
+    // CHANGED: Background gradient to Orange/Warm tones
+    <div className="min-h-screen bg-gradient-to-b from-orange-50/50 to-white font-sans">
       <Navbar />
 
       {/* HERO SLIDER */}
-      <section className="relative h-[65vh] sm:h-[80vh] md:h-[90vh] overflow-hidden group">
+      <section className="relative h-[30vh] sm:h-[80vh] md:h-[90vh] overflow-hidden group">
         <Swiper
           modules={[Autoplay, Pagination, Navigation]}
           slidesPerView={1}
           pagination={{ clickable: true }}
           navigation={true}
           autoplay={{ delay: 5000, disableOnInteraction: false }}
-          className="h-full w-full [&_.swiper-button-prev]:hidden sm:[&_.swiper-button-prev]:flex [&_.swiper-button-next]:hidden sm:[&_.swiper-button-next]:flex"
+          className="h-full w-full [&_.swiper-button-prev]:hidden sm:[&_.swiper-button-prev]:flex [&_.swiper-button-next]:hidden sm:[&_.swiper-button-next]:flex [&_.swiper-pagination-bullet-active]:bg-orange-500"
         >
           {heroSlides.map((slide, idx) => (
             <SwiperSlide key={idx}>
@@ -343,39 +313,12 @@ export default function ShimlaManali() {
                 <div className="relative z-10 flex items-end sm:items-center h-full pb-16 sm:pb-0">
                   <div className="container mx-auto px-4 sm:px-6">
                     <div className="max-w-xl sm:max-w-3xl">
-                      <Badge className="mb-3 bg-white/20 text-white border-white/30 backdrop-blur-md text-xs sm:text-sm px-3 py-1">
-                        Starting From{' '}
-                        <span className="font-semibold ml-1 inline-flex items-center">
-                          <IndianRupee className="inline-block w-3 h-3 mr-1" />
-                          22,999
-                        </span>{' '}
-                        per person
-                      </Badge>
-
                       <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-2 sm:mb-3 leading-tight drop-shadow-lg">
                         {slide.title}
                       </h1>
                       <p className="text-lg sm:text-2xl md:text-3xl font-semibold text-white/90 mb-4 sm:mb-6">
                         {slide.subtitle}
                       </p>
-
-                      <div className="inline-flex items-center bg-white/20 backdrop-blur-lg text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm mb-6 shadow-lg border border-white/20">
-                        <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />
-                        {slide.days}
-                      </div>
-
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <Button className="w-full sm:w-auto rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-sm sm:text-base px-6 sm:px-8 py-6 sm:py-4 shadow-lg shadow-blue-900/30">
-                          <Plane className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                          Book This Package
-                        </Button>
-                        <Button
-                          variant="outline"
-                          className="w-full sm:w-auto rounded-full border-2 border-white/80 text-white bg-white/10 hover:bg-white hover:text-slate-900 text-sm sm:text-base py-6 sm:py-4 backdrop-blur-sm"
-                        >
-                          View All Himachal Packages
-                        </Button>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -385,8 +328,8 @@ export default function ShimlaManali() {
         </Swiper>
       </section>
 
-      {/* Benefits Bar */}
-      <div className="bg-white shadow-md border-b border-slate-100 relative z-20 -mt-2 sm:mt-0 rounded-t-2xl sm:rounded-none">
+      {/* Benefits Bar - CHANGED Colors to Green/Orange */}
+      <div className="bg-white shadow-md border-b border-orange-100 relative z-20 -mt-2 sm:mt-0 rounded-t-2xl sm:rounded-none">
         <div className="container mx-auto px-4 py-4 md:py-5 flex flex-wrap gap-x-6 gap-y-3 items-center justify-center lg:justify-between text-xs sm:text-sm md:text-base font-medium text-slate-700">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
@@ -396,8 +339,8 @@ export default function ShimlaManali() {
             <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
             <span>Best Price Guarantee</span>
           </div>
-          <div className="flex items-center gap-2 bg-yellow-50 px-3 py-1 rounded-full">
-            <Star className="w-4 h-4 text-yellow-400 fill-yellow-400 shrink-0" />
+          <div className="flex items-center gap-2 bg-orange-50 px-3 py-1 rounded-full border border-orange-100">
+            <Star className="w-4 h-4 text-orange-400 fill-orange-400 shrink-0" />
             <span>
               4.8 / 5 based on <strong>456 reviews</strong>
             </span>
@@ -424,7 +367,7 @@ export default function ShimlaManali() {
                 </h2>
                 <p className="text-sm sm:text-base md:text-lg text-slate-600 mb-6 leading-relaxed">
                   Plan a perfect hill station escape with our carefully designed{' '}
-                  <span className="font-semibold text-blue-700">
+                  <span className="font-semibold text-orange-600">
                     Shimla – Kufri – Manali – Solang Valley
                   </span>{' '}
                   family package. Ideal for parents, kids and elders looking for
@@ -432,7 +375,7 @@ export default function ShimlaManali() {
                 </p>
 
                 {/* --- NEW ANIMATED GRID SECTION --- */}
-                <div className="bg-slate-50/50 rounded-3xl p-6 sm:p-8 border border-slate-100/60">
+                <div className="bg-white rounded-3xl p-4 sm:p-8 border border-orange-100 shadow-sm">
                     <h3 className="text-lg font-bold text-slate-800 mb-2">Trip Highlights</h3>
                     <TourDetailsGrid />
                 </div>
@@ -456,24 +399,24 @@ export default function ShimlaManali() {
                       640: { slidesPerView: 2, spaceBetween: 20 },
                       1024: { slidesPerView: 2, spaceBetween: 24 },
                     }}
-                    className="pb-10"
+                    className="pb-10 [&_.swiper-pagination-bullet-active]:bg-orange-500"
                   >
                     {exploreLocations.map((loc, idx) => (
                       <SwiperSlide key={idx} className="h-auto">
-                        <Card className="overflow-hidden border-0 shadow-md h-full flex flex-col group cursor-pointer">
+                        <Card className="overflow-hidden  p-1 shadow-md h-full flex flex-col group cursor-pointer">
                           <div className="h-40 sm:h-48 overflow-hidden">
                             <img
                               src={loc.image}
                               alt={loc.title}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                              className="w-full h-full object-cover transition-transform rounded-md duration-500 group-hover:scale-110"
                             />
                           </div>
                           <div className="p-4 bg-white flex-1">
-                            <h4 className="font-semibold text-sm sm:text-lg mb-1 group-hover:text-blue-600 transition-colors">
+                            <h4 className="font-semibold text-sm sm:text-lg mb-1 group-hover:text-orange-600 transition-colors">
                               {loc.title}
                             </h4>
                             <p className="text-xs sm:text-sm text-slate-500 flex items-center gap-1">
-                              <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                              <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-orange-400" />
                               {loc.days}
                             </p>
                           </div>
@@ -483,7 +426,7 @@ export default function ShimlaManali() {
                   </Swiper>
                 </div>
 
-                {/* Customize Card */}
+                {/* Customize Card - CHANGED TO GREEN/EMERALD */}
                 <Card className="bg-emerald-50 border border-emerald-100 shadow-md flex flex-col justify-between h-full">
                   <div className="p-5 sm:p-6 space-y-4">
                     <Badge className="bg-emerald-100 hover:bg-emerald-100 text-emerald-700 border-0 text-[10px] sm:text-xs px-2 py-1">
@@ -509,21 +452,6 @@ export default function ShimlaManali() {
                         Choose private cab or group vehicle.
                       </li>
                     </ul>
-                    <div className="flex items-center gap-2 pt-2">
-                      <div className="flex -space-x-3">
-                        {[1, 2, 3].map((i) => (
-                          <img
-                            key={i}
-                            src={`https://i.pravatar.cc/150?img=${i + 10}`}
-                            className="w-8 h-8 rounded-full border-2 border-white bg-gray-200 object-cover"
-                            alt="expert"
-                          />
-                        ))}
-                      </div>
-                      <p className="text-xs text-emerald-800 font-medium pl-2">
-                        Talk to our Himachal experts
-                      </p>
-                    </div>
                   </div>
                   <div className="p-5 sm:p-6 pt-0 mt-auto">
                     <Button className="w-full rounded-full bg-emerald-600 hover:bg-emerald-700 text-sm shadow-emerald-200 shadow-lg">
@@ -546,7 +474,8 @@ export default function ShimlaManali() {
                         key={idx}
                         className="flex gap-3 text-slate-700 text-sm sm:text-base items-start"
                       >
-                        <CheckCircle2 className="w-5 h-5 mt-0.5 text-blue-600 shrink-0" />
+                        {/* CHANGED ICON COLOR */}
+                        <CheckCircle2 className="w-5 h-5 mt-0.5 text-orange-500 shrink-0" />
                         <span className="leading-snug">{item}</span>
                       </li>
                     ))}
@@ -563,16 +492,14 @@ export default function ShimlaManali() {
                   <h3 className="text-2xl sm:text-3xl font-bold text-slate-900">
                     Trip Itinerary (7 Days / 6 Nights)
                   </h3>
-                  <p className="text-slate-500 text-sm mt-1">
-                    A family-friendly day-by-day breakdown of your Shimla Manali journey
-                  </p>
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   type="button"
                   onClick={() => setOpenDayIndex(openDayIndex === 'ALL' ? null : 'ALL')}
-                  className="text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-700 bg-white border border-blue-100 shadow-sm px-5 py-2.5 rounded-full transition-colors"
+                  // CHANGED BUTTON COLOR
+                  className="text-xs sm:text-sm font-semibold text-orange-600 hover:text-orange-700 bg-white border border-orange-100 shadow-sm px-5 py-2.5 rounded-full transition-colors"
                 >
                   {openDayIndex === 'ALL' ? 'Collapse All Days' : 'Expand All Days'}
                 </motion.button>
@@ -599,11 +526,11 @@ export default function ShimlaManali() {
                       className="relative sm:pl-20 group"
                     >
 
-                      {/* Timeline Connector Dot (Desktop) with Pulse Animation */}
+                      {/* Timeline Connector Dot (Desktop) - CHANGED TO ORANGE */}
                       <motion.div
                         animate={{
                           scale: isOpen ? 1.1 : 1,
-                          backgroundColor: isOpen ? '#2563eb' : '#f1f5f9',
+                          backgroundColor: isOpen ? '#ea580c' : '#f1f5f9', // orange-600
                           color: isOpen ? '#ffffff' : '#94a3b8',
                           borderColor: isOpen ? '#ffffff' : '#ffffff'
                         }}
@@ -612,9 +539,9 @@ export default function ShimlaManali() {
                         <span className="text-sm font-bold">{idx + 1}</span>
                       </motion.div>
 
-                      {/* Mobile Day Badge */}
+                      {/* Mobile Day Badge - CHANGED TO ORANGE */}
                       <div className="sm:hidden mb-3 inline-flex items-center gap-3">
-                        <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md shadow-blue-200">Day {idx + 1}</span>
+                        <span className="bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md shadow-orange-200">Day {idx + 1}</span>
                         <span className="h-[1px] flex-1 bg-slate-200 w-20"></span>
                       </div>
 
@@ -623,8 +550,8 @@ export default function ShimlaManali() {
                         layout
                         transition={{ layout: { duration: 0.3, type: "spring" } }}
                         className={`relative bg-white border rounded-2xl overflow-hidden ${isOpen
-                          ? 'border-blue-200 shadow-xl shadow-blue-100/50'
-                          : 'border-slate-100 shadow-sm hover:shadow-md hover:border-blue-100'
+                          ? 'border-orange-200 shadow-xl shadow-orange-100/50'
+                          : 'border-slate-100 shadow-sm hover:shadow-md hover:border-orange-100'
                           }`}
                       >
                         {/* Clickable Header */}
@@ -634,7 +561,7 @@ export default function ShimlaManali() {
                           className="w-full text-left p-5 sm:p-6 flex items-start justify-between gap-4 z-20 relative bg-white"
                         >
                           <div className="space-y-1">
-                            <motion.h4 layout="position" className={`text-lg sm:text-xl font-bold transition-colors ${isOpen ? 'text-blue-700' : 'text-slate-800'}`}>
+                            <motion.h4 layout="position" className={`text-lg sm:text-xl font-bold transition-colors ${isOpen ? 'text-orange-700' : 'text-slate-800'}`}>
                               {item.title}
                             </motion.h4>
                             <motion.p layout="position" className="text-sm text-slate-500 leading-relaxed max-w-2xl">
@@ -649,11 +576,8 @@ export default function ShimlaManali() {
                                 exit={{ opacity: 0 }}
                                 className="flex gap-2 pt-2"
                               >
-                                <span className="inline-flex items-center gap-1 text-[10px] bg-slate-50 text-slate-600 px-2 py-1 rounded border border-slate-100">
+                                <span className="inline-flex items-center gap-1 text-[10px] bg-emerald-50 text-emerald-600 px-2 py-1 rounded border border-emerald-100">
                                   <Hotel className="w-3 h-3" /> Stay Included
-                                </span>
-                                <span className="inline-flex items-center gap-1 text-[10px] bg-slate-50 text-slate-600 px-2 py-1 rounded border border-slate-100">
-                                  <Utensils className="w-3 h-3" /> Breakfast & Dinner
                                 </span>
                               </motion.div>
                             )}
@@ -661,7 +585,7 @@ export default function ShimlaManali() {
 
                           <motion.div
                             animate={{ rotate: isOpen ? 180 : 0 }}
-                            className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${isOpen ? 'bg-blue-50 text-blue-600' : 'bg-slate-50 text-slate-400'}`}
+                            className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${isOpen ? 'bg-orange-50 text-orange-600' : 'bg-slate-50 text-slate-400'}`}
                           >
                             <ChevronDown className="w-5 h-5" />
                           </motion.div>
@@ -684,29 +608,29 @@ export default function ShimlaManali() {
                                   className="border-t border-slate-100 pt-4"
                                 >
                                   <div className="flex gap-4">
-                                    <div className="w-1 bg-gradient-to-b from-blue-400 to-blue-50 rounded-full shrink-0 h-auto" />
+                                    <div className="w-1 bg-gradient-to-b from-orange-400 to-orange-50 rounded-full shrink-0 h-auto" />
                                     <div className="space-y-4 w-full">
                                       <p className="text-sm sm:text-base text-slate-600 leading-7">
                                         {item.details}
                                       </p>
 
                                       {/* Highlights Grid with Hover Effect */}
-                                      <div className="bg-slate-50/80 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-3 border border-slate-100">
+                                      <div className="bg-orange-50/30 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-3 border border-orange-100">
                                         <div className="flex items-center gap-3">
-                                          <div className="w-8 h-8 rounded-full bg-white text-orange-500 flex items-center justify-center shadow-sm border border-slate-100">
+                                          <div className="w-8 h-8 rounded-full bg-white text-emerald-500 flex items-center justify-center shadow-sm border border-emerald-100">
                                             <Utensils className="w-4 h-4" />
                                           </div>
                                           <div>
-                                            <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Food</p>
+                                            <p className="text-[10px] uppercase text-emerald-800/60 font-bold tracking-wider">Food</p>
                                             <p className="text-xs font-semibold text-slate-700">Breakfast & Dinner</p>
                                           </div>
                                         </div>
                                         <div className="flex items-center gap-3">
-                                          <div className="w-8 h-8 rounded-full bg-white text-indigo-500 flex items-center justify-center shadow-sm border border-slate-100">
+                                          <div className="w-8 h-8 rounded-full bg-white text-orange-500 flex items-center justify-center shadow-sm border border-orange-100">
                                             <Hotel className="w-4 h-4" />
                                           </div>
                                           <div>
-                                            <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Stay</p>
+                                            <p className="text-[10px] uppercase text-orange-800/60 font-bold tracking-wider">Stay</p>
                                             <p className="text-xs font-semibold text-slate-700">Comfortable Family Hotel</p>
                                           </div>
                                         </div>
@@ -733,7 +657,7 @@ export default function ShimlaManali() {
               <div className="space-y-4">
 
                 <h3 className="text-xl sm:text-2xl font-bold flex items-center gap-2">
-                  <MapPinned className="w-6 h-6 text-blue-600" />
+                  <MapPinned className="w-6 h-6 text-orange-600" />
                   Shimla → Manali → Solang Route Map
                 </h3>
 
@@ -742,7 +666,6 @@ export default function ShimlaManali() {
                   {(() => {
                     const [mapType, setMapType] = useState("normal");
 
-                    // Curved path (Bezier) instead of sharp angles
                     const curvedPath = [
                       [31.1048, 77.1734],  // Shimla
                       [31.75, 77.0],       // Curve 1
@@ -753,8 +676,6 @@ export default function ShimlaManali() {
 
                     return (
                       <div className="relative">
-
-                        {/* Map Type Toggle */}
                         <div className="absolute right-4 top-4 z-[999] bg-white shadow-lg rounded-full flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-slate-100">
                           <span className="text-xs font-semibold text-slate-700">
                             {mapType === "normal" ? "Satellite View" : "Normal View"}
@@ -762,50 +683,46 @@ export default function ShimlaManali() {
 
                           <Button
                             size="sm"
-                            className="rounded-full bg-blue-600 hover:bg-blue-700 text-white px-3"
+                            // CHANGED BUTTON COLOR
+                            className="rounded-full bg-orange-600 hover:bg-orange-700 text-white px-3"
                             onClick={() => setMapType(prev => prev === "normal" ? "satellite" : "normal")}
                           >
                             Switch
                           </Button>
                         </div>
 
-                        {/* MAP */}
                         <MapContainer
                           center={[31.7, 77.1]}
                           zoom={8}
                           scrollWheelZoom={false}
                           className="h-[280px] sm:h-[360px] w-full rounded-2xl"
                         >
-                          {/* Normal / Satellite */}
                           {mapType === "normal" ? (
                             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                           ) : (
                             <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" />
                           )}
 
-                          {/* CURVED ANIMATED ROUTE */}
                           <Polyline
                             positions={curvedPath}
                             pathOptions={{
-                              color: "#2563eb",
+                              color: "#f97316", // ORANGE HEX
                               weight: 6,
                               opacity: 0.9,
                               className: "animated-route"
                             }}
                           />
 
-                          {/* GLOWING MARKERS */}
                           {curvedPath.map((pos, idx) => (
                             <Marker key={idx} position={pos}></Marker>
                           ))}
                         </MapContainer>
 
-                        {/* CSS FOR ANIMATION */}
                         <style>{`
               .animated-route {
                 stroke-dasharray: 12;
                 animation: flowing 1.6s linear infinite;
-                filter: drop-shadow(0 0 6px rgba(37,99,235,0.7));
+                filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.7)); /* Orange Shadow */
               }
               @keyframes flowing {
                 0% { stroke-dashoffset: 0; }
@@ -856,14 +773,14 @@ export default function ShimlaManali() {
               <div className="space-y-6">
                 <h3 className="text-xl sm:text-2xl font-bold">User Reviews</h3>
                 <div className="flex flex-col md:flex-row gap-6">
-                  {/* Summary Card */}
-                  <Card className="p-6 flex-1 bg-blue-600 text-white shadow-xl shadow-blue-200">
+                  {/* Summary Card - CHANGED COLOR */}
+                  <Card className="p-6 flex-1 bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-xl shadow-orange-200">
                     <div className="text-center">
                       <h4 className="text-5xl font-bold mb-2">4.8</h4>
                       <div className="flex justify-center gap-1 mb-2">
-                        {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
+                        {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-5 h-5 fill-white text-white" />)}
                       </div>
-                      <p className="text-blue-100 text-sm">Based on 456 Reviews</p>
+                      <p className="text-orange-50 text-sm">Based on 456 Reviews</p>
                     </div>
                   </Card>
                   {/* Progress Bars */}
@@ -873,7 +790,7 @@ export default function ShimlaManali() {
                         <div key={idx} className="flex items-center gap-3 text-xs sm:text-sm">
                           <span className="w-24 font-medium text-slate-600">{item.label}</span>
                           <div className="flex-1 h-2 rounded-full bg-slate-100 overflow-hidden">
-                            <div className="h-full rounded-full bg-blue-500" style={{ width: `${item.value}%` }} />
+                            <div className="h-full rounded-full bg-emerald-500" style={{ width: `${item.value}%` }} />
                           </div>
                           <span className="w-8 text-right font-bold text-slate-800">{item.value}%</span>
                         </div>
@@ -897,13 +814,13 @@ export default function ShimlaManali() {
                     640: { slidesPerView: 2, spaceBetween: 20 },
                     1024: { slidesPerView: 3, spaceBetween: 24 },
                   }}
-                  className="pb-10"
+                  className="pb-10 [&_.swiper-pagination-bullet-active]:bg-orange-500"
                 >
                   {relevantPackages.map((pkg, idx) => (
                     <SwiperSlide key={idx} className="h-auto">
-                      <Card className="border-0 shadow-md overflow-hidden h-full flex flex-col group">
+                      <Card className=" shadow-md overflow-hidden p-2 h-full flex flex-col group">
                         <div className="h-36 sm:h-44 overflow-hidden relative">
-                          <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                          <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover rounded-md group-hover:scale-110 transition-transform duration-500" />
                           <div className="absolute top-2 right-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-sm backdrop-blur-sm">
                             {pkg.days}
                           </div>
@@ -916,9 +833,9 @@ export default function ShimlaManali() {
                           <div className="mt-auto pt-3 flex items-center justify-between">
                             <div>
                               <p className="text-[10px] text-slate-400 uppercase">Per Person</p>
-                              <p className="font-bold text-base sm:text-lg text-blue-700">{pkg.price}</p>
+                              <p className="font-bold text-base sm:text-lg text-orange-600">{pkg.price}</p>
                             </div>
-                            <Button size="sm" className="rounded-full bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-800 border-0">View</Button>
+                            <Button size="sm" className="rounded-full bg-orange-50 text-orange-600 hover:bg-orange-100 hover:text-orange-700 border-0">View</Button>
                           </div>
                         </div>
                       </Card>
@@ -972,7 +889,8 @@ export default function ShimlaManali() {
                       </div>
                     </div>
 
-                    <Button className="w-full rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-base py-6 shadow-lg shadow-blue-200 transition-all hover:scale-[1.02]">
+                    {/* CHANGED BUTTON GRADIENT */}
+                    <Button className="w-full rounded-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white text-base py-6 shadow-lg shadow-orange-200 transition-all hover:scale-[1.02]">
                       Send Enquiry
                     </Button>
                     <Button
@@ -985,14 +903,14 @@ export default function ShimlaManali() {
                 </Card>
               </ScrollReveal>
 
-              {/* Help Card */}
-              <Card className="p-4 bg-indigo-900 text-white rounded-xl shadow-lg hidden lg:block">
+              {/* Help Card - CHANGED COLOR */}
+              <Card className="p-4 bg-emerald-800 text-white rounded-xl shadow-lg hidden lg:block">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
                     <Users className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <p className="text-xs text-indigo-200">Need Help?</p>
+                    <p className="text-xs text-emerald-200">Need Help?</p>
                     <p className="font-bold text-lg">98765-43210</p>
                   </div>
                 </div>
@@ -1010,7 +928,8 @@ export default function ShimlaManali() {
             <IndianRupee className="w-4 h-4" /> 22,999
           </span>
         </div>
-        <Button className="rounded-full bg-blue-600 px-6 shadow-lg shadow-blue-200">
+        {/* CHANGED BUTTON COLOR */}
+        <Button className="rounded-full bg-orange-600 px-6 shadow-lg shadow-orange-200">
           Book Now
         </Button>
       </div>
