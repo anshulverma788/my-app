@@ -1,4 +1,4 @@
-// src/pages/destinations/ShimlaManali.jsx
+// src/pages/Package/Shimla-manali.jsx
 
 import { useState } from 'react';
 // Note: Ensure these paths exist in your project
@@ -6,27 +6,25 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import ScrollReveal from '@/components/animations/ScrollReveal';
+
+// --- NEW IMPORT ADDED HERE ---
+import ExploreLocations from '../ExploreKey/ExploreLocations'; 
 
 // Framer Motion
 import { motion, AnimatePresence } from 'framer-motion';
 
 import {
-  Calendar,
   Users,
   Star,
   MapPin,
   IndianRupee,
-  Plane,
   Utensils,
   Hotel,
-  Bus,
   CheckCircle2,
   XCircle,
   ChevronDown,
   MapPinned,
-  ArrowRight,
   Car,
   Languages,
   PawPrint,
@@ -60,9 +58,8 @@ const itemVariants = {
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 50 } }
 };
 
-// ---------- NEW: TOUR DETAILS GRID SECTION (MODIFIED FOR 3 COLUMNS) ----------
+// ---------- NEW: TOUR DETAILS GRID SECTION ----------
 
-// Shimla-Manali Specific Data for the Grid
 const tourDetailsData = [
   { icon: Hotel, label: "Stay", value: "3★ Hotels" },
   { icon: Utensils, label: "Meals", value: "bf & Dinner" },
@@ -104,12 +101,9 @@ const TourDetailsGrid = () => {
           whileHover={{ y: -5, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.1)" }}
           className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4 p-2 sm:p-5 bg-white rounded-xl sm:rounded-2xl border border-orange-100 shadow-sm transition-all duration-300"
         >
-          {/* Icon Box */}
           <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center">
             <item.icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.5]" />
           </div>
-
-          {/* Text Content */}
           <div>
             <p className="text-[10px] sm:text-xs font-medium text-slate-400 uppercase tracking-wider mb-0.5">
               {item.label}
@@ -124,7 +118,7 @@ const TourDetailsGrid = () => {
   );
 };
 
-// ---------- EXISTING DATA (Shimla Manali) ----------
+// ---------- EXISTING DATA ----------
 
 const heroSlides = [
   {
@@ -138,28 +132,7 @@ const heroSlides = [
   },
 ];
 
-const exploreLocations = [
-  {
-    image: 'https://i.pinimg.com/1200x/62/e6/f5/62e6f50443dfd6627a478e5f83fa0f9e.jpg',
-    title: 'Shimla Ridge & Mall Road',
-    days: '01 Day',
-  },
-  {
-    image: 'https://i.pinimg.com/1200x/cf/34/5f/cf345fac131de65a385958f5e703db7f.jpg',
-    title: 'Kufri Snow Point',
-    days: '01 Day',
-  },
-  {
-    image: 'https://i.pinimg.com/1200x/94/f7/d2/94f7d2e8bfb747c215417e7186a89f55.jpg',
-    title: 'Manali Town & Mall Road',
-    days: '01 Day',
-  },
-  {
-    image: 'https://i.pinimg.com/1200x/f9/18/5d/f9185df520a8230154ee1299a06c77e3.jpg',
-    title: 'Solang Valley Adventure',
-    days: '01 Day',
-  },
-];
+// NOTE: 'exploreLocations' array removed because we use the new component now.
 
 const tourHighlights = [
   'Delhi/Chandigarh to Shimla & Manali scenic road journey with mountain views.',
@@ -355,85 +328,11 @@ export default function ShimlaManali() {
                 </div>
               </ScrollReveal>
 
-              {/* Explore Locations + Customize card */}
+              {/* ----- NEW COMPONENT: Explore Locations ----- */}
               <ScrollReveal>
-                <div className="grid grid-cols-1 xl:grid-cols-[1.5fr_1fr] gap-8">
-                  {/* Slider */}
-                  <div className="overflow-hidden">
-                    <h3 className="text-xl sm:text-2xl font-bold mb-4">Explore Key Locations</h3>
-                    <Swiper
-                      modules={[Autoplay, Pagination, Navigation]}
-                      spaceBetween={16}
-                      slidesPerView={1.2}
-                      pagination={{ clickable: true }}
-                      autoplay={{ delay: 4500, disableOnInteraction: false }}
-                      breakpoints={{
-                        640: { slidesPerView: 2, spaceBetween: 20 },
-                        1024: { slidesPerView: 2, spaceBetween: 24 },
-                      }}
-                      className="pb-10 [&_.swiper-pagination-bullet-active]:bg-orange-500"
-                    >
-                      {exploreLocations.map((loc, idx) => (
-                        <SwiperSlide key={idx} className="h-auto">
-                          <Card className="overflow-hidden  p-1 shadow-md h-full flex flex-col group cursor-pointer">
-                            <div className="h-40 sm:h-48 overflow-hidden">
-                              <img
-                                src={loc.image}
-                                alt={loc.title}
-                                className="w-full h-full object-cover transition-transform rounded-md duration-500 group-hover:scale-110"
-                              />
-                            </div>
-                            <div className="p-4 bg-white flex-1">
-                              <h4 className="font-semibold text-sm sm:text-lg mb-1 group-hover:text-orange-600 transition-colors">
-                                {loc.title}
-                              </h4>
-                              <p className="text-xs sm:text-sm text-slate-500 flex items-center gap-1">
-                                <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-orange-400" />
-                                {loc.days}
-                              </p>
-                            </div>
-                          </Card>
-                        </SwiperSlide>
-                      ))}
-                    </Swiper>
-                  </div>
-
-                  {/* Customize Card */}
-                  <Card className="bg-emerald-50 border border-emerald-100 shadow-md flex flex-col justify-between h-full">
-                    <div className="p-5 sm:p-6 space-y-4">
-                      <Badge className="bg-emerald-100 hover:bg-emerald-100 text-emerald-700 border-0 text-[10px] sm:text-xs px-2 py-1">
-                        Flexible Package
-                      </Badge>
-                      <h3 className="text-xl sm:text-2xl font-bold text-emerald-950 leading-tight">
-                        Want to customize?
-                        <span className="block text-emerald-700 text-lg sm:text-xl mt-1">
-                          Build your own Shimla Manali Tour
-                        </span>
-                      </h3>
-                      <ul className="space-y-2 text-sm text-emerald-900">
-                        <li className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 mt-0.5 text-emerald-600 shrink-0" />
-                          Change hotel category & meal plan.
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 mt-0.5 text-emerald-600 shrink-0" />
-                          Add extra night in Shimla or Manali.
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 mt-0.5 text-emerald-600 shrink-0" />
-                          Choose private cab or group vehicle.
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="p-5 sm:p-6 pt-0 mt-auto">
-                      <Button className="w-full rounded-full bg-emerald-600 hover:bg-emerald-700 text-sm shadow-emerald-200 shadow-lg">
-                        Request Callback
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
-                    </div>
-                  </Card>
-                </div>
+                <ExploreLocations />
               </ScrollReveal>
+              {/* ------------------------------------------- */}
 
               {/* Highlights */}
               <ScrollReveal>
@@ -466,7 +365,7 @@ export default function ShimlaManali() {
                     </h3>
                   </div>
                   
-                  {/* Desktop Button (Hidden on Mobile) */}
+                  {/* Desktop Button */}
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -478,7 +377,7 @@ export default function ShimlaManali() {
                   </motion.button>
                 </div>
 
-                {/* Mobile Button (Visible only on Mobile) */}
+                {/* Mobile Button */}
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   type="button"

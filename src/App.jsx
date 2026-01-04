@@ -43,7 +43,7 @@ import BookingPage from './pages/booking/Customize';
 import Confirmation from './pages/booking/Confirmation';
 
 import NotFound from './pages/NotFound';
-
+import LocationDetail from './pages/ExploreKey/LocationDetail';
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -105,6 +105,8 @@ const App = () => (
         <Route path="/booking/search" element={<Search />} />
         <Route path="/booking/customize" element={<BookingPage />} />
         <Route path="/booking/confirmation" element={<Confirmation />} />
+
+<Route path="/location/:id" element={<LocationDetail />} />
 
         {/* 404 PAGE NOT FOUND */}
         <Route path="*" element={<NotFound />} />
