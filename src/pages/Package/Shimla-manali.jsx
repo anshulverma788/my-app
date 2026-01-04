@@ -9,7 +9,7 @@ import { Card } from '@/components/ui/card';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 
 // --- NEW IMPORT ADDED HERE ---
-import ExploreLocations from '../ExploreKey/ExploreLocations'; 
+import ExploreLocations from '../ExploreKey/ExploreLocations';
 
 // Framer Motion
 import { motion, AnimatePresence } from 'framer-motion';
@@ -267,39 +267,21 @@ export default function ShimlaManali() {
         </Swiper>
       </section>
 
-      {/* Benefits Bar */}
-      <div className="bg-white shadow-md border-b border-orange-100 relative z-20 -mt-2 sm:mt-0 rounded-t-2xl sm:rounded-none">
-        <div className="container mx-auto px-4 py-4 md:py-5 flex flex-wrap gap-x-6 gap-y-3 items-center justify-center lg:justify-between text-xs sm:text-sm md:text-base font-medium text-slate-700">
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-            <span>No Booking Fee</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-            <span>Best Price Guarantee</span>
-          </div>
-          <div className="flex items-center gap-2 bg-orange-50 px-3 py-1 rounded-full border border-orange-100">
-            <Star className="w-4 h-4 text-orange-400 fill-orange-400 shrink-0" />
-            <span>
-              4.8 / 5 based on <strong>456 reviews</strong>
-            </span>
-          </div>
-          <div className="hidden sm:flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-            <span>Trusted by 15k+ Travellers</span>
-          </div>
-        </div>
-      </div>
+
 
       {/* MAIN CONTENT AREA */}
       <section className="py-1 sm:py-16 md:py-2">
         <div className="container mx-auto px-4 sm:px-1">
-          <div className="relative mb-1 sm:mb-8 pt-4 border-b border-slate-100 flex flex-col items-center text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6 leading-[1.15] max-w-4xl mx-auto">
+          <div className="relative mb-1 sm:mb-8 pt-4 border-b border-slate-100 flex flex-col items-start text-left sm:items-center sm:text-center">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4 leading-[1.15] max-w-4xl mx-0 sm:mx-auto">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900">
-                <span className=' text-green-600'>Shimla Manali</span> <span className='text-orange-600'>Family Tour</span>
+                Shimla Manali Family Tour
               </span>
             </h1>
+            <div className="inline-flex items-center gap-2 bg-orange-50 border border-orange-100 text-orange-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 shadow-sm self-start sm:self-center">
+              <CalendarClock className="w-4 h-4" />
+              <span>7 Days / 6 Nights</span>
+            </div>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
 
@@ -356,7 +338,7 @@ export default function ShimlaManali() {
 
               {/* ANIMATED ITINERARY */}
               <div className="space-y-8 relative">
-                
+
                 {/* Header Section */}
                 <div className="flex items-center justify-between gap-4 mb-2 sm:mb-8">
                   <div>
@@ -364,7 +346,7 @@ export default function ShimlaManali() {
                       Trip Itinerary (7 Days / 6 Nights)
                     </h3>
                   </div>
-                  
+
                   {/* Desktop Button */}
                   <motion.button
                     whileHover={{ scale: 1.05 }}
