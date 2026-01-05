@@ -545,7 +545,7 @@ export default function Index() {
 
             {/* ================= 4. SEARCH BUTTON ================= */}
             <div className="w-full lg:w-auto">
-              <Button className="w-full lg:w-48 h-full min-h-[56px] bg-[#009f48] hover:bg-[#008f45] text-white font-bold text-sm uppercase rounded-md lg:rounded-none lg:rounded-r-md flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:brightness-110">
+              <Button className="w-full lg:w-48 h-full min-h-[56px] bg-gradient-to-r from-orange-500 to-orange-300 text-white font-bold text-sm uppercase rounded-md lg:rounded-none lg:rounded-r-md flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:brightness-110">
                 <Search className="w-5 h-5" /> SEARCH TOURS
               </Button>
             </div>
@@ -559,8 +559,8 @@ export default function Index() {
         <div className="container mx-auto relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-10">
-              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">
-                Popular Packages
+              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 ">
+               Handpicked <span className='text-blue-500'>Himalayan Travel</span> Packages  
               </h2>
             </div>
           </ScrollReveal>
@@ -627,7 +627,7 @@ export default function Index() {
                             <div>
                               <p className="text-[10px] text-gray-400 font-medium mb-0 leading-none">Starting from</p>
                               <div className="flex items-baseline gap-1">
-                                <span className="text-xl font-bold text-emerald-700">{pkg.price}</span>
+                                <span className="text-xl font-bold text-blue-600">{pkg.price}</span>
                                 <span className="text-[10px] text-gray-400 font-normal">/person</span>
                               </div>
                             </div>
@@ -645,7 +645,7 @@ export default function Index() {
                                 Book Now
                               </button>
                             </Link>
-                            <button className="flex-1 h-9 border border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white rounded-md font-bold text-[10px] md:text-[11px] transition-all active:scale-95 flex items-center justify-center">
+                            <button className="flex-1 h-9 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white rounded-md font-bold text-[10px] md:text-[11px] transition-all active:scale-95 flex items-center justify-center">
                               Enquiry
                             </button>
                             <Link to={pkg.path} className="flex-1">
@@ -679,7 +679,7 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">Explore Destinations </h2>
+              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">Explore <span  className='text-blue-500'>Destinations </span></h2>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
@@ -738,7 +738,7 @@ export default function Index() {
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
-              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">Last Minute Deals</h2>
+              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">Last <span  className='text-blue-500'>Minute</span> Deals</h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">Unbeatable prices for spontaneous travelers. Grab them before they are gone!</p>
             </div>
           </ScrollReveal>
@@ -885,7 +885,7 @@ export default function Index() {
                   Travel Inspiration
                 </span>
                 <h2 className="text-3xl md:text-5xl font-Lobster font-bold text-black">
-                  Latest Travel Stories
+                  Latest <span  className='text-blue-500'>Travel</span> Stories
                 </h2>
               </div>
 

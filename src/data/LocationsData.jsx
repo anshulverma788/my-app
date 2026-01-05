@@ -5,7 +5,8 @@ export const locationsData = [
     title: "Day 1: Shimla Ridge & Mall Road",
     duration: "Full Day",
     tag: "Day-01 Nature Walk",
-    image: "https://images.unsplash.com/photo-1548566060-3e284a1d8122?w=600&auto=format&fit=crop",
+    // ✅ Updated Image Link (Shimla Church/Ridge View)
+    image: "https://images.unsplash.com/photo-1562649846-ab413ca01712?auto=format&fit=crop&w=800&q=80", 
     
     // --- NEW: Day Summary & Tips ---
     daySummary: "Your journey begins in the heart of Shimla. Today is all about soaking in the colonial charm, walking through the vehicle-free Mall Road, and visiting the iconic Christ Church. The evening offers a perfect sunset view from the Ridge.",

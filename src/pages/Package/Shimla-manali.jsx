@@ -30,7 +30,8 @@ import {
   PawPrint,
   CalendarClock,
   Snowflake,
-  Tent
+  Tent,
+  ArrowRight // Added ArrowRight
 } from 'lucide-react';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -131,8 +132,6 @@ const heroSlides = [
     image: 'https://images.unsplash.com/photo-1597167231350-d057a45dc868?q=80&w=1982&auto=format&fit=crop',
   },
 ];
-
-// NOTE: 'exploreLocations' array removed because we use the new component now.
 
 const tourHighlights = [
   'Delhi/Chandigarh to Shimla & Manali scenic road journey with mountain views.',
@@ -240,7 +239,7 @@ export default function ShimlaManali() {
   const [openDayIndex, setOpenDayIndex] = useState(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50/50 to-white font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50/50 to-white font-sans">
       <Navbar />
 
       {/* HERO SLIDER */}
@@ -609,6 +608,63 @@ export default function ShimlaManali() {
                   </div>
                 </div>
               </ScrollReveal>
+
+              {/* --- NEW SECTION: CUSTOMIZE PACKAGE (ADDED HERE) --- */}
+              <ScrollReveal>
+                <div className="mb-4 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 relative overflow-hidden group">
+                  {/* Decorative Background Elements */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-100/50 rounded-full blur-3xl -mr-10 -mt-10 transition-transform duration-700 group-hover:scale-150"></div>
+
+                  <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                    {/* Text Content */}
+                    <div className="flex-1 text-center md:text-left">
+                      <span className="inline-block px-3 py-1 mb-3 text-xs font-bold tracking-wider text-emerald-800 uppercase bg-emerald-200/50 rounded-full">
+                        Flexible Package
+                      </span>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                        Want to customize this trip?
+                      </h3>
+                      <p className="text-slate-600 mb-6 text-sm sm:text-base">
+                        Design your own Shimla trip. Upgrade hotels, add extra nights, or include hidden gems.
+                      </p>
+
+                      {/* Checkpoints */}
+                      <ul className="space-y-2 mb-6 inline-block text-left">
+                        <li className="flex items-center gap-2 text-sm font-medium text-slate-700">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600" /> Upgrade to 4★ / 5★ Hotels
+                        </li>
+                        <li className="flex items-center gap-2 text-sm font-medium text-slate-700">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600" /> Add Extra Night in Manali
+                        </li>
+                        <li className="flex items-center gap-2 text-sm font-medium text-slate-700">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600" /> Include Narkanda / Chail
+                        </li>
+                      </ul>
+
+                      {/* Experts Row */}
+                      <div className="flex items-center justify-center md:justify-start gap-4">
+                        <div className="flex -space-x-3">
+                          {[1, 2, 3].map((i) => (
+                            <img key={i} src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="Expert" className="w-10 h-10 rounded-full border-2 border-white" />
+                          ))}
+                        </div>
+                        <div className="text-left">
+                          <p className="text-xs text-emerald-800 font-bold">Talk to experts</p>
+                          <p className="text-sm font-bold text-slate-900">+91 98765 43210</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* CTA Button Area */}
+                    <div className="w-full md:w-auto shrink-0">
+                      <Button className="w-full md:w-auto px-8 py-6 text-lg font-bold text-white shadow-xl bg-emerald-600 hover:bg-emerald-700 rounded-2xl shadow-emerald-200 transition-all hover:scale-105 flex items-center justify-center">
+                        Request Callback <ArrowRight className="ml-2 w-5 h-5" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+              {/* --------------------------------------------------- */}
 
               {/* Relevant Packages */}
               <ScrollReveal>
