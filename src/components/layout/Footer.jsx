@@ -118,7 +118,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="text-xs text-emerald-400 font-bold uppercase mb-1">Phone</p>
-                  <p className="text-emerald-100/80 text-sm hover:text-white cursor-pointer">+91 98765 43210</p>
+                  <p className="text-emerald-100/80 text-sm hover:text-white cursor-pointer">+91 82193-66010</p>
                 </div>
               </li>
               <li className="flex gap-4 items-center group">

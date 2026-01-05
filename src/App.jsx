@@ -17,6 +17,7 @@ import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Testimonials from './pages/Testimonials';
 import FAQ from './pages/FAQ';
+import Texi from './pages/Texi';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 
@@ -67,9 +68,9 @@ const App = () => (
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/texi" element={<Texi />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
-
         {/* --- EXISTING PACKAGES --- */}
         <Route path="/package/shimla-manali" element={<ShimlaManali />} />
         <Route path="/package/shimla" element={<Shimla />} />
@@ -82,7 +83,6 @@ const App = () => (
         <Route path="/package/auli-joshimath" element={<AuliJoshimath />} />
         <Route path="/package/kedarnath-badrinath" element={<KedarnathBadrinath />} />
 
-        {/* --- FIX: MISSING PACKAGES FROM HOME PAGE --- */}
         {/* Filhal inko 'Package' page par redirect kar rahe hain taaki 404 na aaye */}
         <Route path="/package/kinnaur" element={<Package />} />
         <Route path="/package/leh" element={<Package />} />
@@ -106,7 +106,7 @@ const App = () => (
         <Route path="/booking/customize" element={<BookingPage />} />
         <Route path="/booking/confirmation" element={<Confirmation />} />
 
-<Route path="/location/:id" element={<LocationDetail />} />
+        <Route path="/location/:id" element={<LocationDetail />} />
 
         {/* 404 PAGE NOT FOUND */}
         <Route path="*" element={<NotFound />} />
