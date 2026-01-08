@@ -25,7 +25,7 @@ const ExploreLocations = () => {
 
     return (
         <div className="py-12 bg-white relative">
-            <div className="container mx-auto px-4 max-w-7xl">
+            <div className="container mx-auto  max-w-7xl">
                 
                 {/* Heading */}
                 <h2 className="text-3xl font-bold mb-10 text-gray-900 text-left pl-2">
@@ -57,7 +57,7 @@ const ExploreLocations = () => {
                                     className="cursor-pointer group flex flex-col items-center"
                                 >
                                     {/* Image Section */}
-                                    <div className="w-full aspect-[4/3] overflow-hidden rounded-[2rem]">
+                                    <div className="w-full aspect-[4/2.2] overflow-hidden rounded-[2rem]">
                                         <img
                                             src={location.image}
                                             alt={location.title}

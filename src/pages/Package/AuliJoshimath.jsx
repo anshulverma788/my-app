@@ -1055,8 +1055,6 @@ export default function Dharamshala() {
               </div>
             </ScrollReveal>
           </div>
-
-          {/* RIGHT SIDEBAR */}
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-24 space-y-6">
               <ScrollReveal direction="up">
@@ -1116,8 +1114,6 @@ export default function Dharamshala() {
                   </div>
                 </Card>
               </ScrollReveal>
-
-              {/* Help Card */}
               <Card className="p-4 bg-indigo-900 text-white rounded-xl shadow-lg hidden lg:block">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">

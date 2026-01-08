@@ -290,9 +290,9 @@ export default function ShimlaManali() {
               {/* About Tour Package */}
               <ScrollReveal>
                 <div id="overview">
-                  <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-slate-900">
+                  {/* <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-slate-900">
                     About Shimla Manali Family Tour
-                  </h2>
+                  </h2> */}
                   <p className="text-sm sm:text-base md:text-lg text-slate-600 mb-6 leading-relaxed">
                     Plan a perfect hill station escape with our carefully designed{' '}
                     <span className="font-semibold text-orange-600">

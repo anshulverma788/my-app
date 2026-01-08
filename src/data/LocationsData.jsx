@@ -3,7 +3,7 @@ export const locationsData = [
   {
     id: "shimla-day-1",
     title: "Shimla Ridge & Mall Road",
-    duration: "(01 Day)",
+    duration: "01 Day",
     tag: "Day-01 Nature Walk",
     // ✅ Updated Image Link (Shimla Church/Ridge View)
     image: "https://images.unsplash.com/photo-1562649846-ab413ca01712?auto=format&fit=crop&w=800&q=80", 
@@ -64,7 +64,7 @@ export const locationsData = [
   {
     id: "shimla-day-2",
     title: "Kufri Snow & Adventure",
-    duration: "(02 Day)",
+    duration: "02 Day",
     tag: "Day-02 Adventure",
     image: "https://i.pinimg.com/1200x/f5/f2/0b/f5f20bb29d1e17b7b47217875b6d7ff6.jpg",
     
@@ -124,7 +124,7 @@ export const locationsData = [
   {
     id: "shimla-day-3",
     title: "Naldehra & Mashobra",
-    duration: "(03 Day)",
+    duration: "03 Day",
     tag: "Day-03 Nature Walk",
     image: "https://i.pinimg.com/1200x/f5/f2/0b/f5f20bb29d1e17b7b47217875b6d7ff6.jpg",
     
@@ -184,7 +184,7 @@ export const locationsData = [
   {
     id: "shimla-day-4",
     title: "Jakhu Temple & Viceregal Lodge",
-    duration: "(04 Day)",
+    duration: "04 Day",
     tag: "Day-04 Spiritual & History",
     image: "https://i.pinimg.com/1200x/f5/f2/0b/f5f20bb29d1e17b7b47217875b6d7ff6.jpg",
     

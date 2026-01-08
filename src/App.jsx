@@ -43,6 +43,7 @@ import Search from './pages/booking/Search';
 import BookingPage from './pages/booking/Customize';
 import Confirmation from './pages/booking/Confirmation';
 
+import Admin from './admin/AdminDashboard';
 import NotFound from './pages/NotFound';
 import LocationDetail from './pages/ExploreKey/LocationDetail';
 const queryClient = new QueryClient();
@@ -80,13 +81,14 @@ const App = () => (
         <Route path="/package/nainital-4days" element={<Nainital4Days />} />
         <Route path="/package/mussoorie" element={<Mussoorie />} />
         <Route path="/package/rishikesh-haridwar" element={<RishikeshHaridwar />} />
-        <Route path="/package/auli-joshimath" element={<AuliJoshimath />} />
+        <Route path="/package/aulijoshimath" element={<AuliJoshimath />} />
         <Route path="/package/kedarnath-badrinath" element={<KedarnathBadrinath />} />
 
         {/* Filhal inko 'Package' page par redirect kar rahe hain taaki 404 na aaye */}
         <Route path="/package/kinnaur" element={<Package />} />
         <Route path="/package/leh" element={<Package />} />
-
+        {/* Admin page ka link  */}
+        <Route path="/admin" element={<Admin/>} />
         {/* --- FIX: TOP DESTINATIONS ROUTES --- */}
         {/* Index.jsx wale links ab yahan match honge */}
         <Route path="/destination/destination1" element={<Destination1 />} />
