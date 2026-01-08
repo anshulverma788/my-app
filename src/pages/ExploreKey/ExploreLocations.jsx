@@ -57,7 +57,7 @@ const ExploreLocations = () => {
                                     className="cursor-pointer group flex flex-col items-center"
                                 >
                                     {/* Image Section */}
-                                    <div className="w-full aspect-[4/2.2] overflow-hidden rounded-[2rem]">
+                                    <div className="w-full aspect-[4/2.4] overflow-hidden rounded-md">
                                         <img
                                             src={location.image}
                                             alt={location.title}
