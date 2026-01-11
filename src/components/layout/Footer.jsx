@@ -38,7 +38,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-emerald-950 text-white relative pt-20 overflow-hidden mt-20">
+    <footer className="bg-emerald-950 text-white relative pt-20 overflow-hidden ">
 
       {/* Decorative Top Border */}
       <div className="container mx-auto px-4 relative z-10">

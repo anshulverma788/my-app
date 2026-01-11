@@ -188,7 +188,7 @@ export default function Index() {
         <meta name="description" content="Book affordable Himachal tour packages. Explore Shimla, Manali, Spiti, and Kashmir with Himachal Destination. Best deals on family and group tours." />
         <meta name="keywords" content="Himachal tourism, Manali tour package, Shimla hotels, Spiti valley trek, travel agency himachal, best tour operator india" />
         <link rel="canonical" href="https://yourwebsite.com/" />
-        
+
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://yourwebsite.com/" />
@@ -284,11 +284,11 @@ export default function Index() {
             <SwiperSlide key={slide.id}>
               <div className="relative w-full h-full">
                 {/* LCP Optimization: Load first image eagerly, others lazy */}
-                <img 
-                  src={slide.image} 
-                  alt={`${slide.place} Tour Package - Himachal Destination`} 
+                <img
+                  src={slide.image}
+                  alt={`${slide.place} Tour Package - Himachal Destination`}
                   loading={index === 0 ? "eager" : "lazy"}
-                  className="w-full h-full object-cover" 
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/40 to-transparent opacity-90 lg:hidden"></div>
                 <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-transparent"></div>
@@ -380,9 +380,8 @@ export default function Index() {
       </section>
 
       {/* ================= SEARCH TOUR BAR ================= */}
-      {/* Wrapper: Relative below Hero on Mobile (White Background), Floating on Desktop */}
       <div className="relative z-40 w-full px-4 lg:absolute lg:left-0 lg:right-0 lg:-bottom-[40px] pointer-events-auto py-4 lg:py-0 bg-white lg:bg-transparent">
-        
+
         {/* Container */}
         <div ref={searchContainerRef} className="container mx-auto max-w-6xl">
           <div className={`
@@ -392,7 +391,7 @@ export default function Index() {
 
             {/* ================= 1. DESTINATION ================= */}
             <div className="relative w-full lg:flex-1 lg:border-r border-gray-200">
-              <div 
+              <div
                 onClick={() => toggleDropdown('destination')}
                 className={`
                   flex items-center gap-3 cursor-pointer group transition-colors p-4
@@ -412,9 +411,9 @@ export default function Index() {
               {activeDropdown === 'destination' && (
                 <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50 mt-1 rounded-sm animate-in fade-in zoom-in-95 duration-200">
                   <div className="p-2 border-b border-gray-100">
-                    <input 
-                      type="text" 
-                      className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#009f48]" 
+                    <input
+                      type="text"
+                      className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#009f48]"
                       placeholder="Search..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
@@ -424,7 +423,7 @@ export default function Index() {
                   <div className="max-h-64 overflow-y-auto custom-scrollbar">
                     <div className="bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-600">Popular Destinations</div>
                     {filteredDestinations.map((item, idx) => (
-                      <div 
+                      <div
                         key={idx}
                         onClick={() => handleSelection('destination', item)}
                         className={`px-3 py-2 text-sm cursor-pointer hover:bg-emerald-50 hover:text-[#009f48] flex justify-between items-center ${selectedDest === item ? 'bg-emerald-50 text-[#009f48] font-medium' : 'text-gray-700'}`}
@@ -439,10 +438,10 @@ export default function Index() {
 
             {/* ================= MOBILE SPLIT ROW (Duration & Month) ================= */}
             <div className="flex w-full lg:flex-[2] gap-2 lg:gap-0 mb-2 lg:mb-0">
-              
+
               {/* ================= 2. DURATION ================= */}
               <div className="relative w-1/2 lg:w-full lg:flex-1 lg:border-r border-gray-200">
-                <div 
+                <div
                   onClick={() => toggleDropdown('duration')}
                   className={`
                     flex items-center gap-2 lg:gap-3 cursor-pointer group transition-colors p-4 h-full
@@ -461,7 +460,7 @@ export default function Index() {
                 {/* Dropdown */}
                 {activeDropdown === 'duration' && (
                   <div className="absolute top-full left-0 min-w-[200px] w-full bg-white border border-gray-200 shadow-lg z-50 mt-1 rounded-sm animate-in fade-in zoom-in-95 duration-200">
-                    <div 
+                    <div
                       onClick={() => handleSelection('duration', 'Not decided')}
                       className="bg-[#009f48] text-white px-3 py-2.5 text-sm font-medium flex items-center gap-2 cursor-pointer hover:bg-[#008f45]"
                     >
@@ -472,7 +471,7 @@ export default function Index() {
                     </div>
                     <div className="max-h-64 overflow-y-auto custom-scrollbar">
                       {searchDurations.map((item, idx) => (
-                        <div 
+                        <div
                           key={idx}
                           onClick={() => handleSelection('duration', item)}
                           className="px-3 py-2 text-sm cursor-pointer hover:bg-emerald-50 flex items-center gap-2 border-b border-gray-100 last:border-0"
@@ -490,7 +489,7 @@ export default function Index() {
 
               {/* ================= 3. MONTH ================= */}
               <div className="relative w-1/2 lg:w-full lg:flex-1">
-                <div 
+                <div
                   onClick={() => toggleDropdown('month')}
                   className={`
                     flex items-center gap-2 lg:gap-3 cursor-pointer group transition-colors p-4 h-full
@@ -511,23 +510,23 @@ export default function Index() {
                   <div className="absolute top-full right-0 lg:left-0 min-w-[200px] w-full bg-white border border-gray-200 shadow-lg z-50 mt-1 rounded-sm animate-in fade-in zoom-in-95 duration-200">
                     <div className="bg-[#009f48] text-white px-3 py-2 text-sm font-medium">Select Month</div>
                     <div className="p-2 border-b border-gray-100">
-                        <input 
-                          type="text" 
-                          className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#009f48]" 
-                          placeholder="Filter..."
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                        />
+                      <input
+                        type="text"
+                        className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#009f48]"
+                        placeholder="Filter..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                      />
                     </div>
                     <div className="max-h-64 overflow-y-auto custom-scrollbar">
-                      <div 
+                      <div
                         onClick={() => handleSelection('month', 'Not Sure')}
                         className={`px-3 py-2 text-sm cursor-pointer hover:bg-emerald-50 hover:text-[#009f48] border-b border-gray-100 ${selectedMonth === 'Not Sure' ? 'text-[#009f48] font-medium' : 'text-gray-700'}`}
                       >
                         Not Sure
                       </div>
                       {filteredMonths.map((item, idx) => (
-                        <div 
+                        <div
                           key={idx}
                           onClick={() => handleSelection('month', item)}
                           className={`px-3 py-2 text-sm cursor-pointer hover:bg-emerald-50 hover:text-[#009f48] border-b border-gray-100 last:border-0 ${selectedMonth === item ? 'text-[#009f48] font-medium' : 'text-gray-700'}`}
@@ -553,133 +552,241 @@ export default function Index() {
           </div>
         </div>
       </div>
+      {/* ================= ABOUT SECTION (Premium Design) ================= */}
+      <section className="pt-10 lg:pt-14 pb-0 bg-white relative overflow-hidden" id="about">
+        {/* Background Decorative Blob */}
+        <div className="absolute top-20 right-[-100px] w-[500px] h-[500px] bg-orange-50/50 rounded-full blur-3xl -z-10"></div>
+        <div className="absolute bottom-10 left-[-100px] w-[300px] h-[300px] bg-emerald-50/50 rounded-full blur-3xl -z-10"></div>
 
-      {/* ================= POPULAR PACKAGES ================= */}
-      <section className="md:py-5 relative overflow-hidden bg-orange-50/30 mt-12 lg:mt-16" id="packages">
-        <div className="container mx-auto relative z-10">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+            {/* --- LEFT SIDE: CONTENT --- */}
+            <div className="order-2 lg:order-1">
+              <ScrollReveal direction="up">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="w-10 h-[2px] bg-orange-500"></span>
+                  <span className="text-orange-500 font-bold uppercase tracking-widest text-sm">About Us</span>
+                </div>
+
+                <h2 className="text-4xl lg:text-5xl font-Lobster font-bold text-slate-900 leading-tight mb-6">
+                  We Create Journeys, <br />
+                  <span className="text-blue-600">Not Just Trips.</span>
+                </h2>
+
+                <p className="text-slate-600 text-lg leading-relaxed mb-8 text-justify">
+                  At <strong>Himachal Destination</strong>, we believe travel is about the stories you bring back.
+                  With over 15 years of expertise in Himalayan explorations, we curate premium, personalized itineraries
+                  that take you beyond the tourist trails. From the snow-capped peaks of Manali to the
+                  untouched valleys of Spiti, experience the mountains like never before.
+                </p>
+
+                {/* Feature List */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-10">
+                  {[
+                    "Personalized Itineraries",
+                    "Handpicked Premium Hotels",
+                    "24/7 On-Trip Support",
+                    "Experienced Local Guides"
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                      </div>
+                      <span className="text-slate-700 font-medium text-sm">{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-4">
+                  <Link to="/about">
+                    <Button className="h-12 px-8 rounded-full bg-orange-500 text-white hover:bg-blue-500 transition-all duration-300 shadow-xl shadow-emerald-900/20 text-md font-bold">
+                      Read More About Us
+                    </Button>
+                  </Link>
+                  <div className="flex items-center gap-3 px-4">
+                    <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 animate-pulse">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[10px] text-gray-500 font-bold uppercase">Call Us Now</span>
+                      <span className="text-sm font-bold text-slate-900">+91 8219366010</span>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+
+            {/* --- RIGHT SIDE: PREMIUM IMAGE COMPOSITION --- */}
+            <div className="order-1 lg:order-2 relative">
+              <ScrollReveal direction="left">
+                <div className="relative z-10">
+                  {/* Main Image */}
+                  <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-[6px] border-white">
+                    <img
+                      src="https://i.pinimg.com/736x/b2/8e/de/b28edea546e4c7bf4a29d30d6273d860.jpg"
+                      alt="Himachal Beauty"
+                      className="w-full h-[400px] lg:h-[550px] object-cover hover:scale-110 transition-transform duration-[1.5s]"
+                    />
+
+                    {/* Overlay Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                  </div>
+
+                  {/* Floating Experience Badge */}
+                  <div className="absolute -bottom-6 -left-6 lg:bottom-10 lg:-left-10 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-4 animate-bounce duration-[3000ms]">
+                    <div className="bg-orange-500 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl shadow-lg">
+                      15+
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-2xl font-bold text-slate-900 leading-none">Years</span>
+                      <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">Of Excellence</span>
+                    </div>
+                  </div>
+
+                  {/* Top Right Decorative Image */}
+                  <div className="absolute -top-8 -right-8 w-32 h-32 rounded-2xl overflow-hidden border-4 border-white shadow-lg hidden md:block">
+                    <img
+                      src="https://i.pinimg.com/1200x/c5/fb/a5/c5fba563cc8aac630b79897d2a757405.jpg"
+                      alt="Decoration"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+
+                {/* Background Pattern Dots */}
+                <div className="absolute top-10 right-10 -z-10 opacity-30">
+                  <div className="grid grid-cols-5 gap-2">
+                    {[...Array(20)].map((_, i) => (
+                      <div key={i} className="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
+                    ))}
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ================= PREMIUM PACKAGES SECTION ================= */}
+      <section className="py-2 bg-slate-50 relative" id="packages">
+        <div className="container mx-auto ">
           <ScrollReveal direction="up">
-            <div className="text-center mb-10 md:mb-10">
-              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 ">
-               Handpicked <span className='text-blue-500'>Himalayan Travel</span> Packages  
+            <div className="text-center mb-16 max-w-3xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-Lobster font-bold text-slate-900 mb-6">
+                Himachal Tour Packages
               </h2>
             </div>
           </ScrollReveal>
-          
-          <div className="dark-pagination">
+          <div className="px-2 md:px-12 lg:px-20 overflow-hidden">
             <Swiper
               modules={[Autoplay, Pagination, Navigation]}
               spaceBetween={30}
               slidesPerView={1}
-              pagination={{ clickable: true }}
-              navigation
-              autoplay={{ delay: 4000 }}
+              pagination={{ clickable: true, dynamicBullets: true }}
+              navigation={{
+                nextEl: '.swiper-button-next-custom',
+                prevEl: '.swiper-button-prev-custom',
+              }}
+              autoplay={{ delay: 5000, disableOnInteraction: false }}
               breakpoints={{
                 640: { slidesPerView: 1 },
                 768: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
+                1280: { slidesPerView: 4 },
               }}
-              className="pb-14 "
-            > 
+              className="pb-20 px-0"
+            >
               {packages.map((pkg, index) => (
                 <SwiperSlide key={index} className="h-full">
-                  <ScrollReveal direction="up" delay={index * 0.1}>
-                    <div className="group bg-white rounded-2xl p-2 overflow-hidden border border-gray-200/80 shadow-md hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-500 h-full flex flex-col relative">
+                  <div className="group h-full bg-white rounded-[0.7rem] border border-slate-100 shadow-lg hover:shadow-2xl hover:shadow-sky-500/10 transition-all duration-500 flex flex-col overflow-hidden relative top-0 hover:-top-2">
 
-                      {/* --- Image Section --- */}
-                      <div className="relative h-64 flex-shrink-0 rounded-xl overflow-hidden transition-all duration-500 group-hover:rounded-[20px] group-hover:shadow-sm">
-                        <img 
-                            src={pkg.image} 
-                            alt={`${pkg.title} Tour Package`} 
-                            loading="lazy" 
-                            width="400" 
-                            height="300"
-                            className="w-full h-full object-cover transition-transform duration-700 font-Lobster group-hover:scale-110" 
-                        />
+                    <div className="relative h-72 rounded-md overflow-hidden">
+                      <img
+                        src={pkg.image}
+                        alt={pkg.title}
+                        className="w-full h-full object-cover rounded-md transition-transform duration-700 group-hover:scale-110"
+                      />
 
-                        {/* 20% OFF Ribbon */}
-                        <div className="absolute top-[14px] left-[-34px] bg-[#6d1526] text-white text-[10px] font-bold w-[120px] py-1 -rotate-45 text-center shadow-lg z-20 uppercase tracking-wider border-y border-[#57111f]">
-                          20% OFF
-                        </div>
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-80"></div>
 
-                        <button className="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-white hover:text-red-500 transition-colors z-10" aria-label="Add to Wishlist">
-                          <Heart className="w-4 h-4 fill-current" />
-                        </button>
-
-                        <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4 pt-10">
-                          <div className="flex items-center gap-1 text-white text-xs font-bold">
-                            <MapPin className="w-3.5 h-3.5 text-orange-400 font-bold" />
-                            {pkg.location}
-                          </div>
-                        </div>
+                      {/* Top Badges */}
+                      <div className="absolute top-4 left-4 flex gap-2">
+                        <span className="bg-white/90 backdrop-blur-sm text-sky-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide flex items-center gap-1">
+                          <MapPin className="w-3 h-3" /> {pkg.location}
+                        </span>
                       </div>
 
-                      {/* --- Content Body --- */}
-                      <div className="p-4 flex-1 flex flex-col">
-                        <div className="mb-3">
-                          <h3 className="text-lg font-Lobster font-bold text-gray-800 leading-tight transition-colors">
-                            {pkg.title}
-                          </h3>
-                        </div>
+                      <div className="absolute top-4 right-4">
+                        <button className="bg-white/20 hover:bg-white backdrop-blur-md p-2 rounded-full text-white hover:text-red-500 transition-colors">
+                          <Heart className="w-5 h-5" />
+                        </button>
+                      </div>
 
-                        {/* Price */}
-                        <div className="mt-auto">
-                          <div className="flex justify-between items-end mb-3">
-                            <div>
-                              <p className="text-[10px] text-gray-400 font-medium mb-0 leading-none">Starting from</p>
-                              <div className="flex items-baseline gap-1">
-                                <span className="text-xl font-bold text-blue-600">{pkg.price}</span>
-                                <span className="text-[10px] text-gray-400 font-normal">/person</span>
-                              </div>
-                            </div>
-                            <div className="text-right mb-0.5">
-                              <p className="text-[10px] text-gray-400 line-through mb-0 leading-none decoration-red-500 decoration-1">
-                                ₹{parseInt(pkg.price.replace(/[^\d]/g, '')) + 1500}
-                              </p>
-                              <p className="text-[10px] font-bold text-orange-600">30% OFF</p>
-                            </div>
-                          </div>
-
-                          <div className="flex gap-2 w-full pt-3 border-t border-dashed border-gray-100">
-                            <Link to="/booking" className="flex-1">
-                              <button className="w-full h-9 border border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white rounded-md font-bold text-[10px] md:text-[11px] shadow-sm transition-all active:scale-95 flex items-center justify-center">
-                                Book Now
-                              </button>
-                            </Link>
-                            <button className="flex-1 h-9 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white rounded-md font-bold text-[10px] md:text-[11px] transition-all active:scale-95 flex items-center justify-center">
-                              Enquiry
-                            </button>
-                            <Link to={pkg.path} className="flex-1">
-                              <button className="w-full h-9 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md font-bold text-[10px] md:text-[11px] transition-all active:scale-95 flex items-center justify-center">
-                                Details
-                              </button>
-                            </Link>
-                          </div>
+                      {/* Bottom Image Content */}
+                      <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                        <div className="flex items-center gap-1 text-white/90 text-xs font-medium bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/10">
+                          <Clock className="w-3.5 h-3.5 text-orange-400" />
+                          {pkg.duration}
                         </div>
                       </div>
                     </div>
-                  </ScrollReveal>
+
+                    {/* --- Card Content --- */}
+                    <div className="p-6 flex-1 flex flex-col relative">
+                      {/* Decorative Shape */}
+                      <div className="absolute -top-6 right-8 w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center border-4 border-white shadow-lg z-10 group-hover:bg-sky-500 transition-colors">
+                        <ArrowUpRight className="w-6 h-6 text-white" />
+                      </div>
+
+                      <h3 className="text-xl font-bold text-slate-800 mb-2 line-clamp-2 group-hover:text-sky-600 transition-colors font-Lobster tracking-wide">
+                        {pkg.title}
+                      </h3>
+
+                      <div className="my-4 border-t border-dashed border-slate-200"></div>
+
+                      <div className="mt-auto flex items-center justify-between">
+                        <div className="flex flex-col">
+                          <span className="text-xs text-slate-400 font-medium line-through">₹{parseInt(pkg.price.replace(/[^\d]/g, '')) + 3000}</span>
+                          <div className="flex items-center gap-1">
+                            <span className="text-2xl font-bold text-slate-900">{pkg.price}</span>
+                            <span className="text-[10px] text-slate-500 font-medium">/ person</span>
+                          </div>
+                        </div>
+
+                        <Link to={pkg.path}>
+                          <Button className="bg-slate-900 text-white rounded-xl px-6 h-10 hover:bg-sky-500 transition-all shadow-lg hover:shadow-sky-500/30 font-bold text-xs">
+                            View Details
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+
+                  </div>
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
+            <div className="flex justify-center gap-4 mt-8">
+              <button className="swiper-button-prev-custom w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white hover:border-sky-500 transition-all cursor-pointer">
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button className="swiper-button-next-custom w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white hover:border-sky-500 transition-all cursor-pointer">
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
 
-          <div className="text-center mt-8">
-             <Link to="/package">
-                <Button className="bg-emerald-900 text-white hover:bg-emerald-800 rounded-full px-8 py-6 text-lg font-bold shadow-lg transition-all hover:scale-105">
-                   View All Packages <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-             </Link>
           </div>
-
         </div>
       </section>
 
       {/* ================= TOP DESTINATIONS ================= */}
-      <section className="py-10 md:py-4 bg-white" id="destinations">
+      <section className="pt-6 pb-0 bg-white" id="destinations">
         <div className="container mx-auto px-4">
           <ScrollReveal direction="up">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">Explore <span  className='text-blue-500'>Destinations </span></h2>
+              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">Explore <span className='text-blue-500'>Destinations </span></h2>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
@@ -692,11 +799,11 @@ export default function Index() {
                 `}
               >
                 <Link to={dest.path} className="block w-full h-full relative">
-                  <img 
-                    src={dest.image} 
-                    alt={`Trip to ${dest.title}`} 
+                  <img
+                    src={dest.image}
+                    alt={`Trip to ${dest.title}`}
                     loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
                   <div className="absolute top-4 right-4 z-10">
@@ -713,7 +820,7 @@ export default function Index() {
                         {dest.title}
                       </h3>
                       <div className="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 group-hover:mt-4 transition-all duration-500 ease-in-out overflow-hidden">
-                        <Button className="bg-orange-500 text-white hover:bg-white hover:text-orange-600 border-none rounded-full px-8 py-2 text-sm font-bold shadow-lg transition-colors">
+                        <Button className="bg-orange-500 text-white hover:bg-blue-500 hover:text-white border-none rounded-full px-8 py-2 text-sm font-bold shadow-lg transition-colors">
                           Explore Now
                         </Button>
                       </div>
@@ -723,22 +830,22 @@ export default function Index() {
               </div>
             ))}
           </div>
-            <div className="text-center mt-12">
-              <Link to="/destination">
-                <Button className="bg-emerald-900 text-white hover:bg-emerald-800 rounded-full px-8 py-6 text-lg font-bold shadow-lg transition-all hover:scale-105">
-                  View All Destinations <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-            </div>
+          <div className="text-center mt-12">
+            <Link to="/destination">
+              <Button className="bg-orange-500 text-white hover:bg-blue-500 rounded-full px-8 py-6 text-lg font-bold shadow-lg transition-all hover:scale-105">
+                View All Destinations
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* ================= LAST MINUTE DEALS (Blue Theme) ================= */}
-      <section className="py-16 md:py-5 relative overflow-hidden bg-blue-50/30">
+      <section className="pt-6 pb-0 relative overflow-hidden bg-blue-50/30">
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
-              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">Last <span  className='text-blue-500'>Minute</span> Deals</h2>
+              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">Last Minute Deals</h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">Unbeatable prices for spontaneous travelers. Grab them before they are gone!</p>
             </div>
           </ScrollReveal>
@@ -765,11 +872,11 @@ export default function Index() {
 
                       {/* --- Image Section --- */}
                       <div className="relative h-64 flex-shrink-0 rounded-xl overflow-hidden transition-all duration-500 group-hover:rounded-[20px] group-hover:shadow-sm">
-                        <img 
-                            src={deal.image} 
-                            alt={`${deal.title} Deal`} 
-                            loading="lazy"
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                        <img
+                          src={deal.image}
+                          alt={`${deal.title} Deal`}
+                          loading="lazy"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
 
                         {/* 50% OFF Ribbon (Blue) */}
@@ -842,7 +949,7 @@ export default function Index() {
       </section>
 
       {/* ================= WHY CHOOSE US ================= */}
-      <section className="py-20 bg-emerald-950 text-white relative overflow-hidden">
+      <section className="pt-10 pb-0 bg-emerald-950 text-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal direction="up">
@@ -875,9 +982,9 @@ export default function Index() {
       </section>
 
       {/* ================= LATEST BLOGS / STORIES ================= */}
-      <section className="py-20 bg-white relative overflow-hidden">
+      <section className="pt-10 pb-0 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
-          
+
           <ScrollReveal direction="up">
             <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
               <div className="text-left">
@@ -885,7 +992,7 @@ export default function Index() {
                   Travel Inspiration
                 </span>
                 <h2 className="text-3xl md:text-5xl font-Lobster font-bold text-black">
-                  Latest <span  className='text-blue-500'>Travel</span> Stories
+                  Latest <span className='text-blue-500'>Travel</span> Stories
                 </h2>
               </div>
 
@@ -976,7 +1083,7 @@ export default function Index() {
       </section>
 
       {/* ================= TESTIMONIALS ================= */}
-      <section className="py-24 bg-[#F8F9FE] relative">
+      <section className="pt-10 pb-0 bg-[#F8F9FE] relative">
         <div className="container mx-auto px-6 relative z-10">
           <FadeInUp>
             <div className="text-center mb-16">
@@ -997,12 +1104,12 @@ export default function Index() {
             }}
             autoplay={{ delay: 4000, disableOnInteraction: false }}
             pagination={{ clickable: true }}
-            className="pb-16"
+            className="pb-2"
           >
             {testimonials.map((item, index) => (
-              <SwiperSlide key={index} className="h-auto pb-10"> 
+              <SwiperSlide key={index} className="h-auto pb-10">
                 <div className="bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 h-full relative">
-                  
+
                   {/* User Profile */}
                   <div className="flex items-center gap-4 mb-6">
                     <div className="relative">
