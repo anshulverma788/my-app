@@ -553,7 +553,7 @@ export default function Index() {
         </div>
       </div>
       {/* ================= ABOUT SECTION (Premium Design) ================= */}
-      <section className="pt-10 lg:pt-14 pb-0 bg-white relative overflow-hidden" id="about">
+      <section className="pt-10 pb-5 lg:pt-14 pb-0 bg-white relative overflow-hidden" id="about">
         {/* Background Decorative Blob */}
         <div className="absolute top-20 right-[-100px] w-[500px] h-[500px] bg-orange-50/50 rounded-full blur-3xl -z-10"></div>
         <div className="absolute bottom-10 left-[-100px] w-[300px] h-[300px] bg-emerald-50/50 rounded-full blur-3xl -z-10"></div>
@@ -582,7 +582,7 @@ export default function Index() {
                 </p>
 
                 {/* Feature List */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-10">
+                <div className="grid grid-cols-2 sm:grid-cols-2 gap-y-4 gap-x-8 mb-10">
                   {[
                     "Personalized Itineraries",
                     "Handpicked Premium Hotels",
@@ -671,7 +671,7 @@ export default function Index() {
               </h2>
             </div>
           </ScrollReveal>
-          <div className="px-2 md:px-12 lg:px-20 overflow-hidden">
+          <div className="px-4 md:px-12 lg:px-2 overflow-hidden">
             <Swiper
               modules={[Autoplay, Pagination, Navigation]}
               spaceBetween={30}
@@ -688,7 +688,7 @@ export default function Index() {
                 1024: { slidesPerView: 3 },
                 1280: { slidesPerView: 4 },
               }}
-              className="pb-20 px-0"
+              className="pb-10 px-0"
             >
               {packages.map((pkg, index) => (
                 <SwiperSlide key={index} className="h-full">
@@ -747,7 +747,6 @@ export default function Index() {
                             <span className="text-[10px] text-slate-500 font-medium">/ person</span>
                           </div>
                         </div>
-
                         <Link to={pkg.path}>
                           <Button className="bg-slate-900 text-white rounded-xl px-6 h-10 hover:bg-sky-500 transition-all shadow-lg hover:shadow-sky-500/30 font-bold text-xs">
                             View Details
@@ -760,15 +759,6 @@ export default function Index() {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <div className="flex justify-center gap-4 mt-8">
-              <button className="swiper-button-prev-custom w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white hover:border-sky-500 transition-all cursor-pointer">
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              <button className="swiper-button-next-custom w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white hover:border-sky-500 transition-all cursor-pointer">
-                <ChevronRight className="w-6 h-6" />
-              </button>
-            </div>
-
           </div>
         </div>
       </section>
