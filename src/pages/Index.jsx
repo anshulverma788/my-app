@@ -604,15 +604,7 @@ export default function Index() {
                       Read More About Us
                     </Button>
                   </Link>
-                  <div className="flex items-center gap-3 px-4">
-                    <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 animate-pulse">
-                      <Phone className="w-5 h-5" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-[10px] text-gray-500 font-bold uppercase">Call Us Now</span>
-                      <span className="text-sm font-bold text-slate-900">+91 8219366010</span>
-                    </div>
-                  </div>
+                  
                 </div>
               </ScrollReveal>
             </div>
