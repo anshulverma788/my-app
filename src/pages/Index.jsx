@@ -119,13 +119,13 @@ export default function Index() {
     return thumbs;
   };
 
-  // ================= PAGE DATA =================
+  // ================= PAGE DATA (Updated with Ratings for new design) =================
   const packages = [
-    { name: 'Shimla', image: 'https://i.pinimg.com/1200x/0f/a9/48/0fa948b0e663115f7a42c2c0ae1896a1.jpg', path: '/package/shimla', title: 'Himalayan Delight: Shimla Manali Group Tour ', location: 'Himachal', duration: '3 Days/2 night', price: '₹5,999' },
-    { name: 'Manali', image: 'https://i.pinimg.com/736x/49/7e/49/497e495ee05c0ea5d5de82e7c4e3f653.jpg', path: '/package/shimla-manali', title: 'Manali Magic: A Himalayan Getaway for Group - family tour', location: 'Himachal', duration: '4 Days', price: '₹7,999' },
-    { name: 'Dharamshala', image: 'https://i.pinimg.com/736x/f6/7a/3e/f67a3e0a96ba728d80001bf6bd06ca03.jpg', path: '/package/dharamshala', title: 'Tri-City Escape: Dharamshala, Dalhousie & Amritsar for Group', location: 'Dharamshala', duration: '2 Days', price: '₹3,499' },
-    { name: 'Yulla Kanda', image: 'https://i.pinimg.com/1200x/b2/ea/99/b2ea99c22fe47b745fa1554e9454f7b7.jpg', path: '/package/kinnaur', title: 'Yulla Kanda Trek: Sacred High Altitude Lake Adventure in Himachal Himalayas', location: 'Kinnaur', duration: '5 Days', price: '₹12,499' },
-    { name: 'Spiti', image: 'https://i.pinimg.com/1200x/43/b0/49/43b049fe3071e512697a9160ff648da3.jpg', path: '/package/spiti-8day', title: 'Spiti Expedition', location: 'Spiti Valley', duration: '7 Days', price: '₹18,999' },
+    { name: 'Shimla', image: 'https://i.pinimg.com/736x/84/8c/83/848c83cf85f3a58ff164f39f7a95754d.jpg', path: '/package/shimla', title: 'Himalayan Delight: Shimla Manali Group Tour ', location: 'Himachal', duration: '3 Days/2 night', price: '₹5,999', rating: 4.8, reviews: 124 },
+    { name: 'Manali', image: 'https://i.pinimg.com/736x/80/bb/ac/80bbac0f2981e85796dffaf11b100e15.jpg', path: '/package/shimla-manali', title: 'Manali Magic: A Himalayan Getaway for Group - family tour', location: 'Himachal', duration: '4 Days', price: '₹7,999', rating: 4.9, reviews: 85 },
+    { name: 'Dharamshala', image: 'https://i.pinimg.com/1200x/6c/e9/ac/6ce9ac823eb1a308c1b042a550fbd63b.jpg', path: '/package/dharamshala', title: 'Tri-City Escape: Dharamshala, Dalhousie & Amritsar for Group', location: 'Dharamshala', duration: '2 Days', price: '₹3,499', rating: 4.7, reviews: 210 },
+    { name: 'Yulla Kanda', image: 'https://i.pinimg.com/1200x/b2/ea/99/b2ea99c22fe47b745fa1554e9454f7b7.jpg', path: '/package/kinnaur', title: 'Yulla Kanda Trek: Sacred High Altitude Lake Adventure in Himachal Himalayas', location: 'Kinnaur', duration: '5 Days', price: '₹12,499', rating: 5.0, reviews: 42 },
+    { name: 'Spiti', image: 'https://i.pinimg.com/1200x/ab/44/c6/ab44c6cef2692d15726d450960a7b346.jpg', path: '/package/spiti-8day', title: 'Spiti Expedition', location: 'Spiti Valley', duration: '7 Days', price: '₹18,999', rating: 4.8, reviews: 156 },
   ];
 
   const destinations = [
@@ -604,7 +604,7 @@ export default function Index() {
                       Read More About Us
                     </Button>
                   </Link>
-                  
+
                 </div>
               </ScrollReveal>
             </div>
@@ -661,17 +661,19 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ================= PREMIUM PACKAGES SECTION ================= */}
-      <section className="py-2 bg-slate-50 relative" id="packages">
-        <div className="container mx-auto ">
+      {/* ================= PREMIUM PACKAGES SECTION (UPDATED NEW DESIGN) ================= */}
+      <section className="py-12 bg-slate-50 relative" id="packages">
+        <div className="container mx-auto px-1">
           <ScrollReveal direction="up">
-            <div className="text-center mb-16 max-w-3xl mx-auto">
+            <div className="text-center mb-1 max-w-3xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-Lobster font-bold text-slate-900 mb-6">
                 Himachal Tour Packages
               </h2>
+              <p className="text-gray-600">Discover the best destinations in the lap of nature.</p>
             </div>
           </ScrollReveal>
-          <div className="px-4 md:px-12 lg:px-2 overflow-hidden">
+
+          <div className="px-2 overflow-hidden">
             <Swiper
               modules={[Autoplay, Pagination, Navigation]}
               spaceBetween={30}
@@ -686,75 +688,55 @@ export default function Index() {
                 640: { slidesPerView: 1 },
                 768: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
-                1280: { slidesPerView: 4 },
+                // 1280: { slidesPerView: 4 },
               }}
-              className="pb-10 px-0"
+              className="pb-5 px-2"
             >
               {packages.map((pkg, index) => (
-                <SwiperSlide key={index} className="h-full">
-                  <div className="group h-full bg-white rounded-[0.7rem] border border-slate-100 shadow-lg hover:shadow-2xl hover:shadow-sky-500/10 transition-all duration-500 flex flex-col overflow-hidden relative top-0 hover:-top-2">
-
-                    <div className="relative h-72 rounded-md overflow-hidden">
-                      <img
-                        src={pkg.image}
-                        alt={pkg.title}
-                        className="w-full h-full object-cover rounded-md transition-transform duration-700 group-hover:scale-110"
+                <SwiperSlide key={index} className="h-full py-2">
+                  
+                  {/* --- NEW CARD DESIGN START --- */}
+                  <div className="group overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-300 bg-white rounded-2xl flex flex-col h-full relative top-0 hover:-top-2">
+                    
+                    {/* Image Area */}
+                    <div className="relative h-60 object-cover overflow-hidden">
+                      <img 
+                        src={pkg.image} 
+                        alt={pkg.title} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
-
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-80"></div>
-
-                      {/* Top Badges */}
-                      <div className="absolute top-4 left-4 flex gap-2">
-                        <span className="bg-white/90 backdrop-blur-sm text-sky-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide flex items-center gap-1">
-                          <MapPin className="w-3 h-3" /> {pkg.location}
-                        </span>
+                      {/* Location Badge */}
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-md text-xs font-bold text-emerald-800 uppercase tracking-wide flex items-center gap-1 shadow-sm">
+                        <MapPin className="w-3 h-3" />
+                        {pkg.location}
                       </div>
-
-                      <div className="absolute top-4 right-4">
-                        <button className="bg-white/20 hover:bg-white backdrop-blur-md p-2 rounded-full text-white hover:text-red-500 transition-colors">
-                          <Heart className="w-5 h-5" />
-                        </button>
-                      </div>
-
-                      {/* Bottom Image Content */}
-                      <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                        <div className="flex items-center gap-1 text-white/90 text-xs font-medium bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/10">
-                          <Clock className="w-3.5 h-3.5 text-orange-400" />
+                    </div>
+                    <div className="p-6 flex flex-col flex-grow">
+                      <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5 text-orange-500" />
                           {pkg.duration}
                         </div>
                       </div>
-                    </div>
-
-                    {/* --- Card Content --- */}
-                    <div className="p-6 flex-1 flex flex-col relative">
-                      {/* Decorative Shape */}
-                      <div className="absolute -top-6 right-8 w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center border-4 border-white shadow-lg z-10 group-hover:bg-sky-500 transition-colors">
-                        <ArrowUpRight className="w-6 h-6 text-white" />
-                      </div>
-
-                      <h3 className="text-xl font-bold text-slate-800 mb-2 line-clamp-2 group-hover:text-sky-600 transition-colors font-Lobster tracking-wide">
+                      {/* Title */}
+                      <h3 className="text-xl font-bold text-emerald-950 mb-3 group-hover:text-orange-600 transition-colors line-clamp-2 font-sans">
                         {pkg.title}
                       </h3>
-
-                      <div className="my-4 border-t border-dashed border-slate-200"></div>
-
-                      <div className="mt-auto flex items-center justify-between">
-                        <div className="flex flex-col">
-                          <span className="text-xs text-slate-400 font-medium line-through">₹{parseInt(pkg.price.replace(/[^\d]/g, '')) + 3000}</span>
-                          <div className="flex items-center gap-1">
-                            <span className="text-2xl font-bold text-slate-900">{pkg.price}</span>
-                            <span className="text-[10px] text-slate-500 font-medium">/ person</span>
-                          </div>
-                        </div>
-                        <Link to={pkg.path}>
-                          <Button className="bg-slate-900 text-white rounded-xl px-6 h-10 hover:bg-sky-500 transition-all shadow-lg hover:shadow-sky-500/30 font-bold text-xs">
-                            View Details
-                          </Button>
-                        </Link>
+                      <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
+                        Experience the breathtaking beauty of {pkg.location} with our exclusive premium guided tour package tailored for you.
+                      </p>
+                      <div className="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
+                         <div className="flex flex-col">
+                           <span className="text-xs text-gray-400 font-medium">Starting from</span>
+                           <span className="text-lg font-bold text-emerald-700">{pkg.price}</span>
+                         </div>
+                         <Link to={pkg.path || "#"}>
+                           <Button className="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-1 hover:bg-orange-600 transition-all shadow-md hover:shadow-lg">
+                             Book Now <ArrowRight className="w-4 h-4" />
+                           </Button>
+                         </Link>
                       </div>
                     </div>
-
                   </div>
                 </SwiperSlide>
               ))}
