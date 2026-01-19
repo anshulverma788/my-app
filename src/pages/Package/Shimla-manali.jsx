@@ -6,7 +6,6 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 
 // Custom Components
@@ -18,10 +17,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 // Icons
 import {
   Users,
-  Star,
-  MapPin,
-  IndianRupee,
-  Utensils,
   Hotel,
   CheckCircle2,
   XCircle,
@@ -32,10 +27,11 @@ import {
   PawPrint,
   CalendarClock,
   Snowflake,
-  Tent,
+  Utensils,
+  Mountain,
   ArrowRight,
-  Plane,
-  Mountain
+  IndianRupee,
+  MapPin
 } from 'lucide-react';
 
 // Swiper
@@ -69,7 +65,7 @@ const MovingCarMarker = ({ route }) => {
   const markerRef = useRef(null);
   const animationRef = useRef(null);
 
-  // Custom Car Icon - Top View Orange Car (Matches your uploaded image style)
+  // Custom Car Icon - Blue Car (Main Color) with Orange Accents
   const carIcon = L.divIcon({
     className: 'custom-car-icon',
     html: `<div style="
@@ -82,12 +78,12 @@ const MovingCarMarker = ({ route }) => {
       filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3));
     ">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="42" height="42">
-        <path d="M120.3 430.7c-13-13.1-23.7-33-28.9-63.5L72.2 268.4c-3.1-17.7-2.9-35.8 1.1-53.1l17.9-78c9.4-40.9 36.3-75.1 73.9-93.1 27.4-13.1 57.1-20.1 87.5-20.5h6.9c30.4.4 60.1 7.4 87.5 20.5 37.6 18 64.5 52.2 73.9 93.1l17.9 78c4 17.3 4.2 35.4 1.1 53.1l-19.1 98.8c-5.2 30.5-15.9 50.4-28.9 63.5-13.6 13.7-32.3 21.6-51.5 21.6H171.8c-19.2 0-37.9-7.9-51.5-21.6z" fill="#ea580c"/>
-        <path d="M149.3 147.2c5.6-18.7 22.8-31.6 42.4-31.6h128.6c19.6 0 36.8 12.9 42.4 31.6l16 53.3H133.3l16-53.3z" fill="#334155"/>
-        <rect x="140" y="210" width="232" height="130" rx="20" fill="#f97316"/>
-        <path d="M153.3 360h205.4l-12.8 40H166.1l-12.8-40z" fill="#334155"/>
-        <ellipse cx="120" cy="90" rx="10" ry="20" fill="#fde047" transform="rotate(-15 120 90)"/>
-        <ellipse cx="392" cy="90" rx="10" ry="20" fill="#fde047" transform="rotate(15 392 90)"/>
+        <path d="M120.3 430.7c-13-13.1-23.7-33-28.9-63.5L72.2 268.4c-3.1-17.7-2.9-35.8 1.1-53.1l17.9-78c9.4-40.9 36.3-75.1 73.9-93.1 27.4-13.1 57.1-20.1 87.5-20.5h6.9c30.4.4 60.1 7.4 87.5 20.5 37.6 18 64.5 52.2 73.9 93.1l17.9 78c4 17.3 4.2 35.4 1.1 53.1l-19.1 98.8c-5.2 30.5-15.9 50.4-28.9 63.5-13.6 13.7-32.3 21.6-51.5 21.6H171.8c-19.2 0-37.9-7.9-51.5-21.6z" fill="#2563eb"/> 
+        <path d="M149.3 147.2c5.6-18.7 22.8-31.6 42.4-31.6h128.6c19.6 0 36.8 12.9 42.4 31.6l16 53.3H133.3l16-53.3z" fill="#1e293b"/>
+        <rect x="140" y="210" width="232" height="130" rx="20" fill="#3b82f6"/>
+        <path d="M153.3 360h205.4l-12.8 40H166.1l-12.8-40z" fill="#1e293b"/>
+        <ellipse cx="120" cy="90" rx="10" ry="20" fill="#f97316" transform="rotate(-15 120 90)"/> 
+        <ellipse cx="392" cy="90" rx="10" ry="20" fill="#f97316" transform="rotate(15 392 90)"/>
       </svg>
     </div>`,
     iconSize: [42, 42],
@@ -126,11 +122,7 @@ const MovingCarMarker = ({ route }) => {
         if (iconElement) {
            const innerDiv = iconElement.firstChild;
            if(innerDiv) {
-             // FIX: Removed CSS transition to stop the spinning glitch
              innerDiv.style.transition = 'none'; 
-             
-             // Check if SVG faces UP (North). If yes, use 'angle'.
-             // This SVG faces UP, so 'angle' works perfectly.
              innerDiv.style.transform = `rotate(${angle}deg)`;
            }
         }
@@ -199,9 +191,9 @@ const TourDetailsGrid = () => {
           key={idx}
           variants={gridItemVariants}
           whileHover={{ y: -5, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.1)" }}
-          className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4 p-2 sm:p-5 bg-white rounded-xl sm:rounded-2xl border border-orange-100 shadow-sm transition-all duration-300"
+          className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4 p-2 sm:p-5 bg-white rounded-xl sm:rounded-2xl border border-blue-100 shadow-sm transition-all duration-300"
         >
-          <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
             <item.icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.5]" />
           </div>
           <div>
@@ -365,7 +357,7 @@ export default function ShimlaManali() {
       <Navbar />
 
       {/* HERO SLIDER */}
-      <section className="relative h-[65vh] sm:h-[80vh] md:h-[90vh] overflow-hidden group">
+      <section className="relative h-[35vh] sm:h-[80vh] md:h-[90vh] overflow-hidden group">
         <Swiper
           modules={[Autoplay, Pagination, Navigation]}
           slidesPerView={1}
@@ -386,35 +378,6 @@ export default function ShimlaManali() {
 
                 <div className="relative z-10 flex items-end sm:items-center h-full pb-16 sm:pb-0">
                   <div className="container mx-auto px-4 sm:px-6">
-                    <div className="max-w-xl sm:max-w-3xl">
-                      <Badge className="mb-3 bg-white/20 text-white border-white/30 backdrop-blur-md text-xs sm:text-sm px-3 py-1">
-                        Starting From{' '}
-                        <span className="font-semibold ml-1 inline-flex items-center">
-                          <IndianRupee className="inline-block w-3 h-3 mr-1" />
-                          22,999
-                        </span>{' '}
-                        per person
-                      </Badge>
-
-                      <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-2 sm:mb-3 leading-tight drop-shadow-lg">
-                        {slide.title}
-                      </h1>
-                      <p className="text-lg sm:text-2xl md:text-3xl font-semibold text-white/90 mb-4 sm:mb-6">
-                        {slide.subtitle}
-                      </p>
-
-                      <div className="inline-flex items-center bg-white/20 backdrop-blur-lg text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm mb-6 shadow-lg border border-white/20">
-                        <CalendarClock className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />
-                        {slide.days}
-                      </div>
-
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <Button onClick={handleBooking} className="w-full sm:w-auto rounded-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-sm sm:text-base px-6 sm:px-8 py-6 sm:py-4 shadow-lg shadow-orange-900/30">
-                          <Plane className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                          Book This Package
-                        </Button>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -423,28 +386,15 @@ export default function ShimlaManali() {
         </Swiper>
       </section>
 
-      {/* BENEFITS BAR */}
-      <div className="bg-white shadow-md border-b border-slate-100 relative z-20 -mt-2 sm:mt-0 rounded-t-2xl sm:rounded-none">
-        <div className="container mx-auto px-4 py-4 md:py-5 flex flex-wrap gap-x-6 gap-y-3 items-center justify-center lg:justify-between text-xs sm:text-sm md:text-base font-medium text-slate-700">
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-            <span>No Booking Fee</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-            <span>Best Price Guarantee</span>
-          </div>
-          <div className="flex items-center gap-2 bg-yellow-50 px-3 py-1 rounded-full">
-            <Star className="w-4 h-4 text-yellow-400 fill-yellow-400 shrink-0" />
-            <span>
-              4.9 / 5 based on <strong>500+ reviews</strong>
-            </span>
-          </div>
-        </div>
-      </div>
-
       {/* MAIN CONTENT AREA */}
-      <section className="py-10 sm:py-16 md:py-20">
+      <section className="py-2 sm:py-2 md:py-5">
+         <div className="relative mb-1 sm:mb-8 pt-4 border-b border-slate-100 flex flex-col items-center text-center">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6 leading-[1.15] max-w-4xl mx-auto">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900">
+                Shimla Manali <span className='text-blue-600'>Family Tour</span>
+              </span>
+            </h1>
+          </div>
         <div className="container mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
 
           {/* LEFT COLUMN */}
@@ -458,7 +408,7 @@ export default function ShimlaManali() {
                 </h2>
                 <p className="text-sm sm:text-base md:text-lg text-slate-600 mb-6 leading-relaxed">
                   Plan a perfect hill station escape with our carefully designed{' '}
-                  <span className="font-semibold text-orange-600">
+                  <span className="font-semibold text-blue-600">
                     Shimla – Kufri – Manali – Solang Valley
                   </span>{' '}
                   family package. Ideal for parents, kids and elders looking for
@@ -486,7 +436,7 @@ export default function ShimlaManali() {
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
                     {tourHighlights.map((item, idx) => (
                       <li key={idx} className="flex gap-3 text-slate-700 text-sm sm:text-base items-start">
-                        <CheckCircle2 className="w-5 h-5 mt-0.5 text-orange-500 shrink-0" />
+                        <CheckCircle2 className="w-5 h-5 mt-0.5 text-blue-500 shrink-0" />
                         <span className="leading-snug">{item}</span>
                       </li>
                     ))}
@@ -510,7 +460,7 @@ export default function ShimlaManali() {
                   whileTap={{ scale: 0.95 }}
                   type="button"
                   onClick={() => setOpenDayIndex(openDayIndex === 'ALL' ? null : 'ALL')}
-                  className="hidden sm:block text-xs sm:text-sm font-semibold text-orange-600 hover:text-orange-700 bg-white border border-orange-100 shadow-sm px-5 py-2.5 rounded-full transition-colors"
+                  className="hidden sm:block text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-700 bg-white border border-blue-100 shadow-sm px-5 py-2.5 rounded-full transition-colors"
                 >
                   {openDayIndex === 'ALL' ? 'Collapse All Days' : 'Expand All Days'}
                 </motion.button>
@@ -540,7 +490,7 @@ export default function ShimlaManali() {
                       <motion.div
                         animate={{
                           scale: isOpen ? 1.1 : 1,
-                          backgroundColor: isOpen ? '#ea580c' : '#f1f5f9',
+                          backgroundColor: isOpen ? '#2563eb' : '#f1f5f9', // Blue active
                           color: isOpen ? '#ffffff' : '#94a3b8',
                           borderColor: isOpen ? '#ffffff' : '#ffffff'
                         }}
@@ -553,7 +503,7 @@ export default function ShimlaManali() {
                       <div className="sm:hidden mb-4 flex items-center justify-between gap-3 w-full">
                         {/* Left Side: Badge and Line */}
                         <div className="flex items-center gap-3 flex-1 overflow-hidden">
-                          <span className="bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md shadow-orange-200 shrink-0">
+                          <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md shadow-blue-200 shrink-0">
                             Day {idx + 1}
                           </span>
                           <span className="h-[1px] bg-slate-200 w-full"></span>
@@ -564,7 +514,7 @@ export default function ShimlaManali() {
                           <motion.button
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setOpenDayIndex(openDayIndex === 'ALL' ? null : 'ALL')}
-                            className="flex items-center gap-1.5 bg-orange-50 border border-orange-200 text-orange-700 px-3 py-1.5 rounded-full text-[11px] font-bold shadow-sm shrink-0"
+                            className="flex items-center gap-1.5 bg-blue-50 border border-blue-200 text-blue-700 px-3 py-1.5 rounded-full text-[11px] font-bold shadow-sm shrink-0"
                           >
                             <span>{openDayIndex === 'ALL' ? 'Collapse' : 'Expand All'}</span>
                             <ChevronDown
@@ -580,8 +530,8 @@ export default function ShimlaManali() {
                         layout
                         transition={{ layout: { duration: 0.3, type: "spring" } }}
                         className={`relative bg-white border rounded-2xl overflow-hidden ${isOpen
-                          ? 'border-orange-200 shadow-xl shadow-orange-100/50'
-                          : 'border-slate-100 shadow-sm hover:shadow-md hover:border-orange-100'
+                          ? 'border-blue-200 shadow-xl shadow-blue-100/50'
+                          : 'border-slate-100 shadow-sm hover:shadow-md hover:border-blue-100'
                           }`}
                       >
                         <motion.button
@@ -590,7 +540,7 @@ export default function ShimlaManali() {
                           className="w-full text-left p-5 sm:p-6 flex items-start justify-between gap-4 z-20 relative bg-white"
                         >
                           <div className="space-y-1">
-                            <motion.h4 layout="position" className={`text-lg sm:text-xl font-bold transition-colors ${isOpen ? 'text-orange-700' : 'text-slate-800'}`}>
+                            <motion.h4 layout="position" className={`text-lg sm:text-xl font-bold transition-colors ${isOpen ? 'text-blue-700' : 'text-slate-800'}`}>
                               {item.title}
                             </motion.h4>
                             <motion.p layout="position" className="text-sm text-slate-500 leading-relaxed max-w-2xl">
@@ -603,7 +553,7 @@ export default function ShimlaManali() {
                                 exit={{ opacity: 0 }}
                                 className="flex gap-2 pt-2"
                               >
-                                <span className="inline-flex items-center gap-1 text-[10px] bg-emerald-50 text-emerald-600 px-2 py-1 rounded border border-emerald-100">
+                                <span className="inline-flex items-center gap-1 text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded border border-blue-100">
                                   <Hotel className="w-3 h-3" /> Stay Included
                                 </span>
                               </motion.div>
@@ -612,7 +562,7 @@ export default function ShimlaManali() {
 
                           <motion.div
                             animate={{ rotate: isOpen ? 180 : 0 }}
-                            className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${isOpen ? 'bg-orange-50 text-orange-600' : 'bg-slate-50 text-slate-400'}`}
+                            className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${isOpen ? 'bg-blue-50 text-blue-600' : 'bg-slate-50 text-slate-400'}`}
                           >
                             <ChevronDown className="w-5 h-5" />
                           </motion.div>
@@ -634,27 +584,29 @@ export default function ShimlaManali() {
                                   className="border-t border-slate-100 pt-4"
                                 >
                                   <div className="flex gap-4">
-                                    <div className="w-1 bg-gradient-to-b from-orange-400 to-orange-50 rounded-full shrink-0 h-auto" />
+                                    <div className="w-1 bg-gradient-to-b from-blue-400 to-blue-50 rounded-full shrink-0 h-auto" />
                                     <div className="space-y-4 w-full">
                                       <p className="text-sm sm:text-base text-slate-600 leading-7">
                                         {item.details}
                                       </p>
-                                      <div className="bg-orange-50/30 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-3 border border-orange-100">
+                                      <div className="bg-slate-50/50 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-3 border border-slate-100">
                                         <div className="flex items-center gap-3">
-                                          <div className="w-8 h-8 rounded-full bg-white text-emerald-500 flex items-center justify-center shadow-sm border border-emerald-100">
+                                            {/* SECONDARY COLOR: ORANGE FOR FOOD */}
+                                          <div className="w-8 h-8 rounded-full bg-white text-orange-500 flex items-center justify-center shadow-sm border border-orange-100">
                                             <Utensils className="w-4 h-4" />
                                           </div>
                                           <div>
-                                            <p className="text-[10px] uppercase text-emerald-800/60 font-bold tracking-wider">Food</p>
+                                            <p className="text-[10px] uppercase text-orange-800/60 font-bold tracking-wider">Food</p>
                                             <p className="text-xs font-semibold text-slate-700">Breakfast & Dinner</p>
                                           </div>
                                         </div>
                                         <div className="flex items-center gap-3">
-                                          <div className="w-8 h-8 rounded-full bg-white text-orange-500 flex items-center justify-center shadow-sm border border-orange-100">
+                                            {/* MAIN COLOR: BLUE FOR STAY */}
+                                          <div className="w-8 h-8 rounded-full bg-white text-blue-500 flex items-center justify-center shadow-sm border border-blue-100">
                                             <Hotel className="w-4 h-4" />
                                           </div>
                                           <div>
-                                            <p className="text-[10px] uppercase text-orange-800/60 font-bold tracking-wider">Stay</p>
+                                            <p className="text-[10px] uppercase text-blue-800/60 font-bold tracking-wider">Stay</p>
                                             <p className="text-xs font-semibold text-slate-700">Comfortable Family Hotel</p>
                                           </div>
                                         </div>
@@ -677,7 +629,7 @@ export default function ShimlaManali() {
             <ScrollReveal>
               <div className="space-y-4">
                 <h3 className="text-xl sm:text-2xl font-bold flex items-center gap-2">
-                  <MapPinned className="w-6 h-6 text-orange-600" />
+                  <MapPinned className="w-6 h-6 text-blue-600" />
                   Shimla → Manali → Solang Route Map 
                 </h3>
                 <Card className="overflow-hidden border-0 shadow-2xl rounded-2xl relative">
@@ -703,7 +655,7 @@ export default function ShimlaManali() {
                           </span>
                           <Button
                             size="sm"
-                            className="rounded-full bg-orange-600 hover:bg-orange-700 text-white px-3"
+                            className="rounded-full bg-blue-600 hover:bg-blue-700 text-white px-3"
                             onClick={() => setMapType(prev => prev === "normal" ? "satellite" : "normal")}
                           >
                             Switch
@@ -729,7 +681,7 @@ export default function ShimlaManali() {
                           <Polyline
                             positions={curvedPath}
                             pathOptions={{
-                              color: "#f97316",
+                              color: "#2563eb", // Changed to Blue
                               weight: 6,
                               opacity: 0.9,
                               className: "animated-route"
@@ -746,7 +698,7 @@ export default function ShimlaManali() {
                           .animated-route {
                             stroke-dasharray: 12;
                             animation: flowing 1.6s linear infinite;
-                            filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.7));
+                            filter: drop-shadow(0 0 6px rgba(37, 99, 235, 0.7)); /* Blue Glow */
                           }
                           @keyframes flowing {
                             0% { stroke-dashoffset: 0; }
@@ -767,14 +719,14 @@ export default function ShimlaManali() {
             {/* INCLUSIONS & EXCLUSIONS */}
             <ScrollReveal>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-100">
-                  <h4 className="font-bold text-lg mb-4 text-emerald-900 flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600" /> Inclusions
+                <div className="bg-blue-50/50 p-5 rounded-2xl border border-blue-100">
+                  <h4 className="font-bold text-lg mb-4 text-blue-900 flex items-center gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-blue-600" /> Inclusions
                   </h4>
                   <ul className="space-y-3 text-slate-700 text-sm">
                     {includeFeatures.map((item, idx) => (
                       <li key={idx} className="flex gap-3 items-start">
-                        <CheckCircle2 className="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 mt-0.5 text-blue-500 shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -798,11 +750,11 @@ export default function ShimlaManali() {
 
             {/* CUSTOMIZE SECTION */}
             <ScrollReveal>
-              <div className="mb-4 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-100/50 rounded-full blur-3xl -mr-10 -mt-10 transition-transform duration-700 group-hover:scale-150"></div>
+              <div className="mb-4 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100/50 rounded-full blur-3xl -mr-10 -mt-10 transition-transform duration-700 group-hover:scale-150"></div>
                 <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                   <div className="flex-1 text-center md:text-left">
-                    <span className="inline-block px-3 py-1 mb-3 text-xs font-bold tracking-wider text-emerald-800 uppercase bg-emerald-200/50 rounded-full">
+                    <span className="inline-block px-3 py-1 mb-3 text-xs font-bold tracking-wider text-blue-800 uppercase bg-blue-200/50 rounded-full">
                       Flexible Package
                     </span>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">
@@ -818,13 +770,13 @@ export default function ShimlaManali() {
                         ))}
                       </div>
                       <div className="text-left">
-                        <p className="text-xs text-emerald-800 font-bold">Talk to experts</p>
+                        <p className="text-xs text-blue-800 font-bold">Talk to experts</p>
                         <p className="text-sm font-bold text-slate-900">+91 98765 43210</p>
                       </div>
                     </div>
                   </div>
                   <div className="w-full md:w-auto shrink-0">
-                    <Button className="w-full md:w-auto px-8 py-6 text-lg font-bold text-white shadow-xl bg-emerald-600 hover:bg-emerald-700 rounded-2xl shadow-emerald-200 transition-all hover:scale-105 flex items-center justify-center">
+                    <Button className="w-full md:w-auto px-8 py-6 text-lg font-bold text-white shadow-xl bg-blue-600 hover:bg-blue-700 rounded-2xl shadow-blue-200 transition-all hover:scale-105 flex items-center justify-center">
                       Request Callback <ArrowRight className="ml-2 w-5 h-5" />
                     </Button>
                   </div>
@@ -845,7 +797,7 @@ export default function ShimlaManali() {
                     640: { slidesPerView: 2, spaceBetween: 20 },
                     1024: { slidesPerView: 3, spaceBetween: 24 },
                   }}
-                  className="pb-10 [&_.swiper-pagination-bullet-active]:bg-orange-500"
+                  className="pb-10 [&_.swiper-pagination-bullet-active]:bg-blue-500"
                 >
                   {relevantPackages.map((pkg, idx) => (
                     <SwiperSlide key={idx} className="h-auto">
@@ -864,9 +816,9 @@ export default function ShimlaManali() {
                           <div className="mt-auto pt-3 flex items-center justify-between">
                             <div>
                               <p className="text-[10px] text-slate-400 uppercase">Per Person</p>
-                              <p className="font-bold text-base sm:text-lg text-orange-600">{pkg.price}</p>
+                              <p className="font-bold text-base sm:text-lg text-blue-600">{pkg.price}</p>
                             </div>
-                            <Button size="sm" className="rounded-full bg-orange-50 text-orange-600 hover:bg-orange-100 hover:text-orange-700 border-0">View</Button>
+                            <Button size="sm" className="rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-700 border-0">View</Button>
                           </div>
                         </div>
                       </Card>
@@ -884,7 +836,8 @@ export default function ShimlaManali() {
               <ScrollReveal direction="up">
                 <Card className="border-0 shadow-2xl bg-white rounded-2xl overflow-hidden ring-1 ring-slate-100">
                   <div className="p-5 sm:p-6 pb-4 border-b border-slate-50 relative bg-slate-50/50">
-                    <span className="absolute right-4 top-4 text-[10px] font-bold bg-rose-500 text-white px-2 py-1 rounded shadow-md uppercase tracking-wider">
+                    {/* SECONDARY COLOR ACCENT */}
+                    <span className="absolute right-4 top-4 text-[10px] font-bold bg-orange-500 text-white px-2 py-1 rounded shadow-md uppercase tracking-wider">
                       13% Off
                     </span>
                     <p className="text-xs text-slate-500 mb-1 font-medium uppercase tracking-wide">Total Deal Price</p>
@@ -903,7 +856,7 @@ export default function ShimlaManali() {
                         / per person
                       </span>
                     </div>
-                    <p className="text-[11px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded w-max font-medium">
+                    <p className="text-[11px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded w-max font-medium">
                       + 5% GST Applicable
                     </p>
                   </div>
@@ -911,16 +864,16 @@ export default function ShimlaManali() {
                   <div className="p-5 sm:p-6 space-y-3 bg-white">
                     <div className="space-y-3 mb-6">
                       <div className="flex items-start gap-2 text-xs sm:text-sm text-slate-600">
-                        <CheckCircle2 className="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 mt-0.5 text-blue-500 shrink-0" />
                         <span><strong>Money Safe:</strong> Easy cancellation & flexible rescheduling options*.</span>
                       </div>
                       <div className="flex items-start gap-2 text-xs sm:text-sm text-slate-600">
-                        <CheckCircle2 className="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 mt-0.5 text-blue-500 shrink-0" />
                         <span><strong>Support:</strong> 24x7 on-trip assistance for your family.</span>
                       </div>
                     </div>
 
-                    <Button onClick={handleBooking} className="w-full rounded-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white text-base py-6 shadow-lg shadow-orange-200 transition-all hover:scale-[1.02]">
+                    <Button onClick={handleBooking} className="w-full rounded-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white text-base py-6 shadow-lg shadow-blue-200 transition-all hover:scale-[1.02]">
                       Send Enquiry
                     </Button>
                     <Button
@@ -933,13 +886,13 @@ export default function ShimlaManali() {
                 </Card>
               </ScrollReveal>
 
-              <Card className="p-4 bg-emerald-800 text-white rounded-xl shadow-lg hidden lg:block">
+              <Card className="p-4 bg-blue-900 text-white rounded-xl shadow-lg hidden lg:block">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
                     <Users className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <p className="text-xs text-emerald-200">Need Help?</p>
+                    <p className="text-xs text-blue-200">Need Help?</p>
                     <p className="font-bold text-lg">98765-43210</p>
                   </div>
                 </div>
@@ -958,7 +911,7 @@ export default function ShimlaManali() {
             <IndianRupee className="w-4 h-4" /> 22,999
           </span>
         </div>
-        <Button onClick={handleBooking} className="rounded-full bg-orange-600 px-6 shadow-lg shadow-orange-200">
+        <Button onClick={handleBooking} className="rounded-full bg-blue-600 px-6 shadow-lg shadow-blue-200">
           Book Now
         </Button>
       </div>

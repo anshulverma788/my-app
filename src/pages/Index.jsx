@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion'; 
 import { Helmet } from 'react-helmet-async'; // SEO Import
 
 // CSS Imports
@@ -179,32 +179,29 @@ export default function Index() {
     }
   ];
 
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
     <div className="min-h-screen bg-slate-50 selection:bg-orange-500 selection:text-white">
-
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1.5 bg-blue-500 origin-left z-[1000]"
+        style={{ scaleX }}
+      />
+      
       {/* --- SEO META TAGS --- */}
       <Helmet>
         <title>Himachal Destination | Best Tour Packages for Shimla, Manali & Spiti Valley</title>
         <meta name="description" content="Book affordable Himachal tour packages. Explore Shimla, Manali, Spiti, and Kashmir with Himachal Destination. Best deals on family and group tours." />
         <meta name="keywords" content="Himachal tourism, Manali tour package, Shimla hotels, Spiti valley trek, travel agency himachal, best tour operator india" />
         <link rel="canonical" href="https://yourwebsite.com/" />
-
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourwebsite.com/" />
-        <meta property="og:title" content="Himachal Destination - The Land of Gods" />
-        <meta property="og:description" content="Plan your perfect trip to Himachal. Get up to 30% OFF on group bookings." />
-        <meta property="og:image" content="https://cdn.pixabay.com/photo/2018/02/14/13/42/sky-3153004_1280.jpg" />
-
-        {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://yourwebsite.com/" />
-        <meta property="twitter:title" content="Himachal Destination | Best Tour Packages" />
-        <meta property="twitter:description" content="Plan your perfect trip to Himachal. Get up to 30% OFF on group bookings." />
-        <meta property="twitter:image" content="https://cdn.pixabay.com/photo/2018/02/14/13/42/sky-3153004_1280.jpg" />
       </Helmet>
 
-      {/* --- SEO: Semantic Main Heading (Hidden but read by bots) --- */}
       <h1 className="sr-only">Himachal Destination - Best Travel Agency for Shimla, Manali, and Spiti Valley Tours</h1>
 
       {/* CSS Animations & Custom Styles */}
@@ -232,12 +229,23 @@ export default function Index() {
           width: 48px;
           background-color: #f97316;
         }
-        .dark-pagination .swiper-pagination-bullet {
-          background-color: rgba(0, 0, 0, 0.2);
+
+        /* --- NEW: Custom Static Dash Pagination (No Animation) --- */
+        .custom-dash-pagination .swiper-pagination-bullet {
+          width: 35px !important;       /* Fixed width for dash */
+          height: 4px !important;       /* Thickness */
+          border-radius: 0 !important;  /* Square edges */
+          background-color: #d1d5db !important; /* Grey color (inactive) */
+          opacity: 1 !important;
+          margin: 0 6px !important;
+          transition: none !important; /* NO ANIMATION */
         }
-        .dark-pagination .swiper-pagination-bullet-active {
-          background-color: #f97316;
+
+        .custom-dash-pagination .swiper-pagination-bullet-active {
+          background-color: #dc2626 !important; /* Red color (Active) */
+          width: 35px !important; /* Keep same width */
         }
+        
         .custom-scrollbar::-webkit-scrollbar {
           width: 5px;
         }
@@ -251,7 +259,6 @@ export default function Index() {
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: #009f48; 
         }
-        /* Utility for screen reader only text */
         .sr-only {
             position: absolute;
             width: 1px;
@@ -283,7 +290,6 @@ export default function Index() {
           {heroSlides.map((slide, index) => (
             <SwiperSlide key={slide.id}>
               <div className="relative w-full h-full">
-                {/* LCP Optimization: Load first image eagerly, others lazy */}
                 <img
                   src={slide.image}
                   alt={`${slide.place} Tour Package - Himachal Destination`}
@@ -306,7 +312,6 @@ export default function Index() {
                   {heroSlides[activeIndex].price}
                 </span>
               </div>
-              {/* Changed h1 to h2 for semantic SEO (Main H1 is hidden above) */}
               <h2 className="text-4xl font-Lobster font-bold leading-none text-white mb-2 shadow-sm anim-text delay-200">
                 {heroSlides[activeIndex].place}
               </h2>
@@ -332,7 +337,6 @@ export default function Index() {
                 </p>
               </div>
               <div className="overflow-hidden mb-4">
-                {/* Changed h1 to h2 for SEO */}
                 <h2 className="text-8xl font-Lobster font-bold leading-tight anim-text delay-200 drop-shadow-2xl text-white">
                   {heroSlides[activeIndex].place}
                 </h2>
@@ -395,12 +399,12 @@ export default function Index() {
                 onClick={() => toggleDropdown('destination')}
                 className={`
                   flex items-center gap-3 cursor-pointer group transition-colors p-4
-                  ${/* Mobile Style: Grey Block */ 'bg-gray-100 rounded-md mb-2 lg:mb-0 lg:bg-transparent lg:rounded-none lg:hover:bg-emerald-50/50'}
+                  ${/* Mobile Style: Grey Block */ 'bg-gray-300 rounded-md mb-2 lg:mb-0 lg:bg-transparent lg:rounded-none lg:hover:bg-emerald-50/50'}
                 `}
               >
                 <MapPin className="text-gray-500 w-5 h-5 lg:group-hover:text-[#009f48]" />
                 <div className="flex-1">
-                  <span className={`block text-sm ${selectedDest ? 'text-black font-semibold' : 'text-gray-500'}`}>
+                  <span className={`block text-sm ${selectedDest ? 'text-black font-semibold' : 'text-gray-700'}`}>
                     {selectedDest || "Select Destination"}
                   </span>
                 </div>
@@ -445,12 +449,12 @@ export default function Index() {
                   onClick={() => toggleDropdown('duration')}
                   className={`
                     flex items-center gap-2 lg:gap-3 cursor-pointer group transition-colors p-4 h-full
-                    ${/* Mobile Style: Grey Block */ 'bg-gray-100 rounded-md lg:bg-transparent lg:rounded-none lg:hover:bg-emerald-50/50'}
+                    ${/* Mobile Style: Grey Block */ 'bg-gray-300 rounded-md lg:bg-transparent lg:rounded-none lg:hover:bg-emerald-50/50'}
                   `}
                 >
                   <Sun className="text-gray-500 w-5 h-5 shrink-0 lg:group-hover:text-[#009f48]" />
                   <div className="flex-1 overflow-hidden">
-                    <span className={`block text-sm truncate ${selectedDur ? 'text-black font-semibold' : 'text-gray-500'}`}>
+                    <span className={`block text-sm truncate ${selectedDur ? 'text-black font-semibold' : 'text-gray-700'}`}>
                       {selectedDur || "Duration"}
                     </span>
                   </div>
@@ -493,12 +497,12 @@ export default function Index() {
                   onClick={() => toggleDropdown('month')}
                   className={`
                     flex items-center gap-2 lg:gap-3 cursor-pointer group transition-colors p-4 h-full
-                    ${/* Mobile Style: Grey Block */ 'bg-gray-100 rounded-md lg:bg-transparent lg:rounded-none lg:hover:bg-emerald-50/50'}
+                    ${/* Mobile Style: Grey Block */ 'bg-gray-300 rounded-md lg:bg-transparent lg:rounded-none lg:hover:bg-emerald-50/50'}
                   `}
                 >
                   <Calendar className="text-gray-500 w-5 h-5 shrink-0 lg:group-hover:text-[#009f48]" />
                   <div className="flex-1 overflow-hidden">
-                    <span className={`block text-sm truncate ${selectedMonth ? 'text-black font-semibold' : 'text-gray-500'}`}>
+                    <span className={`block text-sm truncate ${selectedMonth ? 'text-black font-semibold' : 'text-gray-700'}`}>
                       {selectedMonth || "Month"}
                     </span>
                   </div>
@@ -552,6 +556,7 @@ export default function Index() {
           </div>
         </div>
       </div>
+
       {/* ================= ABOUT SECTION (Premium Design) ================= */}
       <section className="pt-10 pb-5 lg:pt-14 pb-0 bg-white relative overflow-hidden" id="about">
         {/* Background Decorative Blob */}
@@ -620,8 +625,6 @@ export default function Index() {
                       alt="Himachal Beauty"
                       className="w-full h-[400px] lg:h-[550px] object-cover hover:scale-110 transition-transform duration-[1.5s]"
                     />
-
-                    {/* Overlay Gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                   </div>
 
@@ -661,48 +664,43 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ================= PREMIUM PACKAGES SECTION (UPDATED NEW DESIGN) ================= */}
+      {/* ================= PREMIUM PACKAGES SECTION ================= */}
       <section className="py-12 bg-slate-50 relative" id="packages">
         <div className="container mx-auto px-1">
           <ScrollReveal direction="up">
             <div className="text-center mb-1 max-w-3xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-Lobster font-bold text-slate-900 mb-6">
-                Himachal Tour Packages
+                Popular <span className='text-blue-500'>Packages</span>
               </h2>
-              <p className="text-gray-600">Discover the best destinations in the lap of nature.</p>
+              <p className="text-gray-600 mb-5">Discover the best destinations in the lap of nature.</p>
             </div>
           </ScrollReveal>
 
-          <div className="px-2 overflow-hidden">
+          <div className=" custom-dash-pagination px-2 overflow-hidden">
             <Swiper
               modules={[Autoplay, Pagination, Navigation]}
               spaceBetween={30}
               slidesPerView={1}
-              pagination={{ clickable: true, dynamicBullets: true }}
-              navigation={{
-                nextEl: '.swiper-button-next-custom',
-                prevEl: '.swiper-button-prev-custom',
-              }}
+             pagination={{ clickable: true }} 
+              navigation={false}
               autoplay={{ delay: 5000, disableOnInteraction: false }}
               breakpoints={{
                 640: { slidesPerView: 1 },
                 768: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
-                // 1280: { slidesPerView: 4 },
               }}
               className="pb-5 px-2"
             >
               {packages.map((pkg, index) => (
                 <SwiperSlide key={index} className="h-full py-2">
-                  
-                  {/* --- NEW CARD DESIGN START --- */}
+
                   <div className="group overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-300 bg-white rounded-2xl flex flex-col h-full relative top-0 hover:-top-2">
-                    
+
                     {/* Image Area */}
                     <div className="relative h-60 object-cover overflow-hidden">
-                      <img 
-                        src={pkg.image} 
-                        alt={pkg.title} 
+                      <img
+                        src={pkg.image}
+                        alt={pkg.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       {/* Location Badge */}
@@ -713,7 +711,7 @@ export default function Index() {
                     </div>
                     <div className="p-6 flex flex-col flex-grow">
                       <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 font-bold">
                           <Clock className="w-3.5 h-3.5 text-orange-500" />
                           {pkg.duration}
                         </div>
@@ -725,16 +723,17 @@ export default function Index() {
                       <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
                         Experience the breathtaking beauty of {pkg.location} with our exclusive premium guided tour package tailored for you.
                       </p>
+
                       <div className="pt-4 border-t border-gray-100 flex justify-between items-center mt-auto">
-                         <div className="flex flex-col">
-                           <span className="text-xs text-gray-400 font-medium">Starting from</span>
-                           <span className="text-lg font-bold text-emerald-700">{pkg.price}</span>
-                         </div>
-                         <Link to={pkg.path || "#"}>
-                           <Button className="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-1 hover:bg-orange-600 transition-all shadow-md hover:shadow-lg">
-                             Book Now <ArrowRight className="w-4 h-4" />
-                           </Button>
-                         </Link>
+                        <div className="flex flex-col">
+                          <span className="text-xs text-gray-400 font-medium">Starting from</span>
+                          <span className="text-lg font-bold text-emerald-700">{pkg.price}</span>
+                        </div>
+                        <Link to={pkg.path || "#"}>
+                          <Button className="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-1 hover:bg-orange-600 transition-all shadow-md hover:shadow-lg">
+                            View Details <ArrowRight className="w-4 h-4" />
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -742,6 +741,13 @@ export default function Index() {
               ))}
             </Swiper>
           </div>
+        </div>
+        <div className="text-center mt-5">
+          <Link to="/package">
+            <Button className="bg-orange-500 text-white hover:bg-blue-500 rounded-full px-8 py-6 text-lg font-bold shadow-lg transition-all hover:scale-105">
+              View All Package
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -804,24 +810,29 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ================= LAST MINUTE DEALS (Blue Theme) ================= */}
-      <section className="pt-6 pb-0 relative overflow-hidden bg-blue-50/30">
-        <div className="container mx-auto px-4 relative z-10">
+      {/* ================= LAST MINUTE DEALS (Updated to Popular Package Design) ================= */}
+      <section className="py-12 bg-slate-50 relative" id="last-minute-deals">
+        <div className="container mx-auto px-1">
           <ScrollReveal direction="up">
             <div className="text-center mb-10 md:mb-16">
-              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">Last Minute Deals</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">Unbeatable prices for spontaneous travelers. Grab them before they are gone!</p>
+              <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">
+                Last Minute <span className='text-emerald-800 '>Deals</span>
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Unbeatable prices for spontaneous travelers. Grab them before they are gone!
+              </p>
             </div>
           </ScrollReveal>
 
-          <div className="dark-pagination">
+          {/* Added 'custom-dash-pagination' class here for the specific look */}
+          <div className="custom-dash-pagination px-2 overflow-hidden">
             <Swiper
               modules={[Autoplay, Pagination, Navigation]}
               spaceBetween={30}
               slidesPerView={1}
-              pagination={{ clickable: true }}
-              navigation
-              autoplay={{ delay: 3500 }}
+              pagination={{ clickable: true }} // Standard pagination, styled by CSS above
+              navigation={false} // Removed arrows to focus on pagination
+              autoplay={{ delay: 3500, disableOnInteraction: false }}
               breakpoints={{
                 640: { slidesPerView: 1 },
                 768: { slidesPerView: 2 },
@@ -830,81 +841,70 @@ export default function Index() {
               className="pb-16 px-2"
             >
               {lastMinuteDeals.map((deal, index) => (
-                <SwiperSlide key={index} className="h-full pb-10">
-                  <ScrollReveal direction="up" delay={index * 0.1}>
-                    <div className="group bg-white rounded-2xl p-2 overflow-hidden border border-blue-100 shadow-md hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 h-full flex flex-col relative">
-
-                      {/* --- Image Section --- */}
-                      <div className="relative h-64 flex-shrink-0 rounded-xl overflow-hidden transition-all duration-500 group-hover:rounded-[20px] group-hover:shadow-sm">
-                        <img
-                          src={deal.image}
-                          alt={`${deal.title} Deal`}
-                          loading="lazy"
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-
-                        {/* 50% OFF Ribbon (Blue) */}
-                        <div className="absolute top-[14px] left-[-34px] bg-[#2563eb] text-white text-[10px] font-bold w-[120px] py-1 -rotate-45 text-center shadow-lg z-20 uppercase tracking-wider border-y border-[#1d4ed8] animate-pulse">
-                          50% OFF
-                        </div>
-
-                        <button className="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-white hover:text-blue-600 transition-colors z-10" aria-label="Save Deal">
-                          <Heart className="w-4 h-4 fill-current" />
-                        </button>
-
-                        <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4 pt-10">
-                          <div className="flex items-center gap-1 text-white text-xs font-medium">
-                            <Clock className="w-3.5 h-3.5 text-blue-400" />
-                            Hurry, Ends soon!
-                          </div>
-                        </div>
+                <SwiperSlide key={index} className="h-full py-2">
+                  {/* Using the SAME Card Structure as Popular Packages */}
+                  <div className="group overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-300 bg-white rounded-2xl flex flex-col h-full relative top-0 hover:-top-2">
+                    
+                    {/* Image Area */}
+                    <div className="relative h-60 object-cover overflow-hidden">
+                      <img
+                        src={deal.image}
+                        alt={deal.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      
+                      {/* FLASH SALE TAG (Specific to Last Minute) */}
+                      <div className="absolute top-4 right-4 bg-emerald-800  text-white px-3 py-1 text-xs font-bold uppercase tracking-wider animate-pulse shadow-md">
+                        50% OFF
                       </div>
 
-                      {/* --- Content Body --- */}
-                      <div className="p-4 flex-1 flex flex-col">
-                        <div className="mb-3">
-                          <h3 className="text-lg font-Lobster font-bold text-gray-800 leading-tight transition-colors group-hover:text-blue-700">
-                            {deal.title}
-                          </h3>
-                        </div>
-
-                        {/* Price */}
-                        <div className="mt-auto">
-                          <div className="flex justify-between items-end mb-3">
-                            <div>
-                              <p className="text-[10px] text-gray-400 font-medium mb-0 leading-none">Best Deal Price</p>
-                              <div className="flex items-baseline gap-1">
-                                <span className="text-xl font-bold text-blue-700">{deal.price}</span>
-                                <span className="text-[10px] text-gray-400 font-normal">/person</span>
-                              </div>
-                            </div>
-                            <div className="text-right mb-0.5">
-                              <p className="text-[10px] text-gray-400 line-through mb-0 leading-none decoration-blue-500 decoration-1">
-                                {deal.originalPrice || '₹50,000'}
-                              </p>
-                              <p className="text-[10px] font-bold text-blue-600 animate-pulse">FLASH SALE</p>
-                            </div>
-                          </div>
-
-                          <div className="flex gap-2 w-full pt-3 border-t border-dashed border-gray-100">
-                            <Link to={deal.path} className="flex-1">
-                              <button className="w-full h-9 border border-blue-600 bg-blue-600 text-white hover:bg-blue-700 rounded-md font-bold text-[10px] md:text-[11px] shadow-lg shadow-blue-600/20 transition-all active:scale-95 flex items-center justify-center">
-                                Book Now
-                              </button>
-                            </Link>
-                            <button className="flex-1 h-9 border border-blue-200 text-blue-600 hover:bg-blue-50 rounded-md font-bold text-[10px] md:text-[11px] transition-all active:scale-95 flex items-center justify-center">
-                              Enquiry
-                            </button>
-                            <Link to={deal.path} className="flex-1">
-                              <button className="w-full h-9 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md font-bold text-[10px] md:text-[11px] transition-all active:scale-95 flex items-center justify-center">
-                                Details
-                              </button>
-                            </Link>
-                          </div>
-                        </div>
+                      {/* Location Badge */}
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-md text-xs font-bold text-emerald-800 uppercase tracking-wide flex items-center gap-1 shadow-sm">
+                        <MapPin className="w-3 h-3" />
+                        {deal.location}
                       </div>
                     </div>
-                  </ScrollReveal>
+
+                    {/* Content Area */}
+                    <div className="p-6 flex flex-col flex-grow">
+                      <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
+                        <div className="flex items-center gap-1 font-bold">
+                          <Clock className="w-3.5 h-3.5 text-orange-600 " />
+                          {deal.duration}
+                        </div>
+                        <div className="text-emerald-800  font-bold text-[10px] border border-red-200 bg-red-50 px-2 py-0.5 rounded">
+                          HURRY ENDING SOON
+                        </div>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-xl font-bold text-emerald-950 mb-3 group-hover:text-orange-600  transition-colors line-clamp-2 font-sans">
+                        {deal.title}
+                      </h3>
+
+                      <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
+                        Last chance to book this premium package to {deal.location}. Includes stays, meals, and transfer at an unbeatable price.
+                      </p>
+
+                      {/* Price Section (Modified for Deal View) */}
+                      <div className="pt-4 border-t border-gray-100 flex justify-between items-end mt-auto">
+                        <div className="flex flex-col">
+                           {/* Original Price (Struck through) */}
+                          <span className="text-xs text-gray-400 font-medium line-through decoration-emerald-400">
+                             {deal.originalPrice || '₹50,000'}
+                          </span>
+                          {/* Deal Price */}
+                          <span className="text-xl font-bold text-emerald-800 ">{deal.price}</span>
+                        </div>
+                        
+                        <Link to={deal.path || "#"}>
+                          <Button className="bg-emerald-800  text-white px-6 py-2 rounded-lg text-sm font-bold flex items-center gap-1 hover:bg-emerald-900 transition-all shadow-md hover:shadow-lg">
+                            Book Now 
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </SwiperSlide>
               ))}
             </Swiper>
