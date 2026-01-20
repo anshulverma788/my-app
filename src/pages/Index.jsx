@@ -4,25 +4,23 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { motion, useScroll, useSpring } from 'framer-motion'; 
 import { Helmet } from 'react-helmet-async'; // SEO Import
-
 // CSS Imports
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
 import {
   ArrowRight, ArrowUpRight, User, MapPin, Star, Calendar, Phone, ShieldCheck, Quote, CheckCircle2, ChevronLeft, ChevronRight,
   Headset, ThumbsUp, Globe, Users, Award, Clock, Utensils, Car, Building2, Heart, Flag, Search, ChevronDown, Check, Sun, CarFront, Camera, BedDouble, UtensilsCrossed, Play
 } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ScrollReveal from '@/components/animations/ScrollReveal';
-
+import slider1 from '../assets/Slider/slider1.PNG';
+import slider2 from '../assets/Slider/slider2.PNG';
 // --- Defined FadeInUp Component ---
 const FadeInUp = ({ children }) => {
   return (
@@ -36,18 +34,14 @@ const FadeInUp = ({ children }) => {
     </motion.div>
   );
 };
-
 export default function Index() {
-
   // ================= SEARCH BAR STATE =================
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [selectedDest, setSelectedDest] = useState("");
   const [selectedDur, setSelectedDur] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-
   const searchContainerRef = useRef(null);
-
   useEffect(() => {
     function handleClickOutside(event) {
       if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
@@ -57,59 +51,48 @@ export default function Index() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
   const searchDestinations = [
     "Andaman", "Amarnath Yatra", "Bhutan", "Chardham Yatra", "Dubai", "Europe",
     "Himachal", "Kashmir", "Kerala", "Ladakh", "Manali", "Rajasthan", "Shimla",
     "Sikkim", "Thailand", "Vietnam"
   ];
-
   const searchDurations = [
     "1 - 3 days", "4 - 6 days", "7 - 9 days", "10 - 12 days", "13+ days"
   ];
-
   const searchMonths = [
     "January 2025", "February 2025", "March 2025", "April 2025",
     "May 2025", "June 2025", "July 2025", "August 2025", "September 2025",
     "October 2025", "November 2025", "December 2025"
   ];
-
   const filteredDestinations = searchDestinations.filter(dest =>
     dest.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
   const filteredMonths = searchMonths.filter(m =>
     m.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
   const toggleDropdown = (name) => {
     setActiveDropdown(activeDropdown === name ? null : name);
     setSearchTerm("");
   };
-
   const handleSelection = (type, value) => {
     if (type === 'destination') setSelectedDest(value);
     if (type === 'duration') setSelectedDur(value);
     if (type === 'month') setSelectedMonth(value);
     setActiveDropdown(null);
   };
-
   // ================= HERO SLIDER STATE =================
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperInstanceRef = useRef(null);
-
   const heroSlides = [
-    { id: 1, place: "Himachal", title: "The Land of Gods", desc: "Experience the mystical mountains...", image: "https://cdn.pixabay.com/photo/2018/02/14/13/42/sky-3153004_1280.jpg", price: "From ₹5,999" },
-    { id: 2, place: "Kashmir", title: "Paradise on Earth", desc: "Discover the breathtaking beauty...", image: "https://cdn.pixabay.com/photo/2022/07/30/07/02/river-7353171_1280.jpg", price: "From ₹8,999" },
+    { id: 1, place: "Himachal", title: "The Land of Gods", desc: "Experience the mystical mountains...", image: slider1, price: "From ₹5,999" },
+    { id: 2, place: "Kashmir", title: "Paradise on Earth", desc: "Discover the breathtaking beauty...", image: slider2, price: "From ₹8,999" },
     { id: 3, place: "Kerala", title: "God's Own Country", desc: "Sail through the backwaters...", image: "https://cdn.pixabay.com/photo/2017/02/17/21/18/south-india-2075399_1280.jpg", price: "From ₹12,499" },
     { id: 4, place: "Ladakh", title: "Land of High Passes", desc: "An adventure of a lifetime...", image: "https://cdn.pixabay.com/photo/2022/10/13/13/25/pangong-tso-7519104_1280.jpg", price: "From ₹15,999" },
     { id: 5, place: "Dubai", title: "City of Gold", desc: "Experience luxury shopping...", image: "https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg", price: "From ₹25,999" },
   ];
-
   const handleThumbnailClick = (index) => {
     if (swiperInstanceRef.current) swiperInstanceRef.current.slideToLoop(index);
   };
-
   const getHeroThumbnails = () => {
     let thumbs = [];
     for (let i = 1; i <= 3; i++) {
@@ -118,7 +101,6 @@ export default function Index() {
     }
     return thumbs;
   };
-
   // ================= PAGE DATA (Updated with Ratings for new design) =================
   const packages = [
     { name: 'Shimla', image: 'https://i.pinimg.com/736x/84/8c/83/848c83cf85f3a58ff164f39f7a95754d.jpg', path: '/package/shimla', title: 'Himalayan Delight: Shimla Manali Group Tour ', location: 'Himachal', duration: '3 Days/2 night', price: '₹5,999', rating: 4.8, reviews: 124 },
@@ -127,21 +109,18 @@ export default function Index() {
     { name: 'Yulla Kanda', image: 'https://i.pinimg.com/1200x/b2/ea/99/b2ea99c22fe47b745fa1554e9454f7b7.jpg', path: '/package/kinnaur', title: 'Yulla Kanda Trek: Sacred High Altitude Lake Adventure in Himachal Himalayas', location: 'Kinnaur', duration: '5 Days', price: '₹12,499', rating: 5.0, reviews: 42 },
     { name: 'Spiti', image: 'https://i.pinimg.com/1200x/ab/44/c6/ab44c6cef2692d15726d450960a7b346.jpg', path: '/package/spiti-8day', title: 'Spiti Expedition', location: 'Spiti Valley', duration: '7 Days', price: '₹18,999', rating: 4.8, reviews: 156 },
   ];
-
   const destinations = [
     { id: 'Himachal Pradesh', title: 'Himachal Pradesh', image: 'https://i.pinimg.com/736x/8f/07/42/8f07429dd03950cc8728bc0d44bfa089.jpg', location: 'Himachal, India', duration: '03 Days / 02 Nights', price: '$199', path: '/destinations/kerala', type: 'Relax' },
     { id: 'Utrakhand', title: 'Utrakhand', image: 'https://i.pinimg.com/736x/8c/14/3e/8c143e84594eafe45e5db7ce2ce503a3.jpg', location: 'Utrakhand, India', duration: '04 Days / 03 Nights', price: '$249', path: '/destinations/manali', type: 'Snow' },
     { id: 'Kerala', title: 'Kerala', image: 'https://i.pinimg.com/1200x/7c/36/7f/7c367f3b73b2b93604219530631e271b.jpg', location: 'Kerala, India', duration: '05 Days / 04 Nights', price: '$299', path: '/destinations/goa', type: 'Beach' },
     { id: 'rajasthan', title: 'Rajasthan', image: 'https://i.pinimg.com/1200x/9e/35/e9/9e35e983fe70f4c3a1e5dbe22172a4da.jpg', location: 'Jaipur, India', duration: '03 Days / 02 Nights', price: '$180', path: '/destinations/rajasthan', type: 'Heritage' },
   ];
-
   const lastMinuteDeals = [
     { name: 'Shimla', image: 'https://i.pinimg.com/736x/a9/9f/c3/a99fc3dc112ca7e956e20244fc578f2e.jpg', path: '/package/dubai', title: 'Shimla Kufri', location: 'Himachal', duration: '4 Days', price: '₹29,999', originalPrice: '₹45,000' },
     { name: 'Manali', image: 'https://i.pinimg.com/736x/a0/e4/ca/a0e4ca6e763a733634c156f3cced71d7.jpg', path: '/package/vietnam', title: 'Manali Solang', location: 'Himachal', duration: '6 Days', price: '₹35,999', originalPrice: '₹55,000' },
     { name: 'CharDham', image: 'https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg', path: '/package/thailand', title: 'CharDham ', location: 'Utrakhand', duration: '5 Days', price: '₹24,999', originalPrice: '₹32,000' },
     { name: 'Rishikesh', image: 'https://i.pinimg.com/736x/cb/71/49/cb714920561dc0c6f83f7ed703ff2eae.jpg', path: '/package/bali', title: 'Rishikesh', location: 'Utrakhand', duration: '5 Days', price: '₹39,999', originalPrice: '₹48,000' },
   ];
-
   const testimonials = [
     { name: "Aarav Sharma", role: "Kerala, India", img: "https://i.pravatar.cc/150?img=11", rating: 5, desc: "The Kerala backwaters experience was absolutely magical! Everything was arranged perfectly.", title: "Kerala 3D / 2N" },
     { name: "Riya Verma", role: "Manali, India", img: "https://i.pravatar.cc/150?img=5", rating: 4, desc: "Beautiful mountains, cozy stay, smooth travel experience — totally worth it!", title: "Manali Adventure" },
@@ -178,14 +157,12 @@ export default function Index() {
       excerpt: "From apple orchards to ancient monasteries, dive deep into the traditional lifestyle of Kinnaur district."
     }
   ];
-
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
-
   return (
     <div className="min-h-screen bg-slate-50 selection:bg-orange-500 selection:text-white">
       {/* Scroll Progress Bar */}
@@ -193,7 +170,6 @@ export default function Index() {
         className="fixed top-0 left-0 right-0 h-1.5 bg-blue-500 origin-left z-[1000]"
         style={{ scaleX }}
       />
-      
       {/* --- SEO META TAGS --- */}
       <Helmet>
         <title>Himachal Destination | Best Tour Packages for Shimla, Manali & Spiti Valley</title>
@@ -201,9 +177,7 @@ export default function Index() {
         <meta name="keywords" content="Himachal tourism, Manali tour package, Shimla hotels, Spiti valley trek, travel agency himachal, best tour operator india" />
         <link rel="canonical" href="https://yourwebsite.com/" />
       </Helmet>
-
       <h1 className="sr-only">Himachal Destination - Best Travel Agency for Shimla, Manali, and Spiti Valley Tours</h1>
-
       {/* CSS Animations & Custom Styles */}
       <style>{`
         @keyframes slideUpFade {
@@ -229,7 +203,6 @@ export default function Index() {
           width: 48px;
           background-color: #f97316;
         }
-
         /* --- NEW: Custom Static Dash Pagination (No Animation) --- */
         .custom-dash-pagination .swiper-pagination-bullet {
           width: 35px !important;       /* Fixed width for dash */
@@ -294,7 +267,7 @@ export default function Index() {
                   src={slide.image}
                   alt={`${slide.place} Tour Package - Himachal Destination`}
                   loading={index === 0 ? "eager" : "lazy"}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full "
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/40 to-transparent opacity-90 lg:hidden"></div>
                 <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-transparent"></div>
@@ -318,11 +291,11 @@ export default function Index() {
               <p className="text-emerald-100/80 text-xs leading-relaxed line-clamp-2 mb-4 max-w-[90%] anim-text delay-300">
                 {heroSlides[activeIndex].desc}
               </p>
-              <div className="flex gap-2 w-full anim-text delay-400">
+              {/* <div className="flex gap-2 w-full anim-text delay-400">
                 <Button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold h-10 text-sm rounded-lg shadow-lg shadow-orange-500/20 border border-orange-400/50">
                   Explore Now
                 </Button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
