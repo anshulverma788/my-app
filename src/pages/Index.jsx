@@ -85,11 +85,11 @@ export default function Index() {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperInstanceRef = useRef(null);
   const heroSlides = [
-    { id: 1, place: "Himachal", title: "The Land of Gods", desc: "Experience the mystical mountains...", image: slider1, price: "From ₹5,999" },
-    { id: 2, place: "Kashmir", title: "Paradise on Earth", desc: "Discover the breathtaking beauty...", image: slider2, price: "From ₹8,999" },
+    // { id: 1, place: "Himachal", title: "The Land of Gods", desc: "Experience the mystical mountains...", image: slider1, price: "From ₹5,999" },
+    // { id: 2, place: "Kashmir", title: "Paradise on Earth", desc: "Discover the breathtaking beauty...", image: slider2, price: "From ₹8,999" },
     { id: 3, place: "Kerala", title: "God's Own Country", desc: "Sail through the backwaters...", image: slider3, price: "From ₹12,499" },
-    { id: 4, place: "Ladakh", title: "Land of High Passes", desc: "An adventure of a lifetime...", image: "https://cdn.pixabay.com/photo/2022/10/13/13/25/pangong-tso-7519104_1280.jpg", price: "From ₹15,999" },
-    { id: 5, place: "Dubai", title: "City of Gold", desc: "Experience luxury shopping...", image: "https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg", price: "From ₹25,999" },
+    // { id: 4, place: "Ladakh", title: "Land of High Passes", desc: "An adventure of a lifetime...", image: "https://cdn.pixabay.com/photo/2022/10/13/13/25/pangong-tso-7519104_1280.jpg", price: "From ₹15,999" },
+    // { id: 5, place: "Dubai", title: "City of Gold", desc: "Experience luxury shopping...", image: "https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg", price: "From ₹25,999" },
   ];
   const handleThumbnailClick = (index) => {
     if (swiperInstanceRef.current) swiperInstanceRef.current.slideToLoop(index);
