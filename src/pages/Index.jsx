@@ -21,7 +21,9 @@ import Footer from '@/components/layout/Footer';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 import slider1 from '../assets/Slider/slider1.PNG';
 import slider2 from '../assets/Slider/slider2.PNG';
-import slider3 from '../assets/Slider/slider3.PNG';
+import slider5 from '../assets/Slider/slider5.PNG';
+import slider from '../assets/Slider/slider.jpeg';
+// import slider4 from '../assets/Slider/slider4.PNG';
 // --- Defined FadeInUp Component ---
 const FadeInUp = ({ children }) => {
   return (
@@ -86,8 +88,8 @@ export default function Index() {
   const swiperInstanceRef = useRef(null);
   const heroSlides = [
     // { id: 1, place: "Himachal", title: "The Land of Gods", desc: "Experience the mystical mountains...", image: slider1, price: "From ₹5,999" },
-    // { id: 2, place: "Kashmir", title: "Paradise on Earth", desc: "Discover the breathtaking beauty...", image: slider2, price: "From ₹8,999" },
-    { id: 3, place: "Kerala", title: "God's Own Country", desc: "Sail through the backwaters...", image: slider3, price: "From ₹12,499" },
+    { id: 2, place: "Kashmir", title: "Paradise on Earth", desc: "Discover the breathtaking beauty...", image: slider5, price: "From ₹8,999" },
+    { id: 3, place: "Kerala", title: "God's Own Country", desc: "Sail through the backwaters...", image: slider, price: "From ₹12,499" },
     // { id: 4, place: "Ladakh", title: "Land of High Passes", desc: "An adventure of a lifetime...", image: "https://cdn.pixabay.com/photo/2022/10/13/13/25/pangong-tso-7519104_1280.jpg", price: "From ₹15,999" },
     // { id: 5, place: "Dubai", title: "City of Gold", desc: "Experience luxury shopping...", image: "https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg", price: "From ₹25,999" },
   ];
@@ -249,7 +251,7 @@ export default function Index() {
       <Navbar />
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative w-full h-[50vh] lg:h-screen min-h-[400px] bg-emerald-950 text-white overflow-visible group" aria-label="Hero Slider">
+      <section className="relative w-full h-[50vh] lg:h-screen min-h-[300px] bg-emerald-950 text-white overflow-visible group" aria-label="Hero Slider">
         <Swiper
           modules={[Autoplay, EffectFade, Navigation, Pagination]}
           effect={'fade'}
@@ -268,7 +270,7 @@ export default function Index() {
                   src={slide.image}
                   alt={`${slide.place} Tour Package - Himachal Destination`}
                   loading={index === 0 ? "eager" : "lazy"}
-                  className="w-full h-full "
+                  className="w-full h-full  "
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/40 to-transparent opacity-90 lg:hidden"></div>
                 <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-transparent"></div>
