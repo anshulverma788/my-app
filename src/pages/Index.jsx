@@ -252,7 +252,7 @@ export default function Index() {
       <Navbar />
 
       {/* ================= HERO SECTION ================= */}
-<section className="relative w-full h-[75vh] lg:h-screen min-h-[500px] bg-emerald-950 text-white overflow-visible group" aria-label="Hero Slider">
+<section className="relative w-full h-[50vh] lg:h-screen min-h-[500px] bg-emerald-950 text-white overflow-visible group" aria-label="Hero Slider">
   <Swiper
     modules={[Autoplay, EffectFade, Navigation, Pagination]}
     effect={'fade'}
