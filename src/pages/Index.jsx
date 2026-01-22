@@ -23,6 +23,7 @@ import slider1 from '../assets/Slider/slider1.PNG';
 import slider2 from '../assets/Slider/slider2.PNG';
 import slider5 from '../assets/Slider/slider5.PNG';
 import slider from '../assets/Slider/slider.jpeg';
+import explore from '../assets/Slider/Delhi.jpeg';
 // import slider4 from '../assets/Slider/slider4.PNG';
 // --- Defined FadeInUp Component ---
 const FadeInUp = ({ children }) => {
@@ -89,7 +90,7 @@ export default function Index() {
   const heroSlides = [
     // { id: 1, place: "Himachal", title: "The Land of Gods", desc: "Experience the mystical mountains...", image: slider1, price: "From ₹5,999" },
     { id: 2, place: "Kashmir", title: "Paradise on Earth", desc: "Discover the breathtaking beauty...", image: slider5, price: "From ₹8,999" },
-    { id: 3, place: "Kerala", title: "God's Own Country", desc: "Sail through the backwaters...", image: slider, price: "From ₹12,499" },
+    { id: 3, place: "Kerala", title: "God's Own Country", desc: "Sail through the backwaters...", image: slider,mobileImage: explore, price: "From ₹12,499" },
     // { id: 4, place: "Ladakh", title: "Land of High Passes", desc: "An adventure of a lifetime...", image: "https://cdn.pixabay.com/photo/2022/10/13/13/25/pangong-tso-7519104_1280.jpg", price: "From ₹15,999" },
     // { id: 5, place: "Dubai", title: "City of Gold", desc: "Experience luxury shopping...", image: "https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg", price: "From ₹25,999" },
   ];
@@ -251,113 +252,112 @@ export default function Index() {
       <Navbar />
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative w-full h-[50vh] lg:h-screen min-h-[300px] bg-emerald-950 text-white overflow-visible group" aria-label="Hero Slider">
-        <Swiper
-          modules={[Autoplay, EffectFade, Navigation, Pagination]}
-          effect={'fade'}
-          speed={1500}
-          loop={true}
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          onSwiper={(swiper) => (swiperInstanceRef.current = swiper)}
-          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-          className="absolute inset-0 w-full h-full z-0"
-        >
-          {heroSlides.map((slide, index) => (
-            <SwiperSlide key={slide.id}>
-              <div className="relative w-full h-full">
-                <img
-                  src={slide.image}
-                  alt={`${slide.place} Tour Package - Himachal Destination`}
-                  loading={index === 0 ? "eager" : "lazy"}
-                  className="w-full h-full  "
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/40 to-transparent opacity-90 lg:hidden"></div>
-                <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-transparent"></div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+<section className="relative w-full h-[75vh] lg:h-screen min-h-[500px] bg-emerald-950 text-white overflow-visible group" aria-label="Hero Slider">
+  <Swiper
+    modules={[Autoplay, EffectFade, Navigation, Pagination]}
+    effect={'fade'}
+    speed={1500}
+    loop={true}
+    pagination={{ clickable: true }}
+    autoplay={{ delay: 3000, disableOnInteraction: false }}
+    onSwiper={(swiper) => (swiperInstanceRef.current = swiper)}
+    onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+    className="absolute inset-0 w-full h-full z-0"
+  >
+    {heroSlides.map((slide, index) => (
+      <SwiperSlide key={slide.id}>
+        <div className="relative w-full h-full">
+          
+          {/* --- MOBILE IMAGE (Sirf Mobile pe dikhegi) --- */}
+          <img
+            src={slide.mobileImage || slide.image} // Agar mobile image nahi hai to desktop wali hi dikhao fallback me
+            alt={`${slide.place} Mobile View`}
+            loading={index === 0 ? "eager" : "lazy"}
+            className="block lg:hidden w-full h-full  object-center"
+          />
 
-        {/* Mobile Content */}
-        <div className="lg:hidden absolute inset-0 z-10 flex flex-col justify-end p-5 pb-20 pointer-events-none">
-          <div className="flex flex-col items-start gap-2 pointer-events-auto">
-            <div key={activeIndex} className="w-full">
-              {/* <div className="flex items-center gap-2 mb-1 anim-text delay-100">
-                <span className="text-orange-400 font-bold uppercase tracking-widest text-[10px]">
-                  {heroSlides[activeIndex].price}
-                </span>
+          {/* --- DESKTOP IMAGE (Sirf Desktop pe dikhegi) --- */}
+          <img
+            src={slide.image}
+            alt={`${slide.place} Desktop View`}
+            loading={index === 0 ? "eager" : "lazy"}
+            className="hidden lg:block w-full h-full object-cover object-center"
+          />
+
+          {/* Gradients Overlay (Text readable banane ke liye) */}
+          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/40 to-transparent opacity-90 lg:hidden"></div>
+          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-transparent"></div>
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+
+  {/* ... Baaki ka code same rahega (Mobile Content & Desktop Content div) ... */}
+  
+  {/* Mobile Content (Ye code aapke purane code se same copy hai, context ke liye yahan hai) */}
+  <div className="lg:hidden absolute inset-0 z-10 flex flex-col justify-end p-5 pb-20 pointer-events-none">
+    <div className="flex flex-col items-start gap-2 pointer-events-auto">
+       {/* Aapka mobile text content yahan aayega */}
+       <div key={activeIndex} className="w-full">
+          {/* ... mobile text components ... */}
+       </div>
+    </div>
+  </div>
+
+  {/* Desktop Content */}
+  <div className="hidden lg:flex absolute inset-0 z-10 container mx-auto px-12 items-center pointer-events-none">
+    <div className="max-w-2xl pt-20 pointer-events-auto">
+      <div key={activeIndex}>
+        <div className="overflow-hidden mb-2">
+          <p className="text-orange-400 font-bold tracking-[0.3em] uppercase anim-text delay-100 flex items-center gap-2">
+            <span className="w-8 h-[2px] bg-orange-500"></span> Explore The World
+          </p>
+        </div>
+        <div className="overflow-hidden mb-4">
+          <h2 className="text-8xl font-Lobster font-bold leading-tight anim-text delay-200 drop-shadow-2xl text-white">
+            {heroSlides[activeIndex].place}
+          </h2>
+        </div>
+        <div className="overflow-hidden mb-8">
+          <p className="text-xl text-emerald-50 max-w-lg leading-relaxed anim-text delay-300 font-light">
+            {heroSlides[activeIndex].desc}
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-4 anim-text delay-400">
+          <Button className="h-14 px-8 rounded-none bg-orange-600 text-white hover:bg-emerald-800 transition-all duration-300 text-lg font-bold tracking-wide border-0 shadow-[0_0_20px_rgba(249,115,22,0.3)]">
+            View Details
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Sidebar (Desktop) */}
+  <div className="hidden lg:flex absolute bottom-36 right-12 z-20 flex-col gap-4 items-end pointer-events-auto">
+    <div className="text-5xl font-bold text-white/10 select-none mb-4 font-mono">
+      0{activeIndex + 1}
+    </div>
+    <div className="flex flex-col gap-4">
+      {getHeroThumbnails().map((thumb, idx) => (
+        <div key={idx} onClick={() => handleThumbnailClick(thumb.realIndex)} className="group relative w-64 h-28 rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-orange-500 transition-all duration-300 bg-emerald-950/60 backdrop-blur-md shadow-2xl flex items-center">
+          <div className="w-24 h-full relative overflow-hidden">
+            <img src={thumb.image} alt={thumb.place} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+          </div>
+          <div className="flex-1 p-4 flex flex-col justify-center">
+            <span className="text-[10px] text-orange-400 font-bold uppercase tracking-wider mb-1">Next</span>
+            <h4 className="text-lg font-bold leading-none text-white font-Lobster">{thumb.place}</h4>
+            <div className="flex justify-between items-center mt-2">
+              <span className="text-xs text-gray-400">{thumb.price}</span>
+              <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-orange-500 transition-colors text-white">
+                <ArrowRight className="w-3 h-3" />
               </div>
-              <h2 className="text-4xl font-Lobster font-bold leading-none text-white mb-2 shadow-sm anim-text delay-200">
-                {heroSlides[activeIndex].place}
-              </h2>
-              <p className="text-emerald-100/80 text-xs leading-relaxed line-clamp-2 mb-4 max-w-[90%] anim-text delay-300">
-                {heroSlides[activeIndex].desc}
-              </p> */}
-              {/* <div className="flex gap-2 w-full anim-text delay-400">
-                <Button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold h-10 text-sm rounded-lg shadow-lg shadow-orange-500/20 border border-orange-400/50">
-                  Explore Now
-                </Button>
-              </div> */}
             </div>
           </div>
         </div>
-
-        {/* Desktop Content */}
-        <div className="hidden lg:flex absolute inset-0 z-10 container mx-auto px-12 items-center pointer-events-none">
-          <div className="max-w-2xl pt-20 pointer-events-auto">
-            <div key={activeIndex}>
-              <div className="overflow-hidden mb-2">
-                <p className="text-orange-400 font-bold tracking-[0.3em] uppercase anim-text delay-100 flex items-center gap-2">
-                  <span className="w-8 h-[2px] bg-orange-500"></span> Explore The World
-                </p>
-              </div>
-              <div className="overflow-hidden mb-4">
-                <h2 className="text-8xl font-Lobster font-bold leading-tight anim-text delay-200 drop-shadow-2xl text-white">
-                  {heroSlides[activeIndex].place}
-                </h2>
-              </div>
-              <div className="overflow-hidden mb-8">
-                <p className="text-xl text-emerald-50 max-w-lg leading-relaxed anim-text delay-300 font-light">
-                  {heroSlides[activeIndex].desc}
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-4 anim-text delay-400">
-                <Button className="h-14 px-8 rounded-none bg-orange-600 text-white hover:bg-emerald-800 transition-all duration-300 text-lg font-bold tracking-wide border-0 shadow-[0_0_20px_rgba(249,115,22,0.3)]">
-                  View Details
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Sidebar (Desktop) */}
-        <div className="hidden lg:flex absolute bottom-36 right-12 z-20 flex-col gap-4 items-end pointer-events-auto">
-          <div className="text-5xl font-bold text-white/10 select-none mb-4 font-mono">
-            0{activeIndex + 1}
-          </div>
-          <div className="flex flex-col gap-4">
-            {getHeroThumbnails().map((thumb, idx) => (
-              <div key={idx} onClick={() => handleThumbnailClick(thumb.realIndex)} className="group relative w-64 h-28 rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-orange-500 transition-all duration-300 bg-emerald-950/60 backdrop-blur-md shadow-2xl flex items-center">
-                <div className="w-24 h-full relative overflow-hidden">
-                  <img src={thumb.image} alt={thumb.place} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <div className="flex-1 p-4 flex flex-col justify-center">
-                  <span className="text-[10px] text-orange-400 font-bold uppercase tracking-wider mb-1">Next</span>
-                  <h4 className="text-lg font-bold leading-none text-white font-Lobster">{thumb.place}</h4>
-                  <div className="flex justify-between items-center mt-2">
-                    <span className="text-xs text-gray-400">{thumb.price}</span>
-                    <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-orange-500 transition-colors text-white">
-                      <ArrowRight className="w-3 h-3" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-      </section>
+      ))}
+    </div>
+  </div>
+</section> 
 
       {/* ================= SEARCH TOUR BAR ================= */}
       <div className="relative z-40 w-full px-4 lg:absolute lg:left-0 lg:right-0 lg:-bottom-[40px] pointer-events-auto py-4 lg:py-0 bg-white lg:bg-transparent">
