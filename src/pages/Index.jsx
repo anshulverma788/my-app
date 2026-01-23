@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
-import { motion, useScroll, useSpring } from 'framer-motion'; 
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { Helmet } from 'react-helmet-async'; // SEO Import
 // CSS Imports
 import 'swiper/css';
@@ -11,7 +11,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import {
   ArrowRight, ArrowUpRight, User, MapPin, Star, Calendar, Phone, ShieldCheck, Quote, CheckCircle2, ChevronLeft, ChevronRight,
-  Headset, ThumbsUp, Globe, Users, Award, Clock, Utensils, Car, Building2, Heart, Flag, Search, ChevronDown, Check, Sun, CarFront, Camera, BedDouble, UtensilsCrossed, Play
+  Headset, ThumbsUp, Globe, Users, Award, Clock, Utensils, Car, Building2, Heart, Flag, Search, ChevronDown, Check, Sun, CarFront, Camera, BedDouble, UtensilsCrossed, Play, Wallet
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -88,11 +88,11 @@ export default function Index() {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperInstanceRef = useRef(null);
   const heroSlides = [
-    // { id: 1, place: "Himachal", title: "The Land of Gods", desc: "Experience the mystical mountains...", image: slider1, price: "From ₹5,999" },
-    // { id: 2, place: "Kashmir", title: "Paradise on Earth", desc: "Discover the breathtaking beauty...", image: slider5, price: "From ₹8,999" },
-    { id: 3, place: "Kerala", title: "God's Own Country", desc: "Sail through the backwaters...", image: slider,mobileImage: explore, price: "From ₹12,499" },
-    // { id: 4, place: "Ladakh", title: "Land of High Passes", desc: "An adventure of a lifetime...", image: "https://cdn.pixabay.com/photo/2022/10/13/13/25/pangong-tso-7519104_1280.jpg", price: "From ₹15,999" },
-    // { id: 5, place: "Dubai", title: "City of Gold", desc: "Experience luxury shopping...", image: "https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg", price: "From ₹25,999" },
+    { id: 1, place: "Himachal", title: "The Land of Gods", desc: "Experience the mystical mountains...", image: slider1, price: "From ₹5,999" },
+    { id: 2, place: "Kashmir", title: "Paradise on Earth", desc: "Discover the breathtaking beauty...", image: slider5, price: "From ₹8,999" },
+    { id: 3, place: "Kerala", title: "God's Own Country", desc: "Sail through the backwaters...", image: slider, mobileImage: explore, price: "From ₹12,499" },
+    { id: 4, place: "Ladakh", title: "Land of High Passes", desc: "An adventure of a lifetime...", image: "https://cdn.pixabay.com/photo/2022/10/13/13/25/pangong-tso-7519104_1280.jpg", price: "From ₹15,999" },
+    { id: 5, place: "Dubai", title: "City of Gold", desc: "Experience luxury shopping...", image: "https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg", price: "From ₹25,999" },
   ];
   const handleThumbnailClick = (index) => {
     if (swiperInstanceRef.current) swiperInstanceRef.current.slideToLoop(index);
@@ -113,18 +113,21 @@ export default function Index() {
     { name: 'Yulla Kanda', image: 'https://i.pinimg.com/1200x/b2/ea/99/b2ea99c22fe47b745fa1554e9454f7b7.jpg', path: '/package/kinnaur', title: 'Yulla Kanda Trek: Sacred High Altitude Lake Adventure in Himachal Himalayas', location: 'Kinnaur', duration: '5 Days', price: '₹12,499', rating: 5.0, reviews: 42 },
     { name: 'Spiti', image: 'https://i.pinimg.com/1200x/ab/44/c6/ab44c6cef2692d15726d450960a7b346.jpg', path: '/package/spiti-8day', title: 'Spiti Expedition', location: 'Spiti Valley', duration: '7 Days', price: '₹18,999', rating: 4.8, reviews: 156 },
   ];
+
   const destinations = [
     { id: 'Himachal Pradesh', title: 'Himachal Pradesh', image: 'https://i.pinimg.com/736x/8f/07/42/8f07429dd03950cc8728bc0d44bfa089.jpg', location: 'Himachal, India', duration: '03 Days / 02 Nights', price: '$199', path: '/destinations/kerala', type: 'Relax' },
     { id: 'Utrakhand', title: 'Utrakhand', image: 'https://i.pinimg.com/736x/8c/14/3e/8c143e84594eafe45e5db7ce2ce503a3.jpg', location: 'Utrakhand, India', duration: '04 Days / 03 Nights', price: '$249', path: '/destinations/manali', type: 'Snow' },
     { id: 'Kerala', title: 'Kerala', image: 'https://i.pinimg.com/1200x/7c/36/7f/7c367f3b73b2b93604219530631e271b.jpg', location: 'Kerala, India', duration: '05 Days / 04 Nights', price: '$299', path: '/destinations/goa', type: 'Beach' },
     { id: 'rajasthan', title: 'Rajasthan', image: 'https://i.pinimg.com/1200x/9e/35/e9/9e35e983fe70f4c3a1e5dbe22172a4da.jpg', location: 'Jaipur, India', duration: '03 Days / 02 Nights', price: '$180', path: '/destinations/rajasthan', type: 'Heritage' },
   ];
+
   const lastMinuteDeals = [
     { name: 'Shimla', image: 'https://i.pinimg.com/736x/a9/9f/c3/a99fc3dc112ca7e956e20244fc578f2e.jpg', path: '/package/dubai', title: 'Shimla Kufri', location: 'Himachal', duration: '4 Days', price: '₹29,999', originalPrice: '₹45,000' },
     { name: 'Manali', image: 'https://i.pinimg.com/736x/a0/e4/ca/a0e4ca6e763a733634c156f3cced71d7.jpg', path: '/package/vietnam', title: 'Manali Solang', location: 'Himachal', duration: '6 Days', price: '₹35,999', originalPrice: '₹55,000' },
     { name: 'CharDham', image: 'https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg', path: '/package/thailand', title: 'CharDham ', location: 'Utrakhand', duration: '5 Days', price: '₹24,999', originalPrice: '₹32,000' },
     { name: 'Rishikesh', image: 'https://i.pinimg.com/736x/cb/71/49/cb714920561dc0c6f83f7ed703ff2eae.jpg', path: '/package/bali', title: 'Rishikesh', location: 'Utrakhand', duration: '5 Days', price: '₹39,999', originalPrice: '₹48,000' },
   ];
+
   const testimonials = [
     { name: "Aarav Sharma", role: "Kerala, India", img: "https://i.pravatar.cc/150?img=11", rating: 5, desc: "The Kerala backwaters experience was absolutely magical! Everything was arranged perfectly.", title: "Kerala 3D / 2N" },
     { name: "Riya Verma", role: "Manali, India", img: "https://i.pravatar.cc/150?img=5", rating: 4, desc: "Beautiful mountains, cozy stay, smooth travel experience — totally worth it!", title: "Manali Adventure" },
@@ -252,112 +255,112 @@ export default function Index() {
       <Navbar />
 
       {/* ================= HERO SECTION ================= */}
-<section className="relative w-full h-[40vh] lg:h-screen min-h-[400px] bg-emerald-950 text-white overflow-visible group" aria-label="Hero Slider">
-  <Swiper
-    modules={[Autoplay, EffectFade, Navigation, Pagination]}
-    effect={'fade'}
-    speed={1500}
-    loop={true}
-    pagination={{ clickable: true }}
-    autoplay={{ delay: 3000, disableOnInteraction: false }}
-    onSwiper={(swiper) => (swiperInstanceRef.current = swiper)}
-    onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-    className="absolute inset-0 w-full h-full z-0"
-  >
-    {heroSlides.map((slide, index) => (
-      <SwiperSlide key={slide.id}>
-        <div className="relative w-full h-full">
-          
-          {/* --- MOBILE IMAGE (Sirf Mobile pe dikhegi) --- */}
-          <img
-            src={slide.mobileImage || slide.image} // Agar mobile image nahi hai to desktop wali hi dikhao fallback me
-            alt={`${slide.place} Mobile View`}
-            loading={index === 0 ? "eager" : "lazy"}
-            className="block lg:hidden w-full h-full object-cover  object-center"
-          />
+      <section className="relative w-full h-[50vh] lg:h-screen min-h-[490px] bg-emerald-950 text-white overflow-visible group" aria-label="Hero Slider">
+        <Swiper
+          modules={[Autoplay, EffectFade, Navigation, Pagination]}
+          effect={'fade'}
+          speed={1500}
+          loop={true}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          onSwiper={(swiper) => (swiperInstanceRef.current = swiper)}
+          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          className="absolute inset-0 w-full h-full z-0"
+        >
+          {heroSlides.map((slide, index) => (
+            <SwiperSlide key={slide.id}>
+              <div className="relative w-full h-full">
 
-          {/* --- DESKTOP IMAGE (Sirf Desktop pe dikhegi) --- */}
-          <img
-            src={slide.image}
-            alt={`${slide.place} Desktop View`}
-            loading={index === 0 ? "eager" : "lazy"}
-            className="hidden lg:block w-full h-full object-cover object-center"
-          />
+                {/* --- MOBILE IMAGE (Sirf Mobile pe dikhegi) --- */}
+                <img
+                  src={slide.mobileImage || slide.image} // Agar mobile image nahi hai to desktop wali hi dikhao fallback me
+                  alt={`${slide.place} Mobile View`}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  className="block lg:hidden w-full h-full object-cover  object-center"
+                />
 
-          {/* Gradients Overlay (Text readable banane ke liye) */}
-          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-800/40 to-transparent opacity-90 lg:hidden"></div>
-          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-transparent"></div>
-        </div>
-      </SwiperSlide>
-    ))}
-  </Swiper>
+                {/* --- DESKTOP IMAGE (Sirf Desktop pe dikhegi) --- */}
+                <img
+                  src={slide.image}
+                  alt={`${slide.place} Desktop View`}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  className="hidden lg:block w-full h-full object-cover object-center"
+                />
 
-  {/* ... Baaki ka code same rahega (Mobile Content & Desktop Content div) ... */}
-  
-  {/* Mobile Content (Ye code aapke purane code se same copy hai, context ke liye yahan hai) */}
-  <div className="lg:hidden absolute inset-0 z-10 flex flex-col justify-end p-5 pb-20 pointer-events-none">
-    <div className="flex flex-col items-start gap-2 pointer-events-auto">
-       {/* Aapka mobile text content yahan aayega */}
-       <div key={activeIndex} className="w-full">
-          {/* ... mobile text components ... */}
-       </div>
-    </div>
-  </div>
+                {/* Gradients Overlay (Text readable banane ke liye) */}
+                <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-800/40 to-transparent opacity-90 lg:hidden"></div>
+                <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-transparent"></div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-  {/* Desktop Content */}
-  <div className="hidden lg:flex absolute inset-0 z-10 container mx-auto px-12 items-center pointer-events-none">
-    <div className="max-w-2xl pt-20 pointer-events-auto">
-      <div key={activeIndex}>
-        <div className="overflow-hidden mb-2">
-          <p className="text-orange-400 font-bold tracking-[0.3em] uppercase anim-text delay-100 flex items-center gap-2">
-            <span className="w-8 h-[2px] bg-orange-500"></span> Explore The World
-          </p>
-        </div>
-        <div className="overflow-hidden mb-4">
-          <h2 className="text-8xl font-Lobster font-bold leading-tight anim-text delay-200 drop-shadow-2xl text-white">
-            {heroSlides[activeIndex].place}
-          </h2>
-        </div>
-        <div className="overflow-hidden mb-8">
-          <p className="text-xl text-emerald-50 max-w-lg leading-relaxed anim-text delay-300 font-light">
-            {heroSlides[activeIndex].desc}
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-4 anim-text delay-400">
-          <Button className="h-14 px-8 rounded-none bg-orange-600 text-white hover:bg-emerald-800 transition-all duration-300 text-lg font-bold tracking-wide border-0 shadow-[0_0_20px_rgba(249,115,22,0.3)]">
-            View Details
-          </Button>
-        </div>
-      </div>
-    </div>
-  </div>
+        {/* ... Baaki ka code same rahega (Mobile Content & Desktop Content div) ... */}
 
-  {/* Sidebar (Desktop) */}
-  <div className="hidden lg:flex absolute bottom-36 right-12 z-20 flex-col gap-4 items-end pointer-events-auto">
-    <div className="text-5xl font-bold text-white/10 select-none mb-4 font-mono">
-      0{activeIndex + 1}
-    </div>
-    <div className="flex flex-col gap-4">
-      {getHeroThumbnails().map((thumb, idx) => (
-        <div key={idx} onClick={() => handleThumbnailClick(thumb.realIndex)} className="group relative w-64 h-28 rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-orange-500 transition-all duration-300 bg-emerald-950/60 backdrop-blur-md shadow-2xl flex items-center">
-          <div className="w-24 h-full relative overflow-hidden">
-            <img src={thumb.image} alt={thumb.place} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+        {/* Mobile Content (Ye code aapke purane code se same copy hai, context ke liye yahan hai) */}
+        <div className="lg:hidden absolute inset-0 z-10 flex flex-col justify-end p-5 pb-20 pointer-events-none">
+          <div className="flex flex-col items-start gap-2 pointer-events-auto">
+            {/* Aapka mobile text content yahan aayega */}
+            <div key={activeIndex} className="w-full">
+              {/* ... mobile text components ... */}
+            </div>
           </div>
-          <div className="flex-1 p-4 flex flex-col justify-center">
-            <span className="text-[10px] text-orange-400 font-bold uppercase tracking-wider mb-1">Next</span>
-            <h4 className="text-lg font-bold leading-none text-white font-Lobster">{thumb.place}</h4>
-            <div className="flex justify-between items-center mt-2">
-              <span className="text-xs text-gray-400">{thumb.price}</span>
-              <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-orange-500 transition-colors text-white">
-                <ArrowRight className="w-3 h-3" />
+        </div>
+
+        {/* Desktop Content */}
+        <div className="hidden lg:flex absolute inset-0 z-10 container mx-auto px-12 items-center pointer-events-none">
+          <div className="max-w-2xl pt-20 pointer-events-auto">
+            <div key={activeIndex}>
+              <div className="overflow-hidden mb-2">
+                <p className="text-orange-400 font-bold tracking-[0.3em] uppercase anim-text delay-100 flex items-center gap-2">
+                  <span className="w-8 h-[2px] bg-orange-500"></span> Explore The World
+                </p>
+              </div>
+              <div className="overflow-hidden mb-4">
+                <h2 className="text-8xl font-Lobster font-bold leading-tight anim-text delay-200 drop-shadow-2xl text-white">
+                  {heroSlides[activeIndex].place}
+                </h2>
+              </div>
+              <div className="overflow-hidden mb-8">
+                <p className="text-xl text-emerald-50 max-w-lg leading-relaxed anim-text delay-300 font-light">
+                  {heroSlides[activeIndex].desc}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-4 anim-text delay-400">
+                <Button className="h-14 px-8 rounded-none bg-orange-600 text-white hover:bg-emerald-800 transition-all duration-300 text-lg font-bold tracking-wide border-0 shadow-[0_0_20px_rgba(249,115,22,0.3)]">
+                  View Details
+                </Button>
               </div>
             </div>
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section> 
+
+        {/* Sidebar (Desktop) */}
+        <div className="hidden lg:flex absolute bottom-36 right-12 z-20 flex-col gap-4 items-end pointer-events-auto">
+          <div className="text-5xl font-bold text-white/10 select-none mb-4 font-mono">
+            0{activeIndex + 1}
+          </div>
+          <div className="flex flex-col gap-4">
+            {getHeroThumbnails().map((thumb, idx) => (
+              <div key={idx} onClick={() => handleThumbnailClick(thumb.realIndex)} className="group relative w-64 h-28 rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-orange-500 transition-all duration-300 bg-emerald-950/60 backdrop-blur-md shadow-2xl flex items-center">
+                <div className="w-24 h-full relative overflow-hidden">
+                  <img src={thumb.image} alt={thumb.place} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div className="flex-1 p-4 flex flex-col justify-center">
+                  <span className="text-[10px] text-orange-400 font-bold uppercase tracking-wider mb-1">Next</span>
+                  <h4 className="text-lg font-bold leading-none text-white font-Lobster">{thumb.place}</h4>
+                  <div className="flex justify-between items-center mt-2">
+                    <span className="text-xs text-gray-400">{thumb.price}</span>
+                    <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-orange-500 transition-colors text-white">
+                      <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ================= SEARCH TOUR BAR ================= */}
       <div className="relative z-40 w-full px-4 lg:absolute lg:left-0 lg:right-0 lg:-bottom-[40px] pointer-events-auto py-4 lg:py-0 bg-white lg:bg-transparent">
@@ -386,7 +389,6 @@ export default function Index() {
                 </div>
                 <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${activeDropdown === 'destination' ? 'rotate-180' : ''}`} />
               </div>
-
               {/* Dropdown */}
               {activeDropdown === 'destination' && (
                 <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50 mt-1 rounded-sm animate-in fade-in zoom-in-95 duration-200">
@@ -524,7 +526,7 @@ export default function Index() {
 
             {/* ================= 4. SEARCH BUTTON ================= */}
             <div className="w-full lg:w-auto">
-              <Button className="w-full lg:w-48 h-full min-h-[56px] bg-gradient-to-r from-orange-500 to-orange-300 text-white font-bold text-sm uppercase rounded-md lg:rounded-none lg:rounded-r-md flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:brightness-110">
+              <Button className="w-full lg:w-48 h-full min-h-[56px] bg-gradient-to-r from-sky-500 to-sky-500 text-white font-bold text-sm uppercase rounded-md lg:rounded-none lg:rounded-r-md flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:brightness-110">
                 <Search className="w-5 h-5" /> SEARCH TOURS
               </Button>
             </div>
@@ -657,7 +659,7 @@ export default function Index() {
               modules={[Autoplay, Pagination, Navigation]}
               spaceBetween={30}
               slidesPerView={1}
-             pagination={{ clickable: true }} 
+              pagination={{ clickable: true }}
               navigation={false}
               autoplay={{ delay: 5000, disableOnInteraction: false }}
               breakpoints={{
@@ -733,6 +735,7 @@ export default function Index() {
           <ScrollReveal direction="up">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-5xl font-Lobster font-bold mb-4 md:mb-6 text-black">Explore <span className='text-blue-500'>Destinations </span></h2>
+              <p className="text-gray-600 mb-5">Discover the best destinations in the lap of nature.</p>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
@@ -820,7 +823,7 @@ export default function Index() {
                 <SwiperSlide key={index} className="h-full py-2">
                   {/* Using the SAME Card Structure as Popular Packages */}
                   <div className="group overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-300 bg-white rounded-2xl flex flex-col h-full relative top-0 hover:-top-2">
-                    
+
                     {/* Image Area */}
                     <div className="relative h-60 object-cover overflow-hidden">
                       <img
@@ -828,7 +831,7 @@ export default function Index() {
                         alt={deal.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
-                      
+
                       {/* FLASH SALE TAG (Specific to Last Minute) */}
                       <div className="absolute top-4 right-4 bg-emerald-800  text-white px-3 py-1 text-xs font-bold uppercase tracking-wider animate-pulse shadow-md">
                         50% OFF
@@ -865,17 +868,17 @@ export default function Index() {
                       {/* Price Section (Modified for Deal View) */}
                       <div className="pt-4 border-t border-gray-100 flex justify-between items-end mt-auto">
                         <div className="flex flex-col">
-                           {/* Original Price (Struck through) */}
+                          {/* Original Price (Struck through) */}
                           <span className="text-xs text-gray-400 font-medium line-through decoration-emerald-400">
-                             {deal.originalPrice || '₹50,000'}
+                            {deal.originalPrice || '₹50,000'}
                           </span>
                           {/* Deal Price */}
                           <span className="text-xl font-bold text-emerald-800 ">{deal.price}</span>
                         </div>
-                        
+
                         <Link to={deal.path || "#"}>
-                          <Button className="bg-emerald-800  text-white px-6 py-2 rounded-lg text-sm font-bold flex items-center gap-1 hover:bg-emerald-900 transition-all shadow-md hover:shadow-lg">
-                            Book Now 
+                          <Button className="bg-emerald-600  text-white px-6 py-2 rounded-lg text-sm font-bold flex items-center gap-1 hover:bg-emerald-900 transition-all shadow-md hover:shadow-lg">
+                            Book Now
                           </Button>
                         </Link>
                       </div>
@@ -888,35 +891,97 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ================= WHY CHOOSE US ================= */}
-      <section className="pt-10 pb-0 bg-emerald-950 text-white relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+      {/* ================= NEW PREMIUM WHY CHOOSE US (Bento Style) ================= */}
+      <section className="py-20 bg-emerald-950 relative overflow-hidden">
+        {/* Background Gradient */}
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-emerald-900/20 to-transparent pointer-events-none"></div>
+
         <div className="container mx-auto px-4 relative z-10">
-          <ScrollReveal direction="up">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold font-Lobster mb-6">Why Choose Himachal Destination?</h2>
-              <div className="w-24 h-1 bg-orange-500 mx-auto rounded-full"></div>
-            </div>
-          </ScrollReveal>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 justify-items-center">
-            {[
-              { icon: ThumbsUp, num: "500+", text: "Excellent Reviews" },
-              { icon: Award, num: "15+", text: "Years Experience" },
-              { icon: Globe, num: "50+", text: "Destinations" },
-              { icon: Headset, num: "24x7", text: "Support" },
-              { icon: Users, num: "51k+", text: "Happy Clients" },
-              { icon: ShieldCheck, num: "100%", text: "Secure" },
-            ].map((item, idx) => (
-              <ScrollReveal key={idx} direction="up" delay={idx * 0.1}>
-                <div className="flex flex-col items-center text-center group">
-                  <div className="mb-4 text-emerald-300 group-hover:text-orange-500 transition-colors duration-300 bg-white/10 p-4 rounded-full border border-white/5 group-hover:bg-white/20">
-                    <item.icon className="w-8 h-8 md:w-10 md:h-10" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+            {/* --- LEFT SIDE: STUNNING IMAGE --- */}
+            <div className="relative order-2 lg:order-1">
+              <ScrollReveal direction="left">
+                <div className="relative rounded-[2rem] overflow-hidden border-4 border-white/10 shadow-2xl group">
+                  <img
+                    src="https://i.pinimg.com/736x/2f/27/9d/2f279d80de0c07af46acefe679183bb1.jpg"
+                    alt="Travel Experience"
+                    className="w-full h-[700px] object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  />
+                  {/* Image Overlay Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+
+                  {/* Floating Content inside Image */}
+                  <div className="absolute bottom-8 left-8 right-8">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-xl">
+                        4.9
+                      </div>
+                      <div className="flex flex-col text-white">
+                        <span className="font-bold text-lg">Top Rated Agency</span>
+                        <span className="text-white/70 text-sm">Based on 500+ Reviews</span>
+                      </div>
+                    </div>
+                    <p className="text-white/80 text-sm italic border-l-2 border-orange-500 pl-4">
+                      "The best decision we made for our Himachal trip. Everything was seamless!"
+                    </p>
                   </div>
-                  <h3 className="text-2xl font-extrabold text-white mb-1">{item.num}</h3>
-                  <p className="text-emerald-200/70 text-xs md:text-sm font-medium">{item.text}</p>
+                </div>
+
+                {/* Decorative Elements around image */}
+                <div className="absolute -top-6 -left-6 w-24 h-24 border-t-4 border-l-4 border-orange-500/50 rounded-tl-3xl -z-10"></div>
+                <div className="absolute -bottom-6 -right-6 w-24 h-24 border-b-4 border-r-4 border-orange-500/50 rounded-br-3xl -z-10"></div>
+              </ScrollReveal>
+            </div>
+
+            {/* --- RIGHT SIDE: INTERACTIVE LIST --- */}
+            <div className="order-1 lg:order-2">
+              <ScrollReveal direction="right">
+                <div className="mb-10">
+                  <span className="text-orange-500 font-bold tracking-widest uppercase text-xs mb-2 block">
+                    Why Choose Us
+                  </span>
+                  <h2 className="text-4xl lg:text-5xl font-Lobster text-white mb-6">
+                    Experience the <br />
+                    <span className="text-emerald-400">Extraordinary.</span>
+                  </h2>
+                  <p className="text-emerald-100/70 text-lg">
+                    We don't just sell packages; we craft experiences. Here is why thousands of travelers trust us with their Himalayan journeys.
+                  </p>
+                </div>
+
+                {/* Feature List */}
+                <div className="flex flex-col gap-4">
+                  {[
+                    { title: "Personalized Itineraries", desc: "Trips tailored exactly to your style and budget.", icon: User },
+                    { title: "Best Price Guarantee", desc: "Premium experiences at unbeatable market rates.", icon: Star }, // Replace Star with Wallet/Tag if available
+                    { title: "24/7 Ground Support", desc: "Our local team is always one call away.", icon: Headset },
+                    { title: "Safety First", desc: "Verified hotels and experienced drivers only.", icon: ShieldCheck },
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className="group flex items-start gap-5 p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-orange-500/30 transition-all duration-300 cursor-pointer"
+                    >
+                      <div className="mt-1 w-10 h-10 rounded-full bg-emerald-900/50 flex items-center justify-center border border-white/10 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300 shrink-0">
+                        <item.icon className="w-5 h-5 text-emerald-400 group-hover:text-white transition-colors" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
+                          {item.title}
+                        </h3>
+                        <p className="text-sm text-emerald-200/60 group-hover:text-emerald-100/80 transition-colors">
+                          {item.desc}
+                        </p>
+                      </div>
+                      <div className="ml-auto opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition-all duration-300 self-center">
+                        <ArrowRight className="text-orange-500 w-5 h-5" />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </ScrollReveal>
-            ))}
+            </div>
+
           </div>
         </div>
       </section>
@@ -926,8 +991,8 @@ export default function Index() {
         <div className="container mx-auto px-4 relative z-10">
 
           <ScrollReveal direction="up">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
-              <div className="text-left">
+            <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-4">
+              <div className="text-center md:text-left">
                 <span className="text-orange-500 font-bold tracking-wider uppercase text-sm mb-2 block">
                   Travel Inspiration
                 </span>
@@ -935,7 +1000,6 @@ export default function Index() {
                   Latest <span className='text-blue-500'>Travel</span> Stories
                 </h2>
               </div>
-
               {/* DESKTOP VIEW ALL */}
               <Link to="/blogs">
                 <Button

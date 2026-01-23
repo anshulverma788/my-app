@@ -43,7 +43,7 @@ import Search from './pages/booking/Search';
 import BookingPage from './pages/booking/Customize';
 import Confirmation from './pages/booking/Confirmation';
 
-import Admin from './admin/AdminDashboard';
+import Admin from './Admin/AdminDashboard';
 import NotFound from './pages/NotFound';
 import LocationDetail from './pages/ExploreKey/LocationDetail';
 const queryClient = new QueryClient();
