@@ -155,60 +155,60 @@ const itemVariants = {
 
 // ---------- DATA SECTION ----------
 
-const tourDetailsData = [
-  { icon: Hotel, label: "Stay", value: "3★ Hotels" },
-  { icon: Utensils, label: "Meals", value: "BF & Dinner" },
-  { icon: Car, label: "Travel", value: "Private Cab" },
-  { icon: Users, label: "Group", value: "Family" },
-  { icon: Languages, label: "Lang", value: "Hin, Eng" },
-  { icon: Snowflake, label: "Season", value: "All Year" },
-  { icon: CalendarClock, label: "Time", value: "7D / 6N" },
-  { icon: Mountain, label: "Type", value: "Hill Stn" },
-  { icon: PawPrint, label: "Pets", value: "Allowed" },
-];
+// const tourDetailsData = [
+//   { icon: Hotel, label: "Stay", value: "3★ Hotels" },
+//   { icon: Utensils, label: "Meals", value: "BF & Dinner" },
+//   { icon: Car, label: "Travel", value: "Private Cab" },
+//   { icon: Users, label: "Group", value: "Family" },
+//   { icon: Languages, label: "Lang", value: "Hin, Eng" },
+//   { icon: Snowflake, label: "Season", value: "All Year" },
+//   { icon: CalendarClock, label: "Time", value: "7D / 6N" },
+//   { icon: Mountain, label: "Type", value: "Hill Stn" },
+//   { icon: PawPrint, label: "Pets", value: "Allowed" },
+// ];
 
-const gridContainerVariants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.1 } }
-};
+// const gridContainerVariants = {
+//   hidden: { opacity: 0 },
+//   show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+// };
 
-const gridItemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  show: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 50 } }
-};
+// const gridItemVariants = {
+//   hidden: { y: 20, opacity: 0 },
+//   show: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 50 } }
+// };
 
-const TourDetailsGrid = () => {
-  return (
-    <motion.div
-      variants={gridContainerVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-50px" }}
-      className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-6 mt-6"
-    >
-      {tourDetailsData.map((item, idx) => (
-        <motion.div
-          key={idx}
-          variants={gridItemVariants}
-          whileHover={{ y: -5, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.1)" }}
-          className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4 p-2 sm:p-5 bg-white rounded-xl sm:rounded-2xl border border-blue-100 shadow-sm transition-all duration-300"
-        >
-          <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
-            <item.icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.5]" />
-          </div>
-          <div>
-            <p className="text-[10px] sm:text-xs font-medium text-slate-400 uppercase tracking-wider mb-0.5">
-              {item.label}
-            </p>
-            <p className="text-[11px] sm:text-base font-bold text-slate-800 leading-tight">
-              {item.value}
-            </p>
-          </div>
-        </motion.div>
-      ))}
-    </motion.div>
-  );
-};
+// const TourDetailsGrid = () => {
+//   return (
+//     <motion.div
+//       variants={gridContainerVariants}
+//       initial="hidden"
+//       whileInView="show"
+//       viewport={{ once: true, margin: "-50px" }}
+//       className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-6 mt-6"
+//     >
+//       {tourDetailsData.map((item, idx) => (
+//         <motion.div
+//           key={idx}
+//           variants={gridItemVariants}
+//           whileHover={{ y: -5, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.1)" }}
+//           className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-4 p-2 sm:p-5 bg-white rounded-xl sm:rounded-2xl border border-blue-100 shadow-sm transition-all duration-300"
+//         >
+//           <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-full bg-blue-50 text-orange-600 flex items-center justify-center">
+//             <item.icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.5]" />
+//           </div>
+//           <div>
+//             <p className="text-[10px] sm:text-xs font-medium text-slate-400 uppercase tracking-wider mb-0.5">
+//               {item.label}
+//             </p>
+//             <p className="text-[11px] sm:text-base font-bold text-slate-800 leading-tight">
+//               {item.value}
+//             </p>
+//           </div>
+//         </motion.div>
+//       ))}
+//     </motion.div>
+//   );
+// };
 
 // 2. Hero Slides
 const heroSlides = [
@@ -233,17 +233,17 @@ const heroSlides = [
 ];
 
 // 3. Highlights
-const tourHighlights = [
-  'Delhi/Chandigarh to Shimla & Manali scenic road journey with mountain views.',
-  'Shimla local – Ridge, Mall Road, Christ Church & famous viewpoints.',
-  'Exciting day trip to Kufri with snow (seasonal) & fun activities for kids & family.',
-  'Transfer to Manali via Kullu, Pandoh Dam & Beas river sightseeing.',
-  'Manali local – Hadimba Temple, Club House, Vashisht Temple & Hot Springs.',
-  'Solang Valley visit with optional snow activities & adventure sports (seasonal).',
-  'Optional Atal Tunnel / Sissu excursion on extra cost.',
-  'Comfortable family stays with breakfast & dinner throughout the trip.',
-  'Ample time for shopping, café hopping & leisure with your family.',
-];
+// const tourHighlights = [
+//   'Delhi/Chandigarh to Shimla & Manali scenic road journey with mountain views.',
+//   'Shimla local – Ridge, Mall Road, Christ Church & famous viewpoints.',
+//   'Exciting day trip to Kufri with snow (seasonal) & fun activities for kids & family.',
+//   'Transfer to Manali via Kullu, Pandoh Dam & Beas river sightseeing.',
+//   'Manali local – Hadimba Temple, Club House, Vashisht Temple & Hot Springs.',
+//   'Solang Valley visit with optional snow activities & adventure sports (seasonal).',
+//   'Optional Atal Tunnel / Sissu excursion on extra cost.',
+//   'Comfortable family stays with breakfast & dinner throughout the trip.',
+//   'Ample time for shopping, café hopping & leisure with your family.',
+// ];
 
 // 4. Itinerary
 const itinerary = [
@@ -416,10 +416,10 @@ export default function ShimlaManali() {
                 </p>
 
                 {/* PREMIUM GRID */}
-                <div className="bg-slate-50/50 rounded-3xl p-6 sm:p-8 border border-slate-100/60 mb-8">
+                {/* <div className="bg-slate-50/50 rounded-3xl p-6 sm:p-8 border border-slate-100/60 mb-8">
                   <h3 className="text-lg font-bold text-slate-800 mb-2">Trip Highlights</h3>
                   <TourDetailsGrid />
-                </div>
+                </div> */}
               </div>
             </ScrollReveal>
 
@@ -429,7 +429,7 @@ export default function ShimlaManali() {
             </ScrollReveal>
 
             {/* HIGHLIGHTS */}
-            <ScrollReveal>
+            {/* <ScrollReveal>
               <div className="space-y-4">
                 <h3 className="text-xl sm:text-2xl font-bold">Highlights of the Tour</h3>
                 <Card className="border-0 shadow-lg p-5 sm:p-6 bg-white">
@@ -443,7 +443,7 @@ export default function ShimlaManali() {
                   </ul>
                 </Card>
               </div>
-            </ScrollReveal>
+            </ScrollReveal> */}
 
             {/* ITINERARY */}
             <div className="space-y-8 relative">

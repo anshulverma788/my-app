@@ -89,7 +89,7 @@ export default function Index() {
   const swiperInstanceRef = useRef(null);
   const heroSlides = [
     // { id: 1, place: "Himachal", title: "The Land of Gods", desc: "Experience the mystical mountains...", image: slider1, price: "From ₹5,999" },
-    { id: 2, place: "Kashmir", title: "Paradise on Earth", desc: "Discover the breathtaking beauty...", image: slider5, price: "From ₹8,999" },
+    // { id: 2, place: "Kashmir", title: "Paradise on Earth", desc: "Discover the breathtaking beauty...", image: slider5, price: "From ₹8,999" },
     { id: 3, place: "Kerala", title: "God's Own Country", desc: "Sail through the backwaters...", image: slider,mobileImage: explore, price: "From ₹12,499" },
     // { id: 4, place: "Ladakh", title: "Land of High Passes", desc: "An adventure of a lifetime...", image: "https://cdn.pixabay.com/photo/2022/10/13/13/25/pangong-tso-7519104_1280.jpg", price: "From ₹15,999" },
     // { id: 5, place: "Dubai", title: "City of Gold", desc: "Experience luxury shopping...", image: "https://i.pinimg.com/1200x/7f/eb/3f/7feb3f0e8954789938f872f0585016fd.jpg", price: "From ₹25,999" },
@@ -252,7 +252,7 @@ export default function Index() {
       <Navbar />
 
       {/* ================= HERO SECTION ================= */}
-<section className="relative w-full h-[50vh] lg:h-screen min-h-[500px] bg-emerald-950 text-white overflow-visible group" aria-label="Hero Slider">
+<section className="relative w-full h-[40vh] lg:h-screen min-h-[400px] bg-emerald-950 text-white overflow-visible group" aria-label="Hero Slider">
   <Swiper
     modules={[Autoplay, EffectFade, Navigation, Pagination]}
     effect={'fade'}
@@ -273,7 +273,7 @@ export default function Index() {
             src={slide.mobileImage || slide.image} // Agar mobile image nahi hai to desktop wali hi dikhao fallback me
             alt={`${slide.place} Mobile View`}
             loading={index === 0 ? "eager" : "lazy"}
-            className="block lg:hidden w-full h-full  object-center"
+            className="block lg:hidden w-full h-full object-cover  object-center"
           />
 
           {/* --- DESKTOP IMAGE (Sirf Desktop pe dikhegi) --- */}
@@ -285,7 +285,7 @@ export default function Index() {
           />
 
           {/* Gradients Overlay (Text readable banane ke liye) */}
-          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/40 to-transparent opacity-90 lg:hidden"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-800/40 to-transparent opacity-90 lg:hidden"></div>
           <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-transparent"></div>
         </div>
       </SwiperSlide>
