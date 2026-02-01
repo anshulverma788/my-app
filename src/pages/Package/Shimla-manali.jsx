@@ -297,7 +297,7 @@ export default function ShimlaManali() {
             
             {/* --- UPDATED: SIMPLE NORMAL HEADER (As per Image) --- */}
             <div className="mb-6 pt-4">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 mb-2">
                Mountains Calling: 6 Days Shimla Manali Escape
               </h1>
               <div className="text-lg font-semibold text-slate-700 mb-1">
@@ -316,11 +316,6 @@ export default function ShimlaManali() {
                   <span className="h-px w-8 bg-blue-600"></span>
                   <span className="text-blue-600 font-bold uppercase tracking-widest text-xs">Overview</span>
                 </div>
-
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
-                  Experience the Ethereal Charm of Himachal
-                </h2>
-
                 <div className="prose prose-lg text-slate-600 leading-relaxed text-justify">
                   <p>
                     Escape to the idyllic landscapes of <span className="font-semibold text-slate-900">Shimla and Manali</span>, the crowning jewels of Himachal Pradesh. This curated tour invites you to witness the peerless beauty of the Himalayas, starting with a scenic drive from Chandigarh.
