@@ -279,8 +279,6 @@ export default function ShimlaManali() {
                   alt={slide.title}
                   className="absolute inset-0 w-full h-full object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
-
                 <div className="relative z-10 flex items-end sm:items-center h-full pb-16 sm:pb-0">
                   <div className="container mx-auto px-4 sm:px-6">
                   </div>
@@ -300,7 +298,7 @@ export default function ShimlaManali() {
             {/* --- UPDATED: SIMPLE NORMAL HEADER (As per Image) --- */}
             <div className="mb-6 pt-4">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2">
-               <span className="text-blue-600">Mountains Calling:</span>  6 Days Shimla Manali Escape
+               Mountains Calling: 6 Days Shimla Manali Escape
               </h1>
               <div className="text-lg font-semibold text-slate-700 mb-1">
                 5 Nights / 06 Days
@@ -320,7 +318,7 @@ export default function ShimlaManali() {
                 </div>
 
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
-                  Experience the <span className="text-blue-600">Ethereal Charm</span> of Himachal
+                  Experience the Ethereal Charm of Himachal
                 </h2>
 
                 <div className="prose prose-lg text-slate-600 leading-relaxed text-justify">
