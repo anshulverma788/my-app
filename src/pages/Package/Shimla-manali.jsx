@@ -311,21 +311,20 @@ export default function ShimlaManali() {
 
             {/* ABOUT SECTION (Kept Exactly as You Liked) */}
             <ScrollReveal>
-              <div id="overview" className="space-y-6 border p-2">
+              <div id="overview" className="space-y-6 border border-slate-500 p-3">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="h-px w-8 bg-blue-600"></span>
-                  <span className="text-blue-600 font-bold uppercase tracking-widest text-xs">Overview</span>
+                  <span className="text-blue-600 font-bold uppercase tracking-widest text-lg">Overview</span>
                 </div>
                 <div className="prose prose-lg text-slate-600 leading-relaxed text-justify">
                   <p>
-                    Escape to the idyllic landscapes of <span className="font-semibold text-slate-900">Shimla and Manali</span>, the crowning jewels of Himachal Pradesh. This curated tour invites you to witness the peerless beauty of the Himalayas, starting with a scenic drive from Chandigarh.
+                    Escape to the idyllic landscapes of <span className="font-semibold text-slate-900">Shimla and Manali</span>, the crowning jewels of Himachal Pradesh. This curated tour invites you to witness the peerless beauty of the Himalayas, starting with a scenic drive from Chandigarh.Immerse yourself in Shimla's colonial grandeur at the <span className="font-semibold text-slate-900">Indian Institute of Advanced Studies</span> and seek blessings at the towering <span className="font-semibold text-slate-900">Jakhu Temple</span> dedicated to Lord Hanuman. Wander through the historic Mall Road and shop for exquisite wooden crafts at <span className="font-semibold text-slate-900">Lakkar Bazaar</span>. The adventure escalates as you enter <span className="font-semibold text-slate-900">Manali</span>, the ultimate haven for nature lovers. Trek to the pristine <span className="font-semibold text-slate-900">Jogini Waterfalls</span>, pay homage at the ancient <span className="font-semibold text-slate-900">Hadimba Devi Temple</span> & Manu Temple, and rejuvenate your senses with a holy dip in the <span className="font-semibold text-slate-900">Vashisht Hot Springs</span>. This guided tour ensures ample leisure time to create timeless memories with your loved ones.
                   </p>
-                  <p className="mt-4">
-                    Immerse yourself in Shimla's colonial grandeur at the <span className="font-semibold text-blue-600">Indian Institute of Advanced Studies</span> and seek blessings at the towering <span className="font-semibold text-blue-600">Jakhu Temple</span> dedicated to Lord Hanuman. Wander through the historic Mall Road and shop for exquisite wooden crafts at <span className="font-semibold text-slate-900">Lakkar Bazaar</span>.
+                  {/* <p className="mt-4">
+                    Immerse yourself in Shimla's colonial grandeur at the <span className="font-semibold text-blue-600">Indian Institute of Advanced Studies</span> and seek blessings at the towering <span className="font-semibold text-blue-600">Jakhu Temple</span> dedicated to Lord Hanuman. Wander through the historic Mall Road and shop for exquisite wooden crafts at <span className="font-semibold text-slate-900">Lakkar Bazaar</span>. 
                   </p>
                   <p className="mt-4">
                     The adventure escalates as you enter <span className="font-semibold text-slate-900">Manali</span>, the ultimate haven for nature lovers. Trek to the pristine <span className="font-semibold text-blue-600">Jogini Waterfalls</span>, pay homage at the ancient <span className="font-semibold text-blue-600">Hadimba Devi Temple</span> & Manu Temple, and rejuvenate your senses with a holy dip in the <span className="font-semibold text-slate-900">Vashisht Hot Springs</span>. This guided tour ensures ample leisure time to create timeless memories with your loved ones.
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </ScrollReveal>
