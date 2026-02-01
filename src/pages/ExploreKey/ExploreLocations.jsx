@@ -26,7 +26,7 @@ const ExploreLocations = () => {
     };
     return (
         <div className=" bg-gray-50 relative">
-            <div className="container mx-auto max-w-7xl px-4 sm:px-6">
+            <div className="container mx-auto max-w-7xl  ">
                 <div className="overflow-hidden">
                     <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900">
                         Explore Key Locations
