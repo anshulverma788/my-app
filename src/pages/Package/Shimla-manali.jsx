@@ -43,6 +43,7 @@ import 'swiper/css/navigation';
 import { MapContainer, TileLayer, Polyline, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+
 // --- HELPER: CALCULATE BEARING FOR CAR ROTATION ---
 const getBearing = (lat1, lon1, lat2, lon2) => {
   const toRad = (deg) => (deg * Math.PI) / 180;
@@ -59,7 +60,7 @@ const getBearing = (lat1, lon1, lat2, lon2) => {
 const MovingCarMarker = ({ route }) => {
   const markerRef = useRef(null);
   const animationRef = useRef(null);
-  // Custom Car Icon - Blue Car (Main Color) with Orange Accents
+  // Custom Car Icon
   const carIcon = L.divIcon({
     className: 'custom-car-icon',
     html: `<div style="
@@ -107,11 +108,11 @@ const MovingCarMarker = ({ route }) => {
         const angle = getBearing(lat1, lng1, lat2, lng2);
         const iconElement = markerRef.current.getElement();
         if (iconElement) {
-          const innerDiv = iconElement.firstChild;
-          if (innerDiv) {
-            innerDiv.style.transition = 'none';
-            innerDiv.style.transform = `rotate(${angle}deg)`;
-          }
+           const innerDiv = iconElement.firstChild;
+           if(innerDiv) {
+             innerDiv.style.transition = 'none'; 
+             innerDiv.style.transform = `rotate(${angle}deg)`;
+           }
         }
       }
       animationRef.current = requestAnimationFrame(animate);
@@ -295,9 +296,24 @@ export default function ShimlaManali() {
         <div className="container mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
           {/* LEFT COLUMN */}
           <div className="lg:col-span-8 space-y-10 sm:space-y-12">
-            {/* ABOUT SECTION */}
+            
+            {/* --- UPDATED: SIMPLE NORMAL HEADER (As per Image) --- */}
+            <div className="mb-6 pt-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+               <span className="text-blue-600">Mountains Calling:</span>  6 Days Shimla Manali Escape
+              </h1>
+              <div className="text-lg font-semibold text-slate-700 mb-1">
+                5 Nights / 06 Days
+              </div>
+              <div className="text-slate-500 text-sm sm:text-base">
+                Chandigarh - Shimla - Manali - Kullu - Chandigarh
+              </div>
+            </div>
+            {/* --- END OF HEADER --- */}
+
+            {/* ABOUT SECTION (Kept Exactly as You Liked) */}
             <ScrollReveal>
-              <div id="overview" className="space-y-6 pt-6">
+              <div id="overview" className="space-y-6 ">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="h-px w-8 bg-blue-600"></span>
                   <span className="text-blue-600 font-bold uppercase tracking-widest text-xs">Overview</span>
@@ -514,8 +530,8 @@ export default function ShimlaManali() {
                       [30.90, 77.05],
                       [31.1048, 77.1734], // Shimla
                       [31.45, 77.20],
-                      [31.75, 77.0],      // Mandi
-                      [32.02, 77.15],     // Kullu
+                      [31.75, 77.0],      // Mandi
+                      [32.02, 77.15],     // Kullu
                       [32.2432, 77.1892], // Manali
                       [32.3167, 77.1587], // Solang
                     ];
@@ -562,7 +578,7 @@ export default function ShimlaManali() {
                           />
                           <Marker position={curvedPath[0]} />
                           <Marker position={curvedPath[curvedPath.length - 1]} />
-
+                          
                           {/* THE MOVING TOP-DOWN CAR COMPONENT */}
                           <MovingCarMarker route={curvedPath} />
                         </MapContainer>
