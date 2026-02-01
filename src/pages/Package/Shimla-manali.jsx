@@ -311,7 +311,7 @@ export default function ShimlaManali() {
 
             {/* ABOUT SECTION (Kept Exactly as You Liked) */}
             <ScrollReveal>
-              <div id="overview" className="space-y-6 ">
+              <div id="overview" className="space-y-6 border p-2">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="h-px w-8 bg-blue-600"></span>
                   <span className="text-blue-600 font-bold uppercase tracking-widest text-xs">Overview</span>
