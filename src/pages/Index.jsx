@@ -1085,7 +1085,6 @@ export default function Index() {
 
         </div>
       </section>
-
       {/* ================= TESTIMONIALS ================= */}
       <section className="pt-10 pb-0 bg-[#F8F9FE] relative">
         <div className="container mx-auto px-6 relative z-10">
@@ -1097,7 +1096,6 @@ export default function Index() {
               </p>
             </div>
           </FadeInUp>
-
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={30}
@@ -1113,7 +1111,6 @@ export default function Index() {
             {testimonials.map((item, index) => (
               <SwiperSlide key={index} className="h-auto pb-10">
                 <div className="bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 h-full relative">
-
                   {/* User Profile */}
                   <div className="flex items-center gap-4 mb-6">
                     <div className="relative">
@@ -1134,7 +1131,6 @@ export default function Index() {
                       <p className="text-sm text-slate-500">{item.role}</p>
                     </div>
                   </div>
-
                   {/* Rating Stars */}
                   <div className="flex gap-1 mb-4 text-[#00BFA6] relative">
                     {[...Array(5)].map((_, i) => (
@@ -1147,7 +1143,6 @@ export default function Index() {
                       />
                     ))}
                   </div>
-
                   {/* Spacer */}
                   <div className="h-2"></div>
 

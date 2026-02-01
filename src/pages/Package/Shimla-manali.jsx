@@ -33,24 +33,20 @@ import {
   IndianRupee,
   MapPin
 } from 'lucide-react';
-
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
 // Leaflet Map Imports
 import { MapContainer, TileLayer, Polyline, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-
 // --- HELPER: CALCULATE BEARING FOR CAR ROTATION ---
 const getBearing = (lat1, lon1, lat2, lon2) => {
   const toRad = (deg) => (deg * Math.PI) / 180;
   const toDeg = (rad) => (rad * 180) / Math.PI;
-
   const dLon = toRad(lon2 - lon1);
   const y = Math.sin(dLon) * Math.cos(toRad(lat2));
   const x =
@@ -59,12 +55,10 @@ const getBearing = (lat1, lon1, lat2, lon2) => {
   const brng = toDeg(Math.atan2(y, x));
   return (brng + 360) % 360;
 };
-
 // --- COMPONENT: MOVING REAL CAR MARKER (FIXED ROTATION) ---
 const MovingCarMarker = ({ route }) => {
   const markerRef = useRef(null);
   const animationRef = useRef(null);
-
   // Custom Car Icon - Blue Car (Main Color) with Orange Accents
   const carIcon = L.divIcon({
     className: 'custom-car-icon',
@@ -87,49 +81,41 @@ const MovingCarMarker = ({ route }) => {
       </svg>
     </div>`,
     iconSize: [42, 42],
-    iconAnchor: [21, 21], 
+    iconAnchor: [21, 21],
   });
-
   useEffect(() => {
     if (!markerRef.current || !route || route.length < 2) return;
-
     let startTime = null;
     const duration = 16000; // 16 seconds loop
-
     const animate = (timestamp) => {
       if (!startTime) startTime = timestamp;
       const progress = (timestamp - startTime) % duration;
       const pct = progress / duration;
-
       const totalSegments = route.length - 1;
       const segmentProgress = pct * totalSegments;
       const currentSegmentIndex = Math.floor(segmentProgress);
       const nextSegmentIndex = (currentSegmentIndex + 1) % route.length;
-      
       if (route[currentSegmentIndex] && route[nextSegmentIndex]) {
         const segmentPercent = segmentProgress - currentSegmentIndex;
         const [lat1, lng1] = route[currentSegmentIndex];
         const [lat2, lng2] = route[nextSegmentIndex];
-
         // Move Car
         const lat = lat1 + (lat2 - lat1) * segmentPercent;
         const lng = lng1 + (lng2 - lng1) * segmentPercent;
         markerRef.current.setLatLng([lat, lng]);
-
         // Rotate Car
         const angle = getBearing(lat1, lng1, lat2, lng2);
         const iconElement = markerRef.current.getElement();
         if (iconElement) {
-           const innerDiv = iconElement.firstChild;
-           if(innerDiv) {
-             innerDiv.style.transition = 'none'; 
-             innerDiv.style.transform = `rotate(${angle}deg)`;
-           }
+          const innerDiv = iconElement.firstChild;
+          if (innerDiv) {
+            innerDiv.style.transition = 'none';
+            innerDiv.style.transform = `rotate(${angle}deg)`;
+          }
         }
       }
       animationRef.current = requestAnimationFrame(animate);
     };
-
     animationRef.current = requestAnimationFrame(animate);
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
@@ -138,7 +124,6 @@ const MovingCarMarker = ({ route }) => {
 
   return <Marker ref={markerRef} position={route[0]} icon={carIcon} zIndexOffset={1000} />;
 };
-
 // ---------- ANIMATION VARIANTS ----------
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -147,12 +132,10 @@ const containerVariants = {
     transition: { staggerChildren: 0.15 }
   }
 };
-
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 50 } }
 };
-
 // 2. Hero Slides
 const heroSlides = [
   {
@@ -174,7 +157,6 @@ const heroSlides = [
     days: 'Best Seller',
   },
 ];
-
 // 4. Itinerary
 const itinerary = [
   {
@@ -220,7 +202,6 @@ const itinerary = [
     details: 'After breakfast, check out from hotel. Drive back towards Delhi / Chandigarh with amazing memories of your Shimla – Manali family trip. Drop at your desired point & tour ends with happy faces.',
   },
 ];
-
 // 5. Inclusions/Exclusions
 const includeFeatures = [
   'Accommodation in 3★ family-friendly hotels in Shimla (2N) & Manali (4N).',
@@ -230,7 +211,6 @@ const includeFeatures = [
   'Driver night charges, toll taxes, parking & fuel charges included.',
   'Dedicated tour coordinator support on call during the trip.',
 ];
-
 const excludeFeatures = [
   'Train / Flight tickets to and from Delhi / Chandigarh.',
   'Any personal expenses like laundry, tips, telephone etc.',
@@ -239,7 +219,6 @@ const excludeFeatures = [
   'Atal Tunnel / Rohtang excursion charges & permits.',
   'Anything not specifically mentioned in the inclusions list.',
 ];
-
 const relevantPackages = [
   {
     image: 'https://i.pinimg.com/1200x/94/f7/d2/94f7d2e8bfb747c215417e7186a89f55.jpg',
@@ -263,13 +242,10 @@ const relevantPackages = [
     price: '₹12,999',
   },
 ];
-
 // ---------- MAIN COMPONENT ----------
-
 export default function ShimlaManali() {
   const [openDayIndex, setOpenDayIndex] = useState(null);
   const navigate = useNavigate();
-
   const handleBooking = () => {
     navigate('/book/shimla-manali', {
       state: {
@@ -281,11 +257,9 @@ export default function ShimlaManali() {
       }
     });
   };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50/50 to-white font-sans">
       <Navbar />
-
       {/* HERO SLIDER */}
       <section className="relative h-[35vh] sm:h-[80vh] md:h-[90vh] overflow-hidden group">
         <Swiper
@@ -315,38 +289,37 @@ export default function ShimlaManali() {
           ))}
         </Swiper>
       </section>
-
       {/* MAIN CONTENT AREA */}
       <section className="py-2 sm:py-2 md:py-5">
-         <div className="relative mb-1 sm:mb-8 pt-4 border-b border-slate-100 flex flex-col items-center text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6 leading-[1.15] max-w-4xl mx-auto">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900">
-                Shimla Manali <span className='text-blue-600'>Family Tour</span>
-              </span>
-            </h1>
-          </div>
+        
         <div className="container mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
-
           {/* LEFT COLUMN */}
           <div className="lg:col-span-8 space-y-10 sm:space-y-12">
-
             {/* ABOUT SECTION */}
             <ScrollReveal>
-              <div id="overview">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-slate-900">
-                  About Shimla Manali Family Tour
+              <div id="overview" className="space-y-6 pt-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="h-px w-8 bg-blue-600"></span>
+                  <span className="text-blue-600 font-bold uppercase tracking-widest text-xs">Overview</span>
+                </div>
+
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+                  Experience the <span className="text-blue-600">Ethereal Charm</span> of Himachal
                 </h2>
-                <p className="text-sm sm:text-base md:text-lg text-slate-600 mb-6 leading-relaxed">
-                  Plan a perfect hill station escape with our carefully designed{' '}
-                  <span className="font-semibold text-blue-600">
-                    Shimla – Kufri – Manali – Solang Valley
-                  </span>{' '}
-                  family package. Ideal for parents, kids and elders looking for
-                  a comfortable, scenic and memorable holiday in Himachal Pradesh.
-                </p>
+
+                <div className="prose prose-lg text-slate-600 leading-relaxed text-justify">
+                  <p>
+                    Escape to the idyllic landscapes of <span className="font-semibold text-slate-900">Shimla and Manali</span>, the crowning jewels of Himachal Pradesh. This curated tour invites you to witness the peerless beauty of the Himalayas, starting with a scenic drive from Chandigarh.
+                  </p>
+                  <p className="mt-4">
+                    Immerse yourself in Shimla's colonial grandeur at the <span className="font-semibold text-blue-600">Indian Institute of Advanced Studies</span> and seek blessings at the towering <span className="font-semibold text-blue-600">Jakhu Temple</span> dedicated to Lord Hanuman. Wander through the historic Mall Road and shop for exquisite wooden crafts at <span className="font-semibold text-slate-900">Lakkar Bazaar</span>.
+                  </p>
+                  <p className="mt-4">
+                    The adventure escalates as you enter <span className="font-semibold text-slate-900">Manali</span>, the ultimate haven for nature lovers. Trek to the pristine <span className="font-semibold text-blue-600">Jogini Waterfalls</span>, pay homage at the ancient <span className="font-semibold text-blue-600">Hadimba Devi Temple</span> & Manu Temple, and rejuvenate your senses with a holy dip in the <span className="font-semibold text-slate-900">Vashisht Hot Springs</span>. This guided tour ensures ample leisure time to create timeless memories with your loved ones.
+                  </p>
+                </div>
               </div>
             </ScrollReveal>
-
             {/* EXPLORE LOCATIONS */}
             <ScrollReveal>
               <ExploreLocations />
@@ -371,10 +344,8 @@ export default function ShimlaManali() {
                   {openDayIndex === 'ALL' ? 'Collapse All Days' : 'Expand All Days'}
                 </motion.button>
               </div>
-
               {/* Vertical Line */}
               <div className="absolute left-[19px] sm:left-[27px] top-16 bottom-10 w-[2px] bg-slate-200/60 hidden sm:block" />
-
               {/* Itinerary List */}
               <motion.div
                 variants={containerVariants}
@@ -385,7 +356,6 @@ export default function ShimlaManali() {
               >
                 {itinerary.map((item, idx) => {
                   const isOpen = openDayIndex === 'ALL' || openDayIndex === idx;
-
                   return (
                     <motion.div
                       key={idx}
@@ -404,7 +374,6 @@ export default function ShimlaManali() {
                       >
                         <span className="text-sm font-bold">{idx + 1}</span>
                       </motion.div>
-
                       {/* --- MOBILE: DAY BADGE & EXPAND BUTTON ROW (FIXED) --- */}
                       <div className="sm:hidden mb-4 flex items-center justify-between gap-3 w-full">
                         {/* Left Side: Badge and Line */}
@@ -414,7 +383,6 @@ export default function ShimlaManali() {
                           </span>
                           <span className="h-[1px] bg-slate-200 w-full"></span>
                         </div>
-
                         {/* Right Side: Expand Button (ONLY FOR DAY 1) */}
                         {idx === 0 && (
                           <motion.button
@@ -430,7 +398,6 @@ export default function ShimlaManali() {
                         )}
                       </div>
                       {/* ----------------------------------------------------- */}
-
                       {/* Itinerary Card Content */}
                       <motion.div
                         layout
@@ -497,7 +464,7 @@ export default function ShimlaManali() {
                                       </p>
                                       <div className="bg-slate-50/50 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-3 border border-slate-100">
                                         <div className="flex items-center gap-3">
-                                            {/* SECONDARY COLOR: ORANGE FOR FOOD */}
+                                          {/* SECONDARY COLOR: ORANGE FOR FOOD */}
                                           <div className="w-8 h-8 rounded-full bg-white text-orange-500 flex items-center justify-center shadow-sm border border-orange-100">
                                             <Utensils className="w-4 h-4" />
                                           </div>
@@ -507,7 +474,7 @@ export default function ShimlaManali() {
                                           </div>
                                         </div>
                                         <div className="flex items-center gap-3">
-                                            {/* MAIN COLOR: BLUE FOR STAY */}
+                                          {/* MAIN COLOR: BLUE FOR STAY */}
                                           <div className="w-8 h-8 rounded-full bg-white text-blue-500 flex items-center justify-center shadow-sm border border-blue-100">
                                             <Hotel className="w-4 h-4" />
                                           </div>
@@ -536,7 +503,7 @@ export default function ShimlaManali() {
               <div className="space-y-4">
                 <h3 className="text-xl sm:text-2xl font-bold flex items-center gap-2">
                   <MapPinned className="w-6 h-6 text-blue-600" />
-                  Shimla → Manali → Solang Route Map 
+                  Shimla → Manali → Solang Route Map
                 </h3>
                 <Card className="overflow-hidden border-0 shadow-2xl rounded-2xl relative">
                   {(() => {
@@ -595,7 +562,7 @@ export default function ShimlaManali() {
                           />
                           <Marker position={curvedPath[0]} />
                           <Marker position={curvedPath[curvedPath.length - 1]} />
-                          
+
                           {/* THE MOVING TOP-DOWN CAR COMPONENT */}
                           <MovingCarMarker route={curvedPath} />
                         </MapContainer>

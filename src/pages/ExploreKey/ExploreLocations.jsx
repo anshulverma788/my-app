@@ -1,48 +1,36 @@
 import React, { useState, useEffect, useRef } from "react";
 import { locationsData } from "../../data/LocationsData";
 import TourModal from "../../components/ui/TourModal";
-
-// Swiper Imports
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Calendar } from "lucide-react"; // Icon import
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
 const ExploreLocations = () => {
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const isMounted = useRef(true);
-
     useEffect(() => {
         return () => { isMounted.current = false; };
     }, []);
-
     const handleOpenModal = (location) => {
         setSelectedLocation(location);
         setIsModalOpen(true);
     };
-
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setTimeout(() => {
             if (isMounted.current) setSelectedLocation(null);
         }, 300);
     };
-
     return (
-        <div className="py-12 bg-gray-50 relative">
+        <div className=" bg-gray-50 relative">
             <div className="container mx-auto max-w-7xl px-4 sm:px-6">
-                
-                {/* Section Wrapper */}
                 <div className="overflow-hidden">
                     <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900">
                         Explore Key Locations
                     </h3>
-                    
-                    {/* Swiper Configuration based on your snippet */}
                     <Swiper
                         modules={[Autoplay, Pagination, Navigation]}
                         spaceBetween={16}
@@ -58,7 +46,7 @@ const ExploreLocations = () => {
                         {locationsData.map((loc, idx) => (
                             <SwiperSlide key={idx} className="h-auto py-2">
                                 {/* Card Component Replaced with Styled Div */}
-                                <div 
+                                <div
                                     onClick={() => handleOpenModal(loc)}
                                     className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-md h-full flex flex-col group cursor-pointer transition-all duration-300 hover:shadow-xl"
                                 >
@@ -73,18 +61,13 @@ const ExploreLocations = () => {
                                         {/* Optional Overlay on Hover */}
                                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
                                     </div>
-
                                     {/* Content Section */}
                                     <div className="p-4 bg-white flex-1 flex flex-col justify-between">
                                         <div>
                                             <h4 className="font-semibold text-sm sm:text-lg mb-1 text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1">
                                                 {loc.title}
                                             </h4>
-                                            
-                                            {/* Description (Optional - agar data mein short desc hai toh dikhayen) */}
-                                            {/* <p className="text-xs text-gray-500 line-clamp-2 mb-2">Some description here...</p> */}
                                         </div>
-
                                         <p className="text-xs sm:text-sm text-slate-500 flex items-center gap-1 mt-2">
                                             <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-blue-500" />
                                             {loc.duration} {/* Assuming 'duration' is the key in your data */}
@@ -95,7 +78,6 @@ const ExploreLocations = () => {
                         ))}
                     </Swiper>
                 </div>
-
                 {/* MODAL COMPONENT */}
                 <TourModal
                     isOpen={isModalOpen}
@@ -106,5 +88,4 @@ const ExploreLocations = () => {
         </div>
     );
 };
-
 export default ExploreLocations;
